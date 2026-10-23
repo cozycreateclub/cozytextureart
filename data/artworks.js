@@ -98,7 +98,7 @@ window.ARTWORKS = [
     featured: true,
     images: {
       front: { src: '/images/art/sherbet-rows/front.webp', w: 1132, h: 1600, alt: 'Sherbet Rows: nine rows of rounded texture-paste dabs in bubblegum pink, lemon and aqua on white canvas' },
-      room:  { src: '/images/art/sherbet-rows/room.webp',  w: 1600, h: 1200, alt: 'Sherbet Rows hung above a pale blue sideboard in a sunlit living room' }
+      room:  { src: '/images/art/sherbet-rows/room.webp',  w: 1600, h: 1200, alt: 'Sherbet Rows on a plum wall above a pale ash sideboard' }
     }
   },
   {
@@ -123,8 +123,8 @@ window.ARTWORKS = [
     status: 'available',
     featured: true,
     images: {
-      front: { src: '/images/art/lilac-dahlia-no-1/front.webp', w: 1600, h: 1600, tight: false, alt: 'Lilac Dahlia No. 1: a round bloom of overlapping texture-paste petals fading from orchid at the edge to white at the centre' },
-      room:  { src: '/images/art/lilac-dahlia-no-1/room.webp',  w: 1600, h: 1200, alt: 'Lilac Dahlia No. 1 on a sage-green wall above a wooden sideboard' }
+      front: { src: '/images/art/lilac-dahlia-no-1/front.webp', w: 1600, h: 1600, alt: 'Lilac Dahlia No. 1: a round bloom of overlapping texture-paste petals fading from orchid at the edge to white at the centre' },
+      room:  { src: '/images/art/lilac-dahlia-no-1/room.webp',  w: 1600, h: 1200, alt: 'Lilac Dahlia No. 1 on a navy wall above a light oak sideboard' }
     }
   },
   {
@@ -149,8 +149,8 @@ window.ARTWORKS = [
     status: 'available',
     featured: true,
     images: {
-      front: { src: '/images/art/matcha-tide/front.webp', w: 1132, h: 1600, alt: 'Matcha Tide: combed matcha-green waves between cream paste, with forest-green quarter circles in two corners' },
-      room:  { src: '/images/art/matcha-tide/room.webp',  w: 1600, h: 1200, alt: 'Matcha Tide on a terracotta wall above a walnut sideboard' }
+      front: { src: '/images/art/matcha-tide/front.webp', w: 1131, h: 1600, alt: 'Matcha Tide: combed matcha-green waves between cream paste, with forest-green quarter circles in two corners' },
+      room:  { src: '/images/art/matcha-tide/room.webp',  w: 1600, h: 1200, alt: 'Matcha Tide on a terracotta wall above a light oak sideboard' }
     }
   },
   {
@@ -175,8 +175,8 @@ window.ARTWORKS = [
     status: 'available',
     featured: false,
     images: {
-      front: { src: '/images/art/strawberry-swatches/front.webp', w: 1600, h: 1600, tight: false, alt: 'Strawberry Swatches: twelve textured bars stepping from white to deep pink on a mint background' },
-      room:  { src: '/images/art/strawberry-swatches/room.webp',  w: 1600, h: 1200, alt: 'Strawberry Swatches on a peach wall above a mint sideboard' }
+      front: { src: '/images/art/strawberry-swatches/front.webp', w: 1600, h: 1600, alt: 'Strawberry Swatches: twelve textured bars stepping from white to deep pink on a mint background' },
+      room:  { src: '/images/art/strawberry-swatches/room.webp',  w: 1600, h: 1200, alt: 'Strawberry Swatches on a deep green wall above a walnut sideboard' }
     }
   },
   {
@@ -201,8 +201,8 @@ window.ARTWORKS = [
     status: 'available',
     featured: false,
     images: {
-      front: { src: '/images/art/marigold-scales/front.webp', w: 1132, h: 1600, tight: false, alt: 'Marigold Scales: fans of raised scallop outlines in butter, marigold, celery and pine green' },
-      room:  { src: '/images/art/marigold-scales/room.webp',  w: 1600, h: 1200, alt: 'Marigold Scales on a deep green wall above a wooden sideboard' }
+      front: { src: '/images/art/marigold-scales/front.webp', w: 1133, h: 1600, alt: 'Marigold Scales: fans of raised scallop outlines in butter, marigold, celery and pine green' },
+      room:  { src: '/images/art/marigold-scales/room.webp',  w: 1600, h: 1200, alt: 'Marigold Scales on a plum wall above a pale ash sideboard' }
     }
   },
   {
@@ -228,7 +228,7 @@ window.ARTWORKS = [
     featured: true,
     images: {
       front: { src: '/images/art/sorbet-shells/front.webp', w: 1132, h: 1600, alt: 'Sorbet Shells: diagonal rows of ribbed shell shapes in lemon, peach, sage and lilac' },
-      room:  { src: '/images/art/sorbet-shells/room.webp',  w: 1600, h: 1200, alt: 'Sorbet Shells on a cream wall above a lilac sideboard' }
+      room:  { src: '/images/art/sorbet-shells/room.webp',  w: 1600, h: 1200, alt: 'Sorbet Shells on a lilac wall above a light oak sideboard' }
     }
   },
   {
@@ -252,8 +252,190 @@ window.ARTWORKS = [
     status: 'available',
     featured: false,
     images: {
-      front: { src: '/images/art/lilac-dahlia-no-2/front.webp', w: 1600, h: 1600, tight: false, alt: 'Lilac Dahlia No. 2: two half-blooms of layered petals reaching in from opposite corners' },
-      room:  { src: '/images/art/lilac-dahlia-no-2/room.webp',  w: 1600, h: 1200, alt: 'Lilac Dahlia No. 2 on a warm beige wall above a fluted walnut sideboard' }
+      front: { src: '/images/art/lilac-dahlia-no-2/front.webp', w: 1600, h: 1600, alt: 'Lilac Dahlia No. 2: two half-blooms of layered petals reaching in from opposite corners' },
+      room:  { src: '/images/art/lilac-dahlia-no-2/room.webp',  w: 1600, h: 1200, alt: 'Lilac Dahlia No. 2 on a navy wall above a light oak sideboard' }
+    }
+  },
+  {
+    slug: 'guava-blossoms',
+    title: 'Guava Blossoms',
+    year: 2026,
+    concept: 'A hot pink ground washed through to coral, with a paler painted panel at its centre. A drift of knife-pressed blossoms runs corner to corner: white petals edged in coral, and a few bright orange flowers that glow against the pink.',
+    holds: 'The bright, giddy end of a summer evening, when everything is turned up a little loud and that is the fun of it.',
+    size: { w: 30, h: 40 },
+    depth: '',
+    medium: 'Acrylic colour mixed into texture paste, over a painted acrylic ground, on canvas',
+    shape: 'portrait',
+    family: 'warm',
+    palette: [
+      { name: 'guava', hex: '#FC6292' },
+      { name: 'coral', hex: '#FC7C7C' },
+      { name: 'blush', hex: '#FBC6C5' },
+      { name: 'petal', hex: '#FEE7EC' }
+    ],
+    tags: ['florals', 'pop-pastels', 'joyful'],
+    suits: ['Kids room', 'Bedroom', 'Living room'],
+    status: 'available',
+    featured: false,
+    images: {
+      front: { src: '/images/art/guava-blossoms/front.webp', w: 1190, h: 1600, alt: 'Guava Blossoms: white and orange textured blossoms drifting across a hot pink to coral ground' },
+      room:  { src: '/images/art/guava-blossoms/room.webp',  w: 1600, h: 1200, alt: 'Guava Blossoms on a peach wall above a powder-blue sideboard' }
+    }
+  },
+  {
+    slug: 'candy-whirl',
+    title: 'Candy Whirl',
+    year: 2026,
+    concept: 'Thick strokes of paste in pink, lemon, mint, white and coral, laid down with the edge of the knife in loose rings that tighten towards the centre, over a square of sky blue on white canvas. Flecks of the blue show through between the rings.',
+    holds: 'A day spinning in the best way, too many good things happening at once.',
+    size: { w: 30, h: 30 },
+    depth: '',
+    medium: 'Acrylic colour mixed into texture paste, over a painted acrylic ground, on canvas',
+    shape: 'square',
+    family: 'warm',
+    palette: [
+      { name: 'bubblegum', hex: '#F3A4B4' },
+      { name: 'lemon', hex: '#FCF07B' },
+      { name: 'mint', hex: '#ACD9D7' },
+      { name: 'milk', hex: '#F8F8F8' }
+    ],
+    tags: ['abstract', 'pop-pastels', 'joyful'],
+    suits: ['Living room', 'Kids room', 'Study'],
+    status: 'available',
+    featured: false,
+    images: {
+      front: { src: '/images/art/candy-whirl/front.webp', w: 1600, h: 1600, alt: 'Candy Whirl: a spiral of thick pink, lemon, mint and white knife strokes over sky blue' },
+      room:  { src: '/images/art/candy-whirl/room.webp',  w: 1600, h: 1200, alt: 'Candy Whirl on a terracotta wall above a light oak sideboard' }
+    }
+  },
+  {
+    slug: 'bubblegum-dahlia',
+    title: 'Bubblegum Dahlia',
+    year: 2026,
+    concept: 'One broad dahlia in bubblegum pink, each wide petal spread flat with the knife and edged where it meets the next. A white inner ring holds a small lemon flower at the centre, and a border of raised lemon dots frames the white canvas.',
+    holds: 'A single flower given all the room it needs; a small celebration to keep on the wall.',
+    size: { w: 30, h: 30 },
+    depth: '',
+    medium: 'Acrylic colour mixed into texture paste, on canvas',
+    shape: 'square',
+    family: 'warm',
+    palette: [
+      { name: 'bubblegum', hex: '#E2A5D2' },
+      { name: 'blush', hex: '#F5C9EB' },
+      { name: 'milk', hex: '#FEFDFE' },
+      { name: 'lemon', hex: '#FBFAA1' }
+    ],
+    tags: ['florals', 'pop-pastels', 'joyful'],
+    suits: ['Bedroom', 'Kids room'],
+    status: 'available',
+    featured: false,
+    images: {
+      front: { src: '/images/art/bubblegum-dahlia/front.webp', w: 1600, h: 1600, alt: 'Bubblegum Dahlia: one large pink textured dahlia with a lemon centre inside a border of lemon dots' },
+      room:  { src: '/images/art/bubblegum-dahlia/room.webp',  w: 1600, h: 1200, alt: 'Bubblegum Dahlia on a sage-green wall above a pale ash sideboard' }
+    }
+  },
+  {
+    slug: 'lemonade-checks',
+    title: 'Lemonade Checks',
+    year: 2026,
+    concept: 'A four-by-four grid of aqua and lemon squares on white canvas, each holding one piped flower with a dotted centre: butter flowers on the aqua, sage flowers on the lemon. Small white dots of paste mark where the corners meet.',
+    holds: 'The cheer of a tiled kitchen in summer, orderly and bright at the same time.',
+    size: { w: 30, h: 30 },
+    depth: '',
+    medium: 'Acrylic colour mixed into texture paste, on canvas',
+    shape: 'square',
+    family: 'green',
+    palette: [
+      { name: 'aqua', hex: '#86C8C9' },
+      { name: 'lemon', hex: '#F8EA6A' },
+      { name: 'sage', hex: '#C1D0B1' },
+      { name: 'butter', hex: '#FBF9B1' }
+    ],
+    tags: ['florals', 'geometric', 'pop-pastels', 'joyful'],
+    suits: ['Kitchen', 'Kids room', 'Dining'],
+    status: 'available',
+    featured: false,
+    images: {
+      front: { src: '/images/art/lemonade-checks/front.webp', w: 1600, h: 1600, alt: 'Lemonade Checks: sixteen piped flowers on an aqua and lemon checkerboard' },
+      room:  { src: '/images/art/lemonade-checks/room.webp',  w: 1600, h: 1200, alt: 'Lemonade Checks on a cream wall above a light oak sideboard' }
+    }
+  },
+  {
+    slug: 'iris-scales',
+    title: 'Iris Scales',
+    year: 2026,
+    concept: 'Rows of rounded scales pressed with the curve of the knife, each one lifting at its edge, shaded row by row from white at the top to deep violet at the base. A lilac ground shows as a border on all four sides.',
+    holds: 'Dusk arriving slowly, one shade at a time, until the evening settles in.',
+    size: { w: 30, h: 30 },
+    depth: '',
+    medium: 'Acrylic colour mixed into texture paste, over a painted acrylic ground, on canvas',
+    shape: 'square',
+    family: 'cool',
+    palette: [
+      { name: 'milk', hex: '#EDEFFC' },
+      { name: 'lavender', hex: '#C8C7DE' },
+      { name: 'lilac', hex: '#ABA6BD' },
+      { name: 'iris', hex: '#9591AD' }
+    ],
+    tags: ['abstract', 'geometric', 'pop-pastels', 'calm'],
+    suits: ['Bedroom', 'Study'],
+    status: 'available',
+    featured: false,
+    images: {
+      front: { src: '/images/art/iris-scales/front.webp', w: 1600, h: 1600, alt: 'Iris Scales: rows of raised scallops shading from white to deep violet on a lilac ground' },
+      room:  { src: '/images/art/iris-scales/room.webp',  w: 1600, h: 1200, alt: 'Iris Scales on a peach wall above a powder-blue sideboard' }
+    }
+  },
+  {
+    slug: 'melon-checks',
+    title: 'Melon Checks',
+    year: 2026,
+    concept: 'A five-by-five grid of melon and mint squares, every square holding one piped flower in white, blush, lilac or peach with a dotted centre. Tiny raised dots of paste are scattered across the joins.',
+    holds: 'A patchwork quilt of small happy things, each square its own little garden.',
+    size: { w: 30, h: 30 },
+    depth: '',
+    medium: 'Acrylic colour mixed into texture paste, over a painted acrylic ground, on canvas',
+    shape: 'square',
+    family: 'warm',
+    palette: [
+      { name: 'melon', hex: '#B87B73' },
+      { name: 'mint', hex: '#6A9B93' },
+      { name: 'blush', hex: '#CAB5B5' },
+      { name: 'milk', hex: '#EDE9EC' }
+    ],
+    tags: ['florals', 'geometric', 'pop-pastels', 'joyful'],
+    suits: ['Kids room', 'Bedroom', 'Dining'],
+    status: 'available',
+    featured: false,
+    images: {
+      front: { src: '/images/art/melon-checks/front.webp', w: 1600, h: 1600, alt: 'Melon Checks: twenty-five piped pastel flowers on a melon and mint checkerboard' },
+      room:  { src: '/images/art/melon-checks/room.webp',  w: 1600, h: 1200, alt: 'Melon Checks on a terracotta wall above a light oak sideboard' }
+    }
+  },
+  {
+    slug: 'dawn-garden',
+    title: 'Dawn Garden',
+    year: 2026,
+    concept: 'A ground that fades from lilac at the top through pink to warm lemon at the base, filled edge to edge with flowers: large blush blooms drawn in fine white lines of paste, lilac and cream petals knifed flat, and dozens of tiny dotted flowers in between.',
+    holds: 'The first light of the morning, when the sky is every soft colour at once.',
+    size: { w: 30, h: 40 },
+    depth: '',
+    medium: 'Acrylic colour mixed into texture paste, over a painted acrylic ground, on canvas',
+    shape: 'portrait',
+    family: 'warm',
+    palette: [
+      { name: 'rose', hex: '#C19295' },
+      { name: 'lilac', hex: '#A48CA3' },
+      { name: 'apricot', hex: '#CFB59F' },
+      { name: 'cream', hex: '#EEE2E1' }
+    ],
+    tags: ['florals', 'pop-pastels', 'joyful'],
+    suits: ['Bedroom', 'Living room'],
+    status: 'available',
+    featured: false,
+    images: {
+      front: { src: '/images/art/dawn-garden/front.webp', w: 1189, h: 1600, alt: 'Dawn Garden: outlined blush flowers and cream petals over a lilac to pink to lemon ground' },
+      room:  { src: '/images/art/dawn-garden/room.webp',  w: 1600, h: 1200, alt: 'Dawn Garden on a navy wall above a light oak sideboard' }
     }
   },
   // ── The Bloom Room ──
@@ -261,15 +443,15 @@ window.ARTWORKS = [
     slug: 'butter-daisies',
     title: 'Butter Daisies',
     year: 2026,
-    concept: 'Butter-yellow daisies scattered across a powder-blue ground, each petal pulled out from the centre with the knife so it lifts at the tip. Teal leaves are pressed in between, and every centre is dotted with plum.',
+    concept: 'Butter-yellow daisies scattered across a sage ground, each petal pulled out from the centre with the knife so it lifts at the tip. Teal leaves are pressed in between, and every centre is dotted with plum.',
     holds: 'A breakfast table on a bright morning. It holds the easy, everyday cheer of flowers that ask for nothing.',
-    size: { w: 30, h: 40 },
+    size: { w: 40, h: 30 },
     depth: '',
     medium: 'Acrylic colour mixed into texture paste, on canvas',
-    shape: 'portrait',
+    shape: 'landscape',
     family: 'cool',
     palette: [
-      { name: 'powder', hex: '#B8C9D4' },
+      { name: 'sage', hex: '#ADC7AA' },
       { name: 'butter', hex: '#EFD7A4' },
       { name: 'teal', hex: '#6FB5A8' },
       { name: 'plum', hex: '#9C7A93' }
@@ -279,8 +461,8 @@ window.ARTWORKS = [
     status: 'available',
     featured: false,
     images: {
-      front: { src: '/images/art/butter-daisies/front.webp', w: 1200, h: 1600, tight: false, alt: 'Butter Daisies: yellow textured daisies with plum centres and teal leaves on a powder-blue ground' },
-      room:  { src: '/images/art/butter-daisies/room.webp',  w: 1600, h: 1200, alt: 'Butter Daisies above a light oak sideboard beside a dining table' }
+      front: { src: '/images/art/butter-daisies/front.webp', w: 1600, h: 1188, alt: 'Butter Daisies: yellow textured daisies with plum centres and teal leaves on a sage ground' },
+      room:  { src: '/images/art/butter-daisies/room.webp',  w: 1600, h: 1200, alt: 'Butter Daisies on a deep green wall above a walnut sideboard' }
     }
   },
   {
@@ -305,8 +487,8 @@ window.ARTWORKS = [
     status: 'available',
     featured: false,
     images: {
-      front: { src: '/images/art/mint-stripe-posy/front.webp', w: 1200, h: 1600, tight: false, alt: 'Mint Stripe Posy: a textured bouquet in a ribbed white vase against mint and white stripes' },
-      room:  { src: '/images/art/mint-stripe-posy/room.webp',  w: 1600, h: 1200, alt: 'Mint Stripe Posy on a terracotta wall above a teal sideboard' }
+      front: { src: '/images/art/mint-stripe-posy/front.webp', w: 1190, h: 1600, alt: 'Mint Stripe Posy: a textured bouquet in a ribbed white vase against mint and white stripes' },
+      room:  { src: '/images/art/mint-stripe-posy/room.webp',  w: 1600, h: 1200, alt: 'Mint Stripe Posy on a terracotta wall above a light oak sideboard' }
     }
   },
   {
@@ -331,8 +513,8 @@ window.ARTWORKS = [
     status: 'available',
     featured: false,
     images: {
-      front: { src: '/images/art/honey-blooms/front.webp', w: 1600, h: 1600, tight: false, alt: 'Honey Blooms: cornflower-blue daisies and pink blossoms packed onto a honey-yellow ground' },
-      room:  { src: '/images/art/honey-blooms/room.webp',  w: 1600, h: 1200, alt: 'Honey Blooms on a terracotta wall above a mustard velvet armchair' }
+      front: { src: '/images/art/honey-blooms/front.webp', w: 1600, h: 1600, alt: 'Honey Blooms: cornflower-blue daisies and pink blossoms packed onto a honey-yellow ground' },
+      room:  { src: '/images/art/honey-blooms/room.webp',  w: 1600, h: 1200, alt: 'Honey Blooms on a sage-green wall above a pale ash sideboard' }
     }
   },
   {
@@ -357,8 +539,8 @@ window.ARTWORKS = [
     status: 'available',
     featured: false,
     images: {
-      front: { src: '/images/art/forget-me-nots/front.webp', w: 1600, h: 1600, tight: false, alt: 'Forget-Me-Nots: white blossoms and blue forget-me-nots on a blush square framed by textured grey paste' },
-      room:  { src: '/images/art/forget-me-nots/room.webp',  w: 1600, h: 1200, alt: 'Forget-Me-Nots on a white wall above a blue armchair' }
+      front: { src: '/images/art/forget-me-nots/front.webp', w: 1600, h: 1600, alt: 'Forget-Me-Nots: white blossoms and blue forget-me-nots on a blush square framed by textured grey paste' },
+      room:  { src: '/images/art/forget-me-nots/room.webp',  w: 1600, h: 1200, alt: 'Forget-Me-Nots on a navy wall above a light oak sideboard' }
     }
   },
   {
@@ -409,8 +591,8 @@ window.ARTWORKS = [
     status: 'available',
     featured: false,
     images: {
-      front: { src: '/images/art/blossom-checks/front.webp', w: 1600, h: 1600, tight: false, alt: 'Blossom Checks: sixteen textured flowers in violet, lilac and blush on a lemon and pink checkerboard' },
-      room:  { src: '/images/art/blossom-checks/room.webp',  w: 1600, h: 1200, alt: 'Blossom Checks on a lilac wall above a lime-green cabinet' }
+      front: { src: '/images/art/blossom-checks/front.webp', w: 1600, h: 1600, alt: 'Blossom Checks: sixteen textured flowers in violet, lilac and blush on a lemon and pink checkerboard' },
+      room:  { src: '/images/art/blossom-checks/room.webp',  w: 1600, h: 1200, alt: 'Blossom Checks on a deep green wall above a walnut sideboard' }
     }
   },
   {
@@ -435,8 +617,8 @@ window.ARTWORKS = [
     status: 'available',
     featured: false,
     images: {
-      front: { src: '/images/art/lemon-and-lilac/front.webp', w: 1600, h: 1600, tight: false, alt: 'Lemon and Lilac: large textured lemon and lilac blossoms with white vein lines on a soft oat ground' },
-      room:  { src: '/images/art/lemon-and-lilac/room.webp',  w: 1600, h: 1200, alt: 'Lemon and Lilac on a mauve wall above a fluted wooden sideboard' }
+      front: { src: '/images/art/lemon-and-lilac/front.webp', w: 1600, h: 1600, alt: 'Lemon and Lilac: large textured lemon and lilac blossoms with white vein lines on a soft oat ground' },
+      room:  { src: '/images/art/lemon-and-lilac/room.webp',  w: 1600, h: 1200, alt: 'Lemon and Lilac on a lilac wall above a light oak sideboard' }
     }
   },
   {
@@ -461,8 +643,8 @@ window.ARTWORKS = [
     status: 'available',
     featured: false,
     images: {
-      front: { src: '/images/art/meadow-morning/front.webp', w: 1600, h: 1600, tight: false, alt: 'Meadow Morning: textured wildflowers in blue, lilac and apricot on dark stems against a painted blue and green sky' },
-      room:  { src: '/images/art/meadow-morning/room.webp',  w: 1600, h: 1200, alt: 'Meadow Morning on a sage-green wall beside a wooden armchair' }
+      front: { src: '/images/art/meadow-morning/front.webp', w: 1600, h: 1600, alt: 'Meadow Morning: textured wildflowers in blue, lilac and apricot on dark stems against a painted blue and green sky' },
+      room:  { src: '/images/art/meadow-morning/room.webp',  w: 1600, h: 1200, alt: 'Meadow Morning on a plum wall above a pale ash sideboard' }
     }
   },
   {
@@ -487,8 +669,8 @@ window.ARTWORKS = [
     status: 'available',
     featured: false,
     images: {
-      front: { src: '/images/art/blossom-dusk/front.webp', w: 1600, h: 1600, tight: false, alt: 'Blossom Dusk: a textured blossom branch with falling petals over a painted peach and lavender sky' },
-      room:  { src: '/images/art/blossom-dusk/room.webp',  w: 1600, h: 1200, alt: 'Blossom Dusk on a warm white wall above a low walnut sideboard' }
+      front: { src: '/images/art/blossom-dusk/front.webp', w: 1600, h: 1600, alt: 'Blossom Dusk: a textured blossom branch with falling petals over a painted peach and lavender sky' },
+      room:  { src: '/images/art/blossom-dusk/room.webp',  w: 1600, h: 1200, alt: 'Blossom Dusk on a navy wall above a light oak sideboard' }
     }
   },
   {
@@ -513,8 +695,8 @@ window.ARTWORKS = [
     status: 'available',
     featured: false,
     images: {
-      front: { src: '/images/art/mauve-posy/front.webp', w: 1600, h: 1600, tight: false, alt: 'Mauve Posy: white daisies, peach blossoms and lime flowers with teal leaves on a mauve ground' },
-      room:  { src: '/images/art/mauve-posy/room.webp',  w: 1600, h: 1200, alt: 'Mauve Posy on a coral wall above a fluted green sideboard' }
+      front: { src: '/images/art/mauve-posy/front.webp', w: 1600, h: 1600, alt: 'Mauve Posy: white daisies, peach blossoms and lime flowers with teal leaves on a mauve ground' },
+      room:  { src: '/images/art/mauve-posy/room.webp',  w: 1600, h: 1200, alt: 'Mauve Posy on a deep green wall above a walnut sideboard' }
     }
   },
   {
@@ -539,8 +721,8 @@ window.ARTWORKS = [
     status: 'available',
     featured: false,
     images: {
-      front: { src: '/images/art/latte-hearts/front.webp', w: 1600, h: 1600, tight: false, alt: 'Latte Hearts: cream textured blossoms and hearts alternating on a latte and oat checkerboard' },
-      room:  { src: '/images/art/latte-hearts/room.webp',  w: 1600, h: 1200, alt: 'Latte Hearts above a curved cream console in a warm beige room' }
+      front: { src: '/images/art/latte-hearts/front.webp', w: 1600, h: 1600, alt: 'Latte Hearts: cream textured blossoms and hearts alternating on a latte and oat checkerboard' },
+      room:  { src: '/images/art/latte-hearts/room.webp',  w: 1600, h: 1200, alt: 'Latte Hearts on a lilac wall above a light oak sideboard' }
     }
   },
   {
@@ -565,8 +747,112 @@ window.ARTWORKS = [
     status: 'available',
     featured: false,
     images: {
-      front: { src: '/images/art/raspberry-and-lime/front.webp', w: 1600, h: 1600, tight: false, alt: 'Raspberry and Lime: glossy raspberry and pink blossoms with lime leaves on a pearl ground' },
-      room:  { src: '/images/art/raspberry-and-lime/room.webp',  w: 1600, h: 1200, alt: 'Raspberry and Lime on a plum wall above a lime-green sideboard' }
+      front: { src: '/images/art/raspberry-and-lime/front.webp', w: 1600, h: 1600, alt: 'Raspberry and Lime: glossy raspberry and pink blossoms with lime leaves on a pearl ground' },
+      room:  { src: '/images/art/raspberry-and-lime/room.webp',  w: 1600, h: 1200, alt: 'Raspberry and Lime on a plum wall above a pale ash sideboard' }
+    }
+  },
+  {
+    slug: 'sage-lace',
+    title: 'Sage Lace',
+    year: 2026,
+    concept: 'Blush-white flowers and leafy sprigs drawn in raised lines of texture paste on a soft sage ground, each petal filled with a thin pull of the knife so the outlines stand proud like lace. A dot of butter yellow sits at every centre.',
+    holds: 'A quiet morning in a garden, when everything is still a little soft at the edges.',
+    size: { w: 30, h: 40 },
+    depth: '',
+    medium: 'Acrylic colour mixed into texture paste, over a painted acrylic ground, on canvas',
+    shape: 'portrait',
+    family: 'green',
+    palette: [
+      { name: 'sage', hex: '#B0BFAB' },
+      { name: 'milk', hex: '#F3F4EF' },
+      { name: 'pistachio', hex: '#D3D5CC' },
+      { name: 'butter', hex: '#E5DD96' }
+    ],
+    tags: ['florals', 'botanical', 'calm', 'minimal'],
+    suits: ['Bedroom', 'Living room', 'Study'],
+    status: 'available',
+    featured: false,
+    images: {
+      front: { src: '/images/art/sage-lace/front.webp', w: 1189, h: 1600, alt: 'Sage Lace: blush-white flowers and leaves outlined in raised paste on a sage-green ground' },
+      room:  { src: '/images/art/sage-lace/room.webp',  w: 1600, h: 1200, alt: 'Sage Lace on a terracotta wall above a light oak sideboard' }
+    }
+  },
+  {
+    slug: 'lilac-stripe-posy',
+    title: 'Lilac Stripe Posy',
+    year: 2026,
+    concept: 'Wide stripes of lilac and cream painted as a ground, with a vase traced in fine white lines of paste. Above it, a loose bunch of knife-pressed pink stars, lemon tulips, powder-blue forget-me-nots and lilac buds on thin green stems.',
+    holds: 'A jar of flowers on a windowsill, picked on the way home for no reason at all.',
+    size: { w: 30, h: 40 },
+    depth: '',
+    medium: 'Acrylic colour mixed into texture paste, over a painted acrylic ground, on canvas',
+    shape: 'portrait',
+    family: 'cool',
+    palette: [
+      { name: 'lilac', hex: '#D2C5D3' },
+      { name: 'cream', hex: '#F4F1E3' },
+      { name: 'bubblegum', hex: '#FAB4D0' },
+      { name: 'powder', hex: '#ABE2F5' }
+    ],
+    tags: ['florals', 'botanical', 'calm'],
+    suits: ['Bedroom', 'Kitchen', 'Dining'],
+    status: 'available',
+    featured: false,
+    images: {
+      front: { src: '/images/art/lilac-stripe-posy/front.webp', w: 1190, h: 1600, alt: 'Lilac Stripe Posy: a bouquet of pink, lemon and blue textured flowers in a white-lined vase on lilac and cream stripes' },
+      room:  { src: '/images/art/lilac-stripe-posy/room.webp',  w: 1600, h: 1200, alt: 'Lilac Stripe Posy on a cream wall above a light oak sideboard' }
+    }
+  },
+  {
+    slug: 'butter-lilies',
+    title: 'Butter Lilies',
+    year: 2026,
+    concept: 'Four large lilies, two in white and two in butter yellow, pulled petal by petal from the centre and scattered over a lilac ground. Small piped flowers in pink, sage and lemon fill the gaps between them with raised dots and loops.',
+    holds: 'A busy, happy garden bed in spring, where nothing is planned and everything is blooming.',
+    size: { w: 30, h: 30 },
+    depth: '',
+    medium: 'Acrylic colour mixed into texture paste, over a painted acrylic ground, on canvas',
+    shape: 'square',
+    family: 'cool',
+    palette: [
+      { name: 'lilac', hex: '#958FAF' },
+      { name: 'butter', hex: '#EFEB97' },
+      { name: 'milk', hex: '#EDEAED' },
+      { name: 'orchid', hex: '#B07FA4' }
+    ],
+    tags: ['florals', 'joyful'],
+    suits: ['Bedroom', 'Kids room'],
+    status: 'available',
+    featured: false,
+    images: {
+      front: { src: '/images/art/butter-lilies/front.webp', w: 1600, h: 1600, alt: 'Butter Lilies: white and butter-yellow lilies among small piped flowers on a lilac ground' },
+      room:  { src: '/images/art/butter-lilies/room.webp',  w: 1600, h: 1200, alt: 'Butter Lilies on a sage-green wall above a pale ash sideboard' }
+    }
+  },
+  {
+    slug: 'rosewater-stars',
+    title: 'Rosewater Stars',
+    year: 2026,
+    concept: 'Three star-shaped flowers in orchid pink, each petal pulled out to a point with the knife and ringed in white around a lemon centre, on a soft blush ground. Small piped flowers in lemon, sage and white are scattered around them.',
+    holds: 'A wish made on a clear night, kept somewhere you will see it every day.',
+    size: { w: 30, h: 30 },
+    depth: '',
+    medium: 'Acrylic colour mixed into texture paste, over a painted acrylic ground, on canvas',
+    shape: 'square',
+    family: 'warm',
+    palette: [
+      { name: 'blush', hex: '#CCA7AA' },
+      { name: 'orchid', hex: '#EBB8D9' },
+      { name: 'lemon', hex: '#F6EC9C' },
+      { name: 'oat', hex: '#D7CFBD' }
+    ],
+    tags: ['florals', 'calm'],
+    suits: ['Bedroom', 'Entryway'],
+    status: 'available',
+    featured: false,
+    images: {
+      front: { src: '/images/art/rosewater-stars/front.webp', w: 1600, h: 1600, alt: 'Rosewater Stars: three orchid-pink star flowers and small pastel blooms on a blush ground' },
+      room:  { src: '/images/art/rosewater-stars/room.webp',  w: 1600, h: 1200, alt: 'Rosewater Stars on a lilac wall above a light oak sideboard' }
     }
   },
   // ── The Clay Room ──
@@ -591,8 +877,8 @@ window.ARTWORKS = [
     status: 'available',
     featured: false,
     images: {
-      front: { src: '/images/art/latte-brickwork/front.webp', w: 1200, h: 1600, tight: false, alt: 'Latte Brickwork: rows of rough latte-coloured texture bricks with mint diagonal strokes on white canvas' },
-      room:  { src: '/images/art/latte-brickwork/room.webp',  w: 1600, h: 1200, alt: 'Latte Brickwork above a light wooden sideboard beside a green armchair' }
+      front: { src: '/images/art/latte-brickwork/front.webp', w: 1191, h: 1600, alt: 'Latte Brickwork: rows of rough latte-coloured texture bricks with mint diagonal strokes on white canvas' },
+      room:  { src: '/images/art/latte-brickwork/room.webp',  w: 1600, h: 1200, alt: 'Latte Brickwork on a navy wall above a light oak sideboard' }
     }
   },
   {
@@ -601,10 +887,10 @@ window.ARTWORKS = [
     year: 2026,
     concept: 'A beach seen from above: a wide band of gritty sand paste meets a sea of overlapping scallops that deepen from white foam through seafoam and sky to cobalt. Each scallop is a single pressed stroke, like a wave laid flat.',
     holds: 'The line where land gives way to water. It is about edges, and how beautiful the meeting of two things can be.',
-    size: { w: 30, h: 40 },
+    size: { w: 40, h: 30 },
     depth: '',
     medium: 'Acrylic colour mixed into texture paste, on canvas',
-    shape: 'portrait',
+    shape: 'landscape',
     family: 'cool',
     palette: [
       { name: 'sand', hex: '#E2C8B5' },
@@ -617,8 +903,8 @@ window.ARTWORKS = [
     status: 'available',
     featured: false,
     images: {
-      front: { src: '/images/art/cobalt-shore/front.webp', w: 1200, h: 1600, tight: false, alt: 'Cobalt Shore: sand-textured paste meeting overlapping scallops in white, seafoam and cobalt blue' },
-      room:  { src: '/images/art/cobalt-shore/room.webp',  w: 1600, h: 1200, alt: 'Cobalt Shore on a warm beige wall beside a brass floor lamp' }
+      front: { src: '/images/art/cobalt-shore/front.webp', w: 1600, h: 1189, alt: 'Cobalt Shore: sand-textured paste meeting overlapping scallops in white, seafoam and cobalt blue' },
+      room:  { src: '/images/art/cobalt-shore/room.webp',  w: 1600, h: 1200, alt: 'Cobalt Shore on a deep green wall above a walnut sideboard' }
     }
   },
   // ── The Grove ──
@@ -644,8 +930,8 @@ window.ARTWORKS = [
     status: 'available',
     featured: false,
     images: {
-      front: { src: '/images/art/sunset-ridges/front.webp', w: 1200, h: 1600, tight: false, alt: 'Sunset Ridges: wavy combed bands of apricot, tangerine, coral and orchid texture paste' },
-      room:  { src: '/images/art/sunset-ridges/room.webp',  w: 1600, h: 1200, alt: 'Sunset Ridges on a plum wall above a blush sideboard' }
+      front: { src: '/images/art/sunset-ridges/front.webp', w: 1190, h: 1600, alt: 'Sunset Ridges: wavy combed bands of apricot, tangerine, coral and orchid texture paste' },
+      room:  { src: '/images/art/sunset-ridges/room.webp',  w: 1600, h: 1200, alt: 'Sunset Ridges on a sage-green wall above a pale ash sideboard' }
     }
   },
   {
@@ -670,8 +956,8 @@ window.ARTWORKS = [
     status: 'available',
     featured: false,
     images: {
-      front: { src: '/images/art/peach-wave/front.webp', w: 1200, h: 1600, tight: false, alt: 'Peach Wave: a sculpted cornflower-blue wave with white foam over a painted cobalt-to-peach sky and a pink sun' },
-      room:  { src: '/images/art/peach-wave/room.webp',  w: 1600, h: 1200, alt: 'Peach Wave on a peach wall above a teal cabinet' }
+      front: { src: '/images/art/peach-wave/front.webp', w: 1190, h: 1600, alt: 'Peach Wave: a sculpted cornflower-blue wave with white foam over a painted cobalt-to-peach sky and a pink sun' },
+      room:  { src: '/images/art/peach-wave/room.webp',  w: 1600, h: 1200, alt: 'Peach Wave on a peach wall above a powder-blue sideboard' }
     }
   },
   {
@@ -696,23 +982,23 @@ window.ARTWORKS = [
     status: 'available',
     featured: false,
     images: {
-      front: { src: '/images/art/twilight-fern/front.webp', w: 1200, h: 1600, tight: false, alt: 'Twilight Fern: a textured fern frond in mint, lemon and lilac across a painted indigo-to-lime sky' },
-      room:  { src: '/images/art/twilight-fern/room.webp',  w: 1600, h: 1200, alt: 'Twilight Fern on a dark navy wall above a walnut sideboard' }
+      front: { src: '/images/art/twilight-fern/front.webp', w: 1191, h: 1600, alt: 'Twilight Fern: a textured fern frond in mint, lemon and lilac across a painted indigo-to-lime sky' },
+      room:  { src: '/images/art/twilight-fern/room.webp',  w: 1600, h: 1200, alt: 'Twilight Fern on a plum wall above a pale ash sideboard' }
     }
   },
   {
     slug: 'cloud-rainbow',
     title: 'Cloud Rainbow',
     year: 2026,
-    concept: 'A half rainbow arcs out from the right edge in raised bands of bubblegum, peach, lemon, mint, cornflower and lilac, each laid as a single smooth ridge. Two sculpted pink clouds anchor its ends on a soft pearl-grey ground.',
+    concept: 'A rainbow arcs across the canvas in raised bands of bubblegum, peach, lemon, mint, cornflower and lilac, each laid as a single smooth ridge. Two sculpted pink clouds anchor its ends on a soft mint ground.',
     holds: 'The bright bit after the rain. It holds the promise that the weather always turns.',
-    size: { w: 30, h: 40 },
+    size: { w: 40, h: 30 },
     depth: '',
     medium: 'Acrylic colour mixed into texture paste, on canvas',
-    shape: 'portrait',
+    shape: 'landscape',
     family: 'warm',
     palette: [
-      { name: 'pearl', hex: '#C5CCCC' },
+      { name: 'mint', hex: '#B1CBC7' },
       { name: 'bubblegum', hex: '#F2A8C4' },
       { name: 'lemon', hex: '#F0DA6E' },
       { name: 'lilac', hex: '#A383D0' }
@@ -722,8 +1008,8 @@ window.ARTWORKS = [
     status: 'available',
     featured: false,
     images: {
-      front: { src: '/images/art/cloud-rainbow/front.webp', w: 1200, h: 1600, tight: false, alt: 'Cloud Rainbow: a raised pastel rainbow ending in two sculpted pink clouds on a pearl-grey ground' },
-      room:  { src: '/images/art/cloud-rainbow/room.webp',  w: 1600, h: 1200, alt: 'Cloud Rainbow on a sage wall beside a pink armchair and a lilac cabinet' }
+      front: { src: '/images/art/cloud-rainbow/front.webp', w: 1600, h: 1189, alt: 'Cloud Rainbow: a raised pastel rainbow ending in two sculpted pink clouds on a mint ground' },
+      room:  { src: '/images/art/cloud-rainbow/room.webp',  w: 1600, h: 1200, alt: 'Cloud Rainbow on a cream wall above a light oak sideboard' }
     }
   },
   {
@@ -748,8 +1034,8 @@ window.ARTWORKS = [
     status: 'available',
     featured: false,
     images: {
-      front: { src: '/images/art/lavender-drift/front.webp', w: 1600, h: 1600, tight: false, alt: 'Lavender Drift: lemon and rose petal strokes drifting across a cloudy lavender and blush ground' },
-      room:  { src: '/images/art/lavender-drift/room.webp',  w: 1600, h: 1200, alt: 'Lavender Drift on a mauve wall above a fluted oak sideboard' }
+      front: { src: '/images/art/lavender-drift/front.webp', w: 1600, h: 1600, alt: 'Lavender Drift: lemon and rose petal strokes drifting across a cloudy lavender and blush ground' },
+      room:  { src: '/images/art/lavender-drift/room.webp',  w: 1600, h: 1200, alt: 'Lavender Drift on a sage-green wall above a pale ash sideboard' }
     }
   },
   {
@@ -774,8 +1060,34 @@ window.ARTWORKS = [
     status: 'available',
     featured: false,
     images: {
-      front: { src: '/images/art/rain-garden/front.webp', w: 1200, h: 1600, tight: false, alt: 'Rain Garden: falling cornflower strokes over teal, gathering into a bowl of white and green dabs with pink flowers' },
-      room:  { src: '/images/art/rain-garden/room.webp',  w: 1600, h: 1200, alt: 'Rain Garden on a warm stone wall above a teal cabinet' }
+      front: { src: '/images/art/rain-garden/front.webp', w: 1190, h: 1600, alt: 'Rain Garden: falling cornflower strokes over teal, gathering into a bowl of white and green dabs with pink flowers' },
+      room:  { src: '/images/art/rain-garden/room.webp',  w: 1600, h: 1200, alt: 'Rain Garden on a lilac wall above a light oak sideboard' }
+    }
+  },
+  {
+    slug: 'lilac-meadow',
+    title: 'Lilac Meadow',
+    year: 2026,
+    concept: 'Tall stems and grass blades painted in deep green rise from a sage band into a lilac sky. Pink flowers pressed petal by petal with the tip of the knife, and sprigs of cream dots, sit at the tops of the stems.',
+    holds: 'An evening walk through long grass, slow and unhurried, with nowhere particular to be.',
+    size: { w: 30, h: 30 },
+    depth: '',
+    medium: 'Acrylic colour mixed into texture paste, over a painted acrylic ground, on canvas',
+    shape: 'square',
+    family: 'cool',
+    palette: [
+      { name: 'lilac', hex: '#BEA0B4' },
+      { name: 'sage', hex: '#9BA78F' },
+      { name: 'orchid', hex: '#CDAAC2' },
+      { name: 'moss', hex: '#363C22' }
+    ],
+    tags: ['florals', 'botanical', 'landscape', 'calm'],
+    suits: ['Bedroom', 'Living room', 'Entryway'],
+    status: 'available',
+    featured: false,
+    images: {
+      front: { src: '/images/art/lilac-meadow/front.webp', w: 1600, h: 1600, alt: 'Lilac Meadow: pink textured flowers on tall green stems against a lilac sky and sage ground' },
+      room:  { src: '/images/art/lilac-meadow/room.webp',  w: 1600, h: 1200, alt: 'Lilac Meadow on a cream wall above a light oak sideboard' }
     }
   }
 ];

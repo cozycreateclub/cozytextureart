@@ -14,6 +14,9 @@ Usage: python3 tools/refine_photo.py <in> <out> [--corners auto|x,y,x,y,x,y,x,y]
 --ground colour: pale painted grounds (powder blue, taupe, mauve, grey) that auto would mistake for white.
 --enhance-only: painted skies/gradients, where evening the light would erase the artwork.
 --global: hard stripes of sun and shadow; one white-balance gain only (flag the photo for a reshoot).
+--wb-surround: for painted grounds/skies shot on a white sheet or wall: first map that surround to a
+  neutral near-white (white balance + exposure, gains capped 0.85–1.30), so a pale ground keeps its
+  own colour and brightness, not the room light's.
 
 Only geometric and global, photographic corrections (no retouching of the paint):
   0. Square up: perspective-correct and crop to the canvas (--corners).
@@ -203,6 +206,28 @@ def square_up(im, corners, size, inset=0):
     return out
 
 
+def surround_gain(im, corners, target=236, lo=0.85, hi=1.30):
+    """White-balance and exposure gains read off the plain white surround (sheet, wall) outside the canvas.
+
+    For painted grounds and skies, where no white canvas shows, this is the only neutral in the
+    photo. Uses the brighter half of the pixels outside the canvas quad and maps them to a neutral
+    `target` (phone shots indoors come out ~15–20% dark); each gain is capped to [lo, hi].
+    """
+    w = 400
+    k = w / im.width
+    s = im.resize((w, round(im.height * k)), Image.BOX)
+    m = Image.new('L', s.size, 255)
+    ImageDraw.Draw(m).polygon([(x * k, y * k) for x, y in corners], fill=0)
+    m = m.filter(ImageFilter.MinFilter(9))           # stay clear of the canvas edge
+    px = [c for c, keep in zip(s.getdata(), m.getdata()) if keep and max(c) - min(c) < 40]
+    if len(px) < 200:
+        return [1.0, 1.0, 1.0]
+    px.sort(key=sum)
+    bright = px[len(px) // 2:]
+    med = [sorted(c[i] for c in bright)[len(bright) // 2] for i in range(3)]
+    return [min(hi, max(lo, target / max(v, 1))) for v in med]
+
+
 def save_overlay(im, corners, path):
     o = im.copy()
     o.thumbnail((1000, 1000))
@@ -222,6 +247,8 @@ def main():
     ap.add_argument('--size', help='canvas WxH in cm (any unit), sets the output aspect, e.g. 30x42')
     ap.add_argument('--inset', type=int, default=0)
     ap.add_argument('--overlay', help='save the detected/given corners drawn on the photo here')
+    ap.add_argument('--wb-surround', action='store_true',
+                    help='with --corners: white balance and exposure from the white sheet/wall around the canvas, before anything else')
     ap.add_argument('--bg', default='auto', help='auto, or x,y of a plain ground pixel (in the cropped image)')
     ap.add_argument('--target', default='247,247,246')
     ap.add_argument('--tol', type=int, default=45)
@@ -243,6 +270,10 @@ def main():
             corners = list(zip(v[0::2], v[1::2]))
         if a.overlay:
             save_overlay(im, corners, a.overlay)
+        if a.wb_surround:
+            g = surround_gain(im, corners)
+            im = Image.merge('RGB', [b.point(lambda v, f=f: min(255, round(v * f))) for b, f in zip(im.split(), g)])
+            print('surround white balance + exposure', ', '.join(f'{f:.3f}' for f in g))
         size = tuple(float(x) for x in a.size.lower().split('x')) if a.size else None
         im = square_up(im, corners, size, a.inset)
         print('corners', ', '.join(f'{x:.0f},{y:.0f}' for x, y in corners))
