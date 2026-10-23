@@ -1,0 +1,19 @@
+{
+  "wall": [
+    300,
+    30,
+    1300,
+    590
+  ],
+  "floor_y": 1010,
+  "px_per_cm": 8,
+  "hang_x": 800,
+  "furniture_top": 604,
+  "light": "left",
+  "wall_rgb": [
+    146,
+    110,
+    126
+  ],
+  "source": "code"
+}

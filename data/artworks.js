@@ -256,7 +256,7 @@ window.ARTWORKS = [
       room:  { src: '/images/art/lilac-dahlia-no-2/room.webp',  w: 1600, h: 1200, alt: 'Lilac Dahlia No. 2 on a warm beige wall above a fluted walnut sideboard' }
     }
   },
-  // ── The Bloom Room, The Clay Room, The Grove ──
+  // ── The Bloom Room ──
   {
     slug: 'butter-daisies',
     title: 'Butter Daisies',
@@ -569,6 +569,7 @@ window.ARTWORKS = [
       room:  { src: '/images/art/raspberry-and-lime/room.webp',  w: 1600, h: 1200, alt: 'Raspberry and Lime on a plum wall above a lime-green sideboard' }
     }
   },
+  // ── The Clay Room ──
   {
     slug: 'latte-brickwork',
     title: 'Latte Brickwork',
@@ -620,6 +621,7 @@ window.ARTWORKS = [
       room:  { src: '/images/art/cobalt-shore/room.webp',  w: 1600, h: 1200, alt: 'Cobalt Shore on a warm beige wall beside a brass floor lamp' }
     }
   },
+  // ── The Grove ──
   {
     slug: 'sunset-ridges',
     title: 'Sunset Ridges',

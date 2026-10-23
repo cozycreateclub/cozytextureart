@@ -13,8 +13,12 @@ Single-page portfolio for **Cozy Texture Art**, built from the "Ira Mehra Textur
 - `index.html` — the whole site and its one page template. React 18.3.1 (no build step) + `htm` from jsdelivr for markup. All asset paths are absolute (`/fonts`, `/vendor`, `/data`, `/images`) because pages live at nested URLs.
 - `data/artworks.js` — **the catalogue**: `ARTWORKS`, `ART_ROOMS`, `TAGS`, `FAMILIES`, `SUITS`, plus a commented TEMPLATE entry. Adding a piece never touches `index.html`.
 - `images/art/<slug>/` — `front.webp` (1600px), `front-sm.webp` (720px, grids/hero/thumbs), `room.webp` (1600px).
-- `tools/add_art.py <slug> <front> <room>` — resizes and strips EXIF into `images/art/<slug>/`, prints the `images` block and a suggested palette. Needs Pillow; run with plain `python3` (not `-I`, which hides the user site-packages Pillow lives in). HEIC goes through `sips` first.
-- `tools/refine_photo.py <in> <out> --bg x,y ...` — studio-cleans a front photo before `add_art.py`: evens out lighting (fits a smooth surface to the plain ground), neutral white balance, gentle colour/contrast and sharpening. Never retouches the paint. White canvas: `--neutral 16 --target 247,247,246 --color 1.03 --contrast 1.05`. Coloured ground: `--tol 45 --target <brighter ground>`. Hard sun/shadow stripes: `--global` (white balance only). `--crop` to cut wall out of frame. Approved look: 2026-10-18.
+- `tools/add_art.py <slug> <front> <room>` — EXIF-transposes, resizes (WEBP q82, method 6) and strips metadata into `images/art/<slug>/`, prints the `images` block and a suggested palette. Needs Pillow; run with plain `python3` (not `-I`, which hides the user site-packages Pillow lives in). HEIC goes through `sips` first.
+- `tools/refine_photo.py <in> <out> [--corners auto|x,y,…] [--size 30x42] [--overlay o.jpg] ...` — turns a raw phone photo into the studio front: squares it up (perspective-correct the canvas corners, clockwise from top-left, to the canvas aspect; this also crops away wall, table and shadow; `--inset N` trims more), then evens out lighting (fits a smooth surface to the plain ground), neutral white balance, gentle colour/contrast and sharpening. Never retouches the paint. Check the `--overlay` corners and a before/after sheet every time. Modes: white canvas is auto (it removes the photo's colour cast before judging white); pale painted ground: `--ground colour` (target = ground ×1.04, never white); painted sky/gradient/brushy ground: `--enhance-only`; hard sun/shadow stripes: `--global` (one white-balance gain; flag for a reshoot). Approved look: 2026-10-18.
+- `tools/make_mockup.py <front> <out> --size 30x42 [--scene name|auto] [--avoid a,b] [--round]` — hangs the refined front in a room scene at true scale (size.w × `px_per_cm`), 25 cm above the sideboard, with a 3 px canvas edge and a soft warm shadow away from the light, multiplied by the wall's own light. `auto` picks a wall that complements the piece; pass the neighbours' scenes in `--avoid` to vary them. Feed its output to `add_art.py` as the room image. Needs Pillow + numpy.
+- `mockups/rooms/` — scenes: `<name>.jpg` (1600×1200 empty wall) + `<name>.json` sidecar (`wall` rect, `floor_y`, `px_per_cm`, `hang_x`, `furniture_top`, `light`, `wall_rgb`, `source`). The 8 current scenes are **code-drawn** (`python3 tools/make_mockup.py scenes` redraws them; `list` shows them), because no image generator was available. Real empty-wall photos with a sidecar join the set automatically and look better; prefer them. Excluded from deploys. The older 27 `room.webp` files are photographic and were made elsewhere.
+- `tools/validate.js` — `node tools/validate.js`: unique slugs/titles, tags in `TAGS`, suits in `SUITS`, images on disk, no price/relief fields; prints each room's piece count. Run after every catalogue change.
+- Python: these tools need Pillow (and numpy for mockups). If the system Python lacks them, make a venv in the session scratchpad (`python3 -m venv …; pip install pillow numpy`) rather than installing globally.
 - `tools/dev_server.py [port] [dir]` — local server with the same fallback as Vercel (unknown paths → `index.html`).
 - `vercel.json` — hosting is Vercel; rewrites `/art/:slug`, `/collection`, `/collection/:room`, `/about` to `index.html`.
 - `vendor/`, `fonts/` — React 18.3.1; Instrument Serif + Jost woff2.
@@ -44,17 +48,17 @@ Links are real `<a href>` (shareable, open in new tab) routed in-page by `link()
 - **No prices** anywhere (decision 2026-10-18). Enquiry is the only path; sold pieces switch the CTA to a commission.
 - **Placeholders removed**: no procedural artworks in the catalogue. Procedural SVG (`DECOR`, `artSvg`) survives only as illustration: the texture-vs-print slider, the four process steps, and the home hero. The home hero always keeps these drawn textures; don't swap in catalogue photos.
 - **Piece page views** are photo-based: Front, In a room, Close-up (the front photo at 2.6× following the pointer). Photos can't be relit, so raking light, 3D turn and studio film from the reference are not used.
-- Front photos are assumed tightly cropped to the canvas edge (shape mask + light-driven shadow). Set `images.front.tight: false` if a photo includes wall/background.
+- Front photos are assumed tightly cropped to the canvas edge (refine_photo's square-up guarantees it) (shape mask + light-driven shadow). Set `images.front.tight: false` if a photo includes wall/background.
 
-### Adding an art room (workflow with the user)
-The user sends one art room at a time, two images per piece: **front** and **in a room**. For each piece:
-1. Read the size from the images (W × H cm, or diameter). Don't guess a size that isn't shown; ask.
-2. Name it per §10 (2–3 words; place, time or feeling + material/colour; "No." for series). Check the name isn't already used.
-3. Write `concept` (2–3 lines, materials and making, honest) and `holds` (one sentence on what it represents), in the §8 voice.
-4. Pick `shape`, `family`, 3–4 `palette` pigments (use the tool's hex suggestions, name each with one lower-case food/earth/flower word), `tags` from `TAGS` (add new ones if needed), `suits`.
-5. Slug = title in lower-case kebab case. Refine the front photo with `tools/refine_photo.py` (check before/after), then run `tools/add_art.py` on the refined front + original room image, fill the TEMPLATE, append to `ARTWORKS`.
-6. Make sure the room the user named exists in `ART_ROOMS` with tags that pull these pieces in.
-7. Preview the piece pages, the room and the home page; then commit and push.
+### Adding pieces (workflow with the user)
+The user sends **one raw photo per piece** (a phone shot, maybe angled, with wall/table and uneven light), as files or a folder. Ids in file names give the room: digits = Signature Pop Colours, `b` = The Bloom Room, `e` = The Clay Room, `n` = The Grove. Copy everything into a scratch working folder first; never edit originals. Make contact sheets (4–6 per sheet) and match photos to existing pieces by what the artwork looks like, not only by name. For each photo:
+1. `refine_photo.py` → refined front (check overlay + before/after).
+2. `make_mockup.py` on the refined front → room image (check true scale, shadow side, colours).
+3. `add_art.py <slug> <refined front> <mockup>` → web images.
+4. **Replacement** of an existing piece: keep slug, title, concept, holds, size, tags, rooms, palette and alt text; update only the images' w/h (change swatches only if clearly wrong).
+5. **New piece:** size from proportions unless the user gives it (A-paper 1:1.41 → 30×42, 3:4 → 30×40, 4:3 → 40×30, square → 30×30); title per §10, not already used; `concept` = only what's visible (layout, colours, how the paste was pressed, pulled, combed or knifed); `holds` = one warm sentence; `medium` as the TEMPLATE, or "…, over a painted acrylic ground, on canvas" for painted skies/grounds; 3–4 swatches sampled from real paint on the refined front; tags/suits from the lists; `status: 'available'`, `featured: false`; alt texts for front (what it shows) and room (piece + setting). Never tag `pop-pastels` outside Signature Pop Colours: that tag alone fills that room.
+6. Keep `ARTWORKS` grouped by room with `// ── Room ──` comment lines.
+7. `node tools/validate.js`, preview room and piece pages, then commit and push.
 
 ### Cozy Texture Art adaptations (deliberate differences from the reference)
 
