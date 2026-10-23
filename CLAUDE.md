@@ -2,6 +2,12 @@
 
 Single-page portfolio for **Cozy Texture Art**, built from the "Ira Mehra Texture Studio" reference design (design system v1.0, October 2026). Follow the design system below for every change. If something isn't covered, choose the quieter option and let the artwork lead.
 
+## Owner
+
+- The site is for **Priyanka Meena**, a social media influencer who runs the Instagram page **@cozytextureart** (https://www.instagram.com/cozytextureart/). She makes every piece shown on the site.
+- Instagram is her main channel, so the site should feel like a calm home for the same work her followers already know from the page.
+- The design system below applies to everything made for the brand, not just the site: Instagram posts, catalogues, labels and emails too.
+
 ## Project
 
 - `index.html` — the whole site and its one page template. React 18.3.1 (no build step) + `htm` from jsdelivr for markup. All asset paths are absolute (`/fonts`, `/vendor`, `/data`, `/images`) because pages live at nested URLs.
@@ -12,9 +18,10 @@ Single-page portfolio for **Cozy Texture Art**, built from the "Ira Mehra Textur
 - `tools/dev_server.py [port] [dir]` — local server with the same fallback as Vercel (unknown paths → `index.html`).
 - `vercel.json` — hosting is Vercel; rewrites `/art/:slug`, `/collection`, `/collection/:room`, `/about` to `index.html`.
 - `vendor/`, `fonts/` — React 18.3.1; Instrument Serif + Jost woff2.
+- `design/ira-mehra-design-system.html` — the source design system (v1.0, October 2026), kept for reference and excluded from deploys by `.vercelignore`. It is a bundled page: open it in a browser, or read its data (colours, segments, voice, terms, naming) from the `<script data-dc-script>` inside the `__bundler/template` JSON. The **Design system** section below is its summary, with the Cozy Texture Art adaptations applied.
 - Inline style strings are parsed into React style objects by `hx`/`parseStyle`, so markup stays close to HTML. Hover states use the `.hov-*` / `.lift` classes in `<style>` (inline styles can't do `:hover`).
 - Mobile layout is chosen in JS (`m = vw < 720`), not media queries.
-- Remote: `github.com/lifedesigndpc/cozytextureart`, branch `main`.
+- Remotes: `github.com/cozycreateclub/texture-art` (main home), `github.com/cozycreateclub/cozytextureart` (fork), `github.com/lifedesigndpc/cozytextureart` (original upstream). Branch `main`.
 - Preview: the Desktop is iCloud-synced and the preview server can't read it. Copy the folder to the session scratchpad (`site/`) and serve it with `tools/dev_server.py` from there (the `cozy-texture-art` entry in `~/Desktop/.claude/launch.json`). Re-copy after every edit. Test fixtures go in the scratchpad copy only, never in the repo. If you delete and recreate the folder, the running preview server keeps serving the old copy, even after a restart. Copy into a new `site-<time>` folder, repoint the launch entry, and restart; editing files in place in the current folder works.
 
 ### URLs
@@ -53,12 +60,12 @@ The user sends one art room at a time, two images per piece: **front** and **in 
 
 - **Brand:** wordmark is *Cozy* (italic serif) + TEXTURE ART (caps label). Credit line: "Cozy Texture Art, 2026 · {size}". Never "Ira Mehra".
 - **Hero label:** "Texture art for everyday living", larger than a normal label (clamp(15px,1.4vw,19px), 14px on mobile).
-- **No invented biography.** The reference's personal facts (architect, Bengaluru, Mysuru, named places and relatives) were removed. Don't add personal facts about the creator unless the user gives them.
+- **No invented biography.** The reference's personal facts (architect, Bengaluru, Mysuru, named places and relatives) were removed. Known facts about the creator are only those in **Owner** above. Don't add other personal facts unless the user gives them.
 - **Creator note** replaces the "studio visits by appointment" block: a mother and designer, exploring her creative side.
-- **Socials:** Instagram and email only. No Pinterest, no YouTube. Both links are still `#` placeholders.
+- **Socials:** Instagram and email only. No Pinterest, no YouTube. Instagram is @cozytextureart (https://www.instagram.com/cozytextureart/). In the site, both links are still `#` placeholders.
 - **Footer:** "Hand-built, layer by layer · © year", with no city.
 - **Portraits** are still striped placeholders. Prices are hidden site-wide (the §10 price format is unused).
-- **Voice:** the reference writes in the artist's first person. The site currently uses a warm brand/third-person voice because the creator's own words aren't known yet. Switch to first person once the creator's details are confirmed.
+- **Voice:** the reference writes in the artist's first person ("Hi, I'm Ira."). The site currently uses a warm brand/third-person voice. The creator is now known (Priyanka Meena, see **Owner**), but switching the site copy to her first person is her call: ask before rewriting it.
 
 ---
 
@@ -87,7 +94,7 @@ The user sends one art room at a time, two images per piece: **front** and **in 
 | rose-ink | #8E5A55 | Links and small actions only (the only accent) |
 | line | rgba(43,38,34,.12) solid · rgba(43,38,34,.35) dotted | Rules and dividers |
 
-**Pigment palette** (only inside artworks, room covers, wall tints and swatches)
+**Pigment palette** (only inside artworks, room covers, wall tints and swatches; every pigment is mostly titanium white)
 - **Florals (The Bloom Room):** peach #F5D6C6 · rose #E6B8BF · blush #EFC6C6 · apricot #F2CDB0
 - **Earthy tones (The Clay Room):** oat #EDE3D2 · sand #E8DCCB · clay #E4C7B1 · terracotta #DDB29A · taupe #D7CBBB
 - **Signature pop (Signature Pop Colours):** bubblegum #F4B9CF · aqua #AFE1DB · lemon #F5E69B · coral #F5B8A6 · lilac #C8BEDF
@@ -96,7 +103,7 @@ The user sends one art room at a time, two images per piece: **front** and **in 
 
 **Rules**
 - Pigments sit at ~85–92% lightness with low chroma. If it would suit a road sign, it's too strong.
-- Never: primary red/blue, neon, pure #000, pure #FFF backgrounds, metallic gold, gradients across the UI. The only gradient allowed is a paper fade under text on imagery.
+- Never: primary red (#D62828), primary blue (#1D4ED8), neon green (#39FF14), pure #000, pure #FFF backgrounds, metallic gold (#C9A227), gradients across the UI. The only gradient allowed is a paper fade under text on imagery.
 - Never use pigments for UI text or buttons. Text on pigment is ink only, 11px or larger.
 - Text contrast ≥ 4.5:1 on paper.
 
@@ -138,7 +145,7 @@ The user sends one art room at a time, two images per piece: **front** and **in 
 - **Image placeholder:** diagonal parchment stripes (#E6DED2/#EDE6DC, 10px) with a lower-case mono note, e.g. "portrait · at the studio table".
 
 **Page segments, in order**
-- **Nav:** sticky, paper at 86% with blur. Italic serif wordmark left, caps links right.
+- **Nav:** sticky, paper at 86% with blur. Italic serif wordmark left, caps links right. No icons except where a label won't fit.
 - **Hero:** one idea, "Art you can feel." Three approved forms — A: five pieces scattered with parallax (current); B: one large piece with prev/next; C: full-bleed surface detail with a huge centred serif headline. Never a banner carousel.
 - **Texture vs print:** a drag slider comparing a flat print with the textured piece, then three short columns.
 - **Featured row:** four works in one row, bottoms aligned, each with a caption stack.
@@ -212,7 +219,8 @@ Write the way the artist would talk to a friend in the studio: warm, specific ab
 | Art rooms | "The ___ Room" or one evocative noun. Signature Pop Colours is the fixed exception | The Bloom Room · The Clay Room · The Grove |
 | Pigment names | One lower-case word from food, earth or flowers; spaced caps on swatches | pistachio · clay · bubblegum |
 | Dimensions | W × H in cm with a true ×; round works as diameter | 90 × 120 cm · 70 cm diameter |
-| Price | ₹, space, Indian grouping, no decimals; "On enquiry" if unpriced | ₹ 84,000 |
+| Relief | Millimetres at the highest point | 7 mm at the highest ridge |
+| Price | ₹, thin space, Indian grouping, no decimals; "On enquiry" if unpriced | ₹ 84,000 |
 | Credit line | Artist, year, size in italic serif | Cozy Texture Art, 2026 · 90 × 120 cm |
 | Counters | Two digits with slash, caps | 03 / 10 · Room 01 |
 | Section labels | 2–4 words, sentence-like, spaced caps | Featured pieces · How a piece is made |
