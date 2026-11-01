@@ -887,7 +887,7 @@ window.ARTWORKS = [
     year: 2026,
     concept: 'A painted ground that fades from soft pink at the top to lilac at the base, with a border of bare white canvas around it. Dozens of small petals in lemon, pink and lilac are pressed and dragged with the tip of the knife, all drifting the same way across the canvas.',
     holds: 'The hour when a warm breeze carries petals across the garden and nothing needs doing.',
-    size: { w: 25, h: 30 },
+    size: { w: 30, h: 40 },
     depth: '',
     medium: 'Acrylic colour mixed into texture paste, over a painted acrylic ground, on canvas',
     shape: 'portrait',
@@ -903,7 +903,7 @@ window.ARTWORKS = [
     status: 'available',
     featured: true,
     images: {
-      front: { src: '/images/art/lilac-breeze/front.webp', w: 1329, h: 1600, alt: 'Lilac Breeze: lemon, pink and lilac petals of texture paste drifting across a pink to lilac ground' },
+      front: { src: '/images/art/lilac-breeze/front.webp', w: 1193, h: 1600, alt: 'Lilac Breeze: lemon, pink and lilac petals of texture paste drifting across a pink to lilac ground' },
       room:  { src: '/images/art/lilac-breeze/room.webp',  w: 1600, h: 1200, alt: 'Lilac Breeze on a cream wall above a light oak sideboard' }
     }
   },
