@@ -18,7 +18,8 @@ Scenes live in mockups/rooms/: <name>.jpg (1600x1200, empty wall) + <name>.json 
 Drop your own empty-wall photos in with a sidecar and they join the set; `scenes` only rewrites
 the code-drawn ones.
 
-Compositing: scale to size.w x px_per_cm, hang centred 25 cm (up to 35) above the furniture, add a 2–3 px
+Compositing: small pieces get a closer crop of the room (--zoom, auto up to 2.6x; scale stays true
+because px_per_cm scales with it). Scale to size.w x px_per_cm, hang centred 25 cm (up to 35) above the furniture, add a 2–3 px
 canvas edge and a soft warm drop shadow away from the light, then multiply the art by the wall's
 own low-frequency light so window light falls across it the same way. Needs Pillow and numpy.
 """
@@ -261,8 +262,39 @@ def pick_scene(art, scenes, avoid):
 
 # ── compositing ──────────────────────────────────────────────────
 
-def composite(art, scene_path, side, size_cm, round_=False):
-    scene = np.asarray(Image.open(scene_path).convert('RGB').resize((W, H), Image.LANCZOS)).astype(np.float32)
+def zoom_for(size_cm, side, target=380):
+    """Small canvases look lost on a full sideboard: frame closer so the art spans about `target` px."""
+    return max(1.0, min(2.6, target / (max(size_cm) * side['px_per_cm'])))
+
+
+def zoomed(scene_img, side, size_cm, z):
+    """Crop the scene around the hanging spot and scale it up by z; true scale is kept because
+    px_per_cm (and every other sidecar coordinate) is scaled by the same factor."""
+    if z <= 1.0:
+        return scene_img, side
+    ppc = side['px_per_cm']
+    art_h = size_cm[1] * ppc
+    # Put the art about a third of the way down, with the top of the sideboard (and what stands on it) in view.
+    cw, ch = W / z, H / z
+    art_top = side['furniture_top'] - GAP_CM * ppc - art_h
+    y0 = max(art_top - 0.22 * ch, side['furniture_top'] - 0.85 * ch)
+    x0 = min(max(side['hang_x'] - cw / 2, 0), W - cw); y0 = min(max(y0, 0), H - ch)
+    img = scene_img.crop((round(x0), round(y0), round(x0 + cw), round(y0 + ch))).resize((W, H), Image.LANCZOS)
+    s = dict(side)
+    s['px_per_cm'] = ppc * z
+    s['hang_x'] = (side['hang_x'] - x0) * z
+    s['furniture_top'] = (side['furniture_top'] - y0) * z
+    s['floor_y'] = (side['floor_y'] - y0) * z
+    wx0, wy0, wx1, wy1 = side['wall']
+    s['wall'] = [max(0, round((wx0 - x0) * z)), max(0, round((wy0 - y0) * z)), min(W, round((wx1 - x0) * z)), min(H, round((wy1 - y0) * z))]
+    return img, s
+
+
+def composite(art, scene_path, side, size_cm, round_=False, zoom='auto'):
+    img = Image.open(scene_path).convert('RGB').resize((W, H), Image.LANCZOS)
+    z = zoom_for(size_cm, side) if zoom == 'auto' else float(zoom)
+    img, side = zoomed(img, side, size_cm, z)
+    scene = np.asarray(img).astype(np.float32)
     ppc = side['px_per_cm']
     aw = round(size_cm[0] * ppc); ah = round(size_cm[1] * ppc)
     art = art.convert('RGB').resize((aw, ah), Image.LANCZOS)
@@ -322,6 +354,7 @@ def main():
     ap.add_argument('--scene', default='auto')
     ap.add_argument('--avoid', default='', help='comma-separated scenes to skip (e.g. the neighbours\' scenes)')
     ap.add_argument('--round', action='store_true')
+    ap.add_argument('--zoom', default='auto', help='frame closer by this factor (auto: small pieces get up to 2.6x)')
     a = ap.parse_args()
     v = [float(x) for x in a.size.lower().split('x')]
     size = (v[0], v[-1])
@@ -331,7 +364,7 @@ def main():
     if name not in scenes:
         sys.exit(f'unknown scene {name}; have: {", ".join(scenes)}')
     path, side = scenes[name]
-    composite(art, path, side, size, a.round).save(a.out)
+    composite(art, path, side, size, a.round, a.zoom).save(a.out)
     print(f'scene {name}; saved {W}x{H} → {a.out}')
 
 

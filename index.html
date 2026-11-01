@@ -327,7 +327,7 @@ class App extends React.Component {
       <div style="flex:1 1 300px;max-width:560px;display:flex;flex-direction:column;gap:26px">
         <div style="font-size:11px;letter-spacing:.42em;text-transform:uppercase;color:#7A7067">From the studio</div>
         <p style="margin:0;font-family:'Instrument Serif',serif;font-size:clamp(32px,3.4vw,48px);line-height:1.12">“I want people to reach out and touch the wall before they read the label.”</p>
-        <p style="margin:0;font-size:16px;line-height:1.7;color:#5A5149">Every Cozy Texture Art piece is made by hand in a small studio, each colour mixed until it's soft enough to live with. Most pieces take three to five weeks, because each layer of texture paste has to dry fully before the next.</p>
+        <p style="margin:0;font-size:16px;line-height:1.7;color:#5A5149">Every Cozy Texture Art piece is made by hand in a small studio, each colour mixed until it's soft enough to live with. Most pieces take one to two weeks, depending on size, because each layer of texture paste has to dry fully before the next.</p>
         <span style="align-self:flex-start">${this.link('/about','Meet the artist →',TEXT_LINK)}</span>
       </div>
     </section>`;
@@ -540,7 +540,7 @@ class App extends React.Component {
           <div style="display:flex;flex-direction:column;gap:12px">
             <button onClick=${toEnquire} className="hov-dark" style="padding:20px;border:none;background:${INK};color:${PAPER};cursor:pointer;font-size:12px;letter-spacing:.32em;text-transform:uppercase">${custom?'Enquire about my size':'Enquire about this piece'}</button>
             <button onClick=${()=>this.setState(s=>({saved:{...s.saved,[p.slug]:!s.saved[p.slug]}}))} style="padding:18px;border:1px solid ${INK};background:transparent;color:${INK};cursor:pointer;font-size:12px;letter-spacing:.32em;text-transform:uppercase">${st.saved[p.slug]?'Saved ✓':'Save for later'}</button>
-            <p style="margin:6px 0 0;font-size:13px;line-height:1.6;color:#7A7067">${custom?'Custom sizes are made to order and crated once dry.':'One of one. Crated and shipped in 5–7 days; international on request.'}</p>
+            <p style="margin:6px 0 0;font-size:13px;line-height:1.6;color:#7A7067">${custom?'Custom sizes are made to order: about one to two weeks depending on size, as every layer dries before the next, then crated.':'One of one. Crated and shipped in 5–7 days; international on request.'}</p>
           </div>
         </div>
       </div>
