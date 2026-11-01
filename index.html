@@ -69,7 +69,7 @@ function parseRoute() {
 }
 
 // Home hero pieces, in slot order: top left, lower left, top right, lower right, bottom centre (widest).
-const HERO_SLUGS = ['sherbet-rows','lilac-dahlia-no-1','peach-wave','honey-blooms','cloud-rainbow'];
+const HERO_SLUGS = ['sunset-scales','lilac-dahlia-no-1','lilac-breeze','peach-shore','cloud-rainbow'];
 
 // ───────── Decorative procedural textures (About page process steps only) ─────────
 // Not catalogue pieces: they illustrate a making step where no photo exists yet.
@@ -300,13 +300,13 @@ class App extends React.Component {
       <h2 style="margin:0;font-family:'Instrument Serif',serif;font-weight:400;font-size:clamp(40px,5vw,72px);line-height:1;text-align:center;max-width:820px">A print is flat. <span style="font-style:italic">This is sculpted.</span></h2>
       <div ref=${el=>{this.cmpEl=el;}} onPointerDown=${e=>{ this.cmpDrag=true; e.currentTarget.setPointerCapture(e.pointerId); setC(e); }} onPointerMove=${e=>{ if(this.cmpDrag) setC(e); }} onPointerUp=${()=>{ this.cmpDrag=false; }}
         style="position:relative;width:min(1080px,100%);aspect-ratio:${m?'4 / 5':'16 / 10'};overflow:hidden;cursor:ew-resize;touch-action:none;box-shadow:0 30px 60px -30px rgba(70,50,30,.35);user-select:none">
-        <img src="/images/home/compare-flat.webp" alt="Sunset Ridges as a flat print would show it: smooth bands of colour with no relief" draggable=${false} style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"/>
-        <img src="/images/home/compare-texture.webp" alt="Close-up of Sunset Ridges: combed ridges of texture paste in orange, coral and red" draggable=${false} style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;clip-path:inset(0 0 0 ${st.cmp}%)"/>
+        <img src="/images/home/compare-flat.webp" alt="Peach Shore as a flat print would show it: smooth bands of peach and blue with no relief" draggable=${false} style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"/>
+        <img src="/images/home/compare-texture.webp" alt="Close-up of Peach Shore: raised outlines, combed ridges and pressed dots of texture paste in peach and blue" draggable=${false} style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;clip-path:inset(0 0 0 ${st.cmp}%)"/>
         <div style="position:absolute;top:0;bottom:0;left:${st.cmp}%;width:1.5px;background:${INK};transform:translateX(-50%)">
           <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:54px;height:54px;border-radius:50%;background:${PAPER};border:1.5px solid ${INK};display:flex;align-items:center;justify-content:center;font-size:16px">⇆</div>
         </div>
         <div style="position:absolute;left:${m?12:20}px;bottom:${m?12:20}px;background:rgba(247,244,239,.92);padding:10px 14px;font-size:${m?9:11}px;letter-spacing:.28em;text-transform:uppercase">Printed canvas</div>
-        <div style="position:absolute;right:${m?12:20}px;bottom:${m?12:20}px;background:rgba(247,244,239,.92);padding:10px 14px;font-size:${m?9:11}px;letter-spacing:.28em;text-transform:uppercase">Texture art${m?'':' · Sunset Ridges'}</div>
+        <div style="position:absolute;right:${m?12:20}px;bottom:${m?12:20}px;background:rgba(247,244,239,.92);padding:10px 14px;font-size:${m?9:11}px;letter-spacing:.28em;text-transform:uppercase">Texture art${m?'':' · Peach Shore'}</div>
       </div>
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:48px;width:min(1080px,100%);margin-top:20px">
         ${why.map(([t,p])=>html`<div key=${t} style="display:flex;flex-direction:column;gap:10px">

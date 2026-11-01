@@ -121,7 +121,7 @@ window.ARTWORKS = [
     tags: ['florals', 'pop-pastels', 'calm'],
     suits: ['Bedroom', 'Living room'],
     status: 'available',
-    featured: true,
+    featured: false,
     images: {
       front: { src: '/images/art/lilac-dahlia-no-1/front.webp', w: 1600, h: 1600, alt: 'Lilac Dahlia No. 1: a round bloom of overlapping texture-paste petals fading from orchid at the edge to white at the centre' },
       room:  { src: '/images/art/lilac-dahlia-no-1/room.webp',  w: 1600, h: 1200, alt: 'Lilac Dahlia No. 1 on a navy wall above a light oak sideboard' }
@@ -147,7 +147,7 @@ window.ARTWORKS = [
     tags: ['pop-pastels', 'abstract', 'landscape', 'calm'],
     suits: ['Living room', 'Study', 'Entryway'],
     status: 'available',
-    featured: true,
+    featured: false,
     images: {
       front: { src: '/images/art/matcha-tide/front.webp', w: 1227, h: 1600, alt: 'Matcha Tide: combed matcha-green waves between cream paste, with forest-green quarter circles in two corners' },
       room:  { src: '/images/art/matcha-tide/room.webp',  w: 1600, h: 1200, alt: 'Matcha Tide on a terracotta wall above a light oak sideboard' }
@@ -225,7 +225,7 @@ window.ARTWORKS = [
     tags: ['pop-pastels', 'seascape', 'geometric', 'joyful'],
     suits: ['Living room', 'Bedroom', 'Entryway'],
     status: 'available',
-    featured: true,
+    featured: false,
     images: {
       front: { src: '/images/art/sorbet-shells/front.webp', w: 1227, h: 1600, alt: 'Sorbet Shells: diagonal rows of ribbed shell shapes in lemon, peach, sage and lilac' },
       room:  { src: '/images/art/sorbet-shells/room.webp',  w: 1600, h: 1200, alt: 'Sorbet Shells on a lilac wall above a light oak sideboard' }
@@ -436,6 +436,32 @@ window.ARTWORKS = [
     images: {
       front: { src: '/images/art/dawn-garden/front.webp', w: 1200, h: 1600, alt: 'Dawn Garden: outlined blush flowers and cream petals over a lilac to pink to lemon ground' },
       room:  { src: '/images/art/dawn-garden/room.webp',  w: 1600, h: 1200, alt: 'Dawn Garden on a navy wall above a light oak sideboard' }
+    }
+  },
+  {
+    slug: 'sunset-scales',
+    title: 'Sunset Scales',
+    year: 2026,
+    concept: 'Hundreds of rounded scales, each pressed and lifted with the knife, run in rows from blush and coral through red, orange and yellow down to sea green and teal at the base. The colours swirl into one another like a sky turning over the water.',
+    holds: 'The few minutes when the sun goes down over the sea and every colour shows up at once.',
+    size: { w: 40, h: 50 },
+    depth: '',
+    medium: 'Acrylic colour mixed into texture paste, on canvas',
+    shape: 'portrait',
+    family: 'warm',
+    palette: [
+      { name: 'papaya', hex: '#EF8B6D' },
+      { name: 'tangerine', hex: '#FA8E3B' },
+      { name: 'coral', hex: '#E76156' },
+      { name: 'teal', hex: '#41656D' }
+    ],
+    tags: ['pop-pastels', 'abstract', 'seascape', 'joyful'],
+    suits: ['Living room', 'Dining', 'Entryway'],
+    status: 'available',
+    featured: true,
+    images: {
+      front: { src: '/images/art/sunset-scales/front.webp', w: 1272, h: 1600, alt: 'Sunset Scales: rows of raised knife-pressed scales shading from coral, red and orange to sea green and teal' },
+      room:  { src: '/images/art/sunset-scales/room.webp',  w: 1600, h: 1200, alt: 'Sunset Scales on a navy wall above a light oak sideboard' }
     }
   },
   // ── The Bloom Room ──
@@ -855,6 +881,32 @@ window.ARTWORKS = [
       room:  { src: '/images/art/rosewater-stars/room.webp',  w: 1600, h: 1200, alt: 'Rosewater Stars on a lilac wall above a light oak sideboard' }
     }
   },
+  {
+    slug: 'lilac-breeze',
+    title: 'Lilac Breeze',
+    year: 2026,
+    concept: 'A painted ground that fades from soft pink at the top to lilac at the base, with a border of bare white canvas around it. Dozens of small petals in lemon, pink and lilac are pressed and dragged with the tip of the knife, all drifting the same way across the canvas.',
+    holds: 'The hour when a warm breeze carries petals across the garden and nothing needs doing.',
+    size: { w: 25, h: 30 },
+    depth: '',
+    medium: 'Acrylic colour mixed into texture paste, over a painted acrylic ground, on canvas',
+    shape: 'portrait',
+    family: 'cool',
+    palette: [
+      { name: 'blossom', hex: '#E8BED6' },
+      { name: 'lilac', hex: '#A289CF' },
+      { name: 'lemon', hex: '#F4EB87' },
+      { name: 'milk', hex: '#F8F4F5' }
+    ],
+    tags: ['florals', 'abstract', 'calm'],
+    suits: ['Bedroom', 'Living room'],
+    status: 'available',
+    featured: true,
+    images: {
+      front: { src: '/images/art/lilac-breeze/front.webp', w: 1329, h: 1600, alt: 'Lilac Breeze: lemon, pink and lilac petals of texture paste drifting across a pink to lilac ground' },
+      room:  { src: '/images/art/lilac-breeze/room.webp',  w: 1600, h: 1200, alt: 'Lilac Breeze on a cream wall above a light oak sideboard' }
+    }
+  },
   // ── The Clay Room ──
   {
     slug: 'latte-brickwork',
@@ -1088,6 +1140,32 @@ window.ARTWORKS = [
     images: {
       front: { src: '/images/art/lilac-meadow/front.webp', w: 1600, h: 1600, alt: 'Lilac Meadow: pink textured flowers on tall green stems against a lilac sky and sage ground' },
       room:  { src: '/images/art/lilac-meadow/room.webp',  w: 1600, h: 1200, alt: 'Lilac Meadow on a cream wall above a light oak sideboard' }
+    }
+  },
+  {
+    slug: 'peach-shore',
+    title: 'Peach Shore',
+    year: 2026,
+    concept: 'Wavy bands of peach and blue, from pale sky down to deep cobalt, each outlined in a raised line of paste. Inside the bands the paste is combed into fine upright ridges or pressed into rows of small dots with the tip of the knife.',
+    holds: 'A long walk along the shore, where sand and water take turns with every wave.',
+    size: { w: 40, h: 50 },
+    depth: '',
+    medium: 'Acrylic colour mixed into texture paste, on canvas',
+    shape: 'portrait',
+    family: 'cool',
+    palette: [
+      { name: 'peach', hex: '#E1C2A4' },
+      { name: 'sand', hex: '#CEA885' },
+      { name: 'sky', hex: '#889BB0' },
+      { name: 'cobalt', hex: '#031F73' }
+    ],
+    tags: ['seascape', 'abstract', 'calm'],
+    suits: ['Living room', 'Bedroom', 'Entryway'],
+    status: 'available',
+    featured: true,
+    images: {
+      front: { src: '/images/art/peach-shore/front.webp', w: 1272, h: 1600, alt: 'Peach Shore: wavy bands of peach and blue paste, combed into ridges and pressed into dots, deepening to cobalt' },
+      room:  { src: '/images/art/peach-shore/room.webp',  w: 1600, h: 1200, alt: 'Peach Shore on a sage-green wall above a pale ash sideboard' }
     }
   }
 ];
