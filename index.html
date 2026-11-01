@@ -156,6 +156,11 @@ function photo(p, o = {}) {
     h('img',{src,alt:img.alt||`${p.title}, texture art by ${ARTIST}`,loading:o.eager?'eager':'lazy',decoding:'async',draggable:false,style:{display:'block',width:'100%',height:'100%',objectFit:'cover'}}));
 }
 
+// The artist's portrait (studio, palette knives in hand), cropped to 4:5 from the top so her face stays in frame.
+const portrait = basis => html`<div style="flex:0 1 ${basis};aspect-ratio:4 / 5;overflow:hidden;border-radius:2px;box-shadow:0 30px 60px -30px rgba(70,50,30,.35);background:#E9E1D5">
+  <img src="/images/artist/portrait.webp" alt="Priyanka Meena in her studio, smiling and holding two palette knives loaded with sage and white texture paste" loading="lazy" decoding="async" style="display:block;width:100%;height:100%;object-fit:cover;object-position:50% 30%"/>
+</div>`;
+
 const eyebrow = (t, extra='') => html`<div style="border-top:1.5px solid ${INK};padding-top:12px;font-size:11px;letter-spacing:.42em;text-transform:uppercase;${extra}">${t}</div>`;
 const roundBtn = (onClick, label, size=48) => html`<button onClick=${onClick} aria-label=${label==='←'?'Previous':'Next'} style="flex:none;width:${size}px;height:${size}px;border-radius:50%;border:1px solid ${INK};background:transparent;cursor:pointer;font-size:16px;color:${INK}">${label}</button>`;
 const chipBtn = (c, inner) => html`<button onClick=${c.onClick} style="display:flex;align-items:center;gap:10px;padding:${c.pad||'8px 16px'};border-radius:999px;border:1px solid ${c.bd};background:${c.bg};color:${INK};cursor:pointer;font-size:13px;letter-spacing:.06em">${inner||c.label}</button>`;
@@ -321,9 +326,7 @@ class App extends React.Component {
     </section>`}
 
     <section data-screen-label="01d Artist" style="${SECT};padding-top:100px;padding-bottom:100px;background:#F0EBE3;display:flex;flex-wrap:wrap;gap:64px;align-items:center;justify-content:center">
-      <div style="flex:0 1 380px;aspect-ratio:4 / 5;background:repeating-linear-gradient(135deg,#E6DED2 0 10px,#EDE6DC 10px 20px);display:flex;align-items:flex-end;padding:16px;box-sizing:border-box">
-        <span style="font-family:ui-monospace,Menlo,monospace;font-size:11px;color:#7A7067">portrait · at the studio table</span>
-      </div>
+      ${portrait('380px')}
       <div style="flex:1 1 300px;max-width:560px;display:flex;flex-direction:column;gap:26px">
         <div style="font-size:11px;letter-spacing:.42em;text-transform:uppercase;color:#7A7067">From the studio</div>
         <p style="margin:0;font-family:'Instrument Serif',serif;font-size:clamp(32px,3.4vw,48px);line-height:1.12">“I want people to reach out and touch the wall before they read the label.”</p>
@@ -589,9 +592,7 @@ class App extends React.Component {
         <p style="margin:0;font-size:17px;line-height:1.75;color:#4A433C;text-wrap:pretty">Cozy Texture Art began with a simple wish: walls that feel as warm as a favourite sweater. Each piece is sculpted by hand from texture paste, built up in layers, then painted, so the surface catches the light differently every hour of the day.</p>
         <p style="margin:0;font-size:17px;line-height:1.75;color:#4A433C;text-wrap:pretty">The colours stay soft on purpose. Pastels keep your eye on the surface: a strong red would shout over the texture, while a pale apricot lets you see every knife mark and ridge.</p>
       </div>
-      <div style="flex:0 1 440px;aspect-ratio:4 / 5;background:repeating-linear-gradient(135deg,#E6DED2 0 10px,#EDE6DC 10px 20px);display:flex;align-items:flex-end;padding:16px;box-sizing:border-box">
-        <span style="font-family:ui-monospace,Menlo,monospace;font-size:11px;color:#7A7067">portrait · artist with palette knife</span>
-      </div>
+      ${portrait('440px')}
     </section>
 
     <section data-screen-label="04b Process" style="${SECT};padding-top:60px;padding-bottom:100px;display:flex;flex-direction:column;align-items:center;gap:56px">

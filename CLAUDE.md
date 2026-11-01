@@ -69,7 +69,7 @@ The user sends **one raw photo per piece** (a phone shot, maybe angled, with wal
 - **Creator note** replaces the "studio visits by appointment" block: a mother and designer, exploring her creative side.
 - **Socials:** Instagram and email only. No Pinterest, no YouTube. Instagram is @cozytextureart (https://www.instagram.com/cozytextureart/). In the site, both links are still `#` placeholders.
 - **Footer:** "Hand-built, layer by layer · © year", with no city.
-- **Portraits** are still striped placeholders. Prices are hidden site-wide (the §10 price format is unused).
+- **Portrait:** `images/artist/portrait.webp`, Priyanka in her studio holding two palette knives (user, 2026-11-01), used by `portrait()` in the home creator block and on About. Strip metadata when replacing it. Prices are hidden site-wide (the §10 price format is unused).
 - **Voice:** the reference writes in the artist's first person ("Hi, I'm Ira."). The site currently uses a warm brand/third-person voice. The creator is now known (Priyanka Meena, see **Owner**), but switching the site copy to her first person is her call: ask before rewriting it.
 
 ---
