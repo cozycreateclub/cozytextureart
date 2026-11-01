@@ -168,7 +168,7 @@ function photo(p, o = {}) {
 }
 
 // The artist's portraits, cropped to 4:5 from the top so her face stays in frame.
-// Home uses the studio shot (palette knives in hand); About uses the one on the swing.
+// Home and About both use the one on the swing; the studio shot (palette knives in hand) is kept as a spare.
 const PORTRAITS = {
   studio: {src:'/images/artist/portrait.webp', alt:'Priyanka Meena in her studio, smiling and holding two palette knives loaded with sage and white texture paste'},
   about: {src:'/images/artist/portrait-about.webp', alt:'Priyanka Meena smiling on a blue cushioned swing, in a white shirt and sage trousers'},
@@ -343,7 +343,7 @@ class App extends React.Component {
     </section>`}
 
     <section data-screen-label="01d Artist" style="${SECT};padding-top:100px;padding-bottom:100px;background:#F0EBE3;display:flex;flex-wrap:wrap;gap:64px;align-items:center;justify-content:center">
-      ${portrait('380px')}
+      ${portrait('380px','about')}
       <div style="flex:1 1 300px;max-width:560px;display:flex;flex-direction:column;gap:26px">
         <div style="font-size:11px;letter-spacing:.42em;text-transform:uppercase;color:#7A7067">From the studio</div>
         <p style="margin:0;font-family:'Instrument Serif',serif;font-size:clamp(32px,3.4vw,48px);line-height:1.12">“I want people to reach out and touch the wall before they read the label.”</p>
