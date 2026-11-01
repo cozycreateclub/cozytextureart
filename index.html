@@ -39,7 +39,15 @@ input,textarea,button{font-family:inherit}
 'use strict';
 const ARTIST = 'Cozy Texture Art';
 const STUDIO_EMAIL = 'cozytextureart@gmail.com';
-// The site has no server: enquiries open the visitor's email app with the note already written.
+// Enquiries are delivered by FormSubmit (formsubmit.co): a POST to its AJAX endpoint emails STUDIO_EMAIL.
+// The very first submission makes FormSubmit send an "Activate" email to that address; nothing is delivered until it's clicked.
+const FORM_ENDPOINT = `https://formsubmit.co/ajax/${STUDIO_EMAIL}`;
+async function sendEnquiry(fields) {
+  const r = await fetch(FORM_ENDPOINT, {method:'POST', headers:{'Content-Type':'application/json', Accept:'application/json'}, body:JSON.stringify(fields)});
+  const j = await r.json().catch(()=>({}));
+  if (!r.ok || String(j.success) !== 'true') throw new Error(j.message || `HTTP ${r.status}`);
+}
+// Plain email link, used for the footer/About and as the fallback when sending fails.
 const mailto = (subject, body='') => `mailto:${STUDIO_EMAIL}?subject=${encodeURIComponent(subject)}${body?`&body=${encodeURIComponent(body)}`:''}`;
 const INK = '#2B2622', PAPER = '#F7F4EF';
 const PIECES = window.ARTWORKS || [];
@@ -172,7 +180,7 @@ const TEXT_LINK = `cursor:pointer;font-size:12px;letter-spacing:.36em;text-trans
 
 class App extends React.Component {
   state = { ...parseRoute(), lx:.5, ly:.45, cmp:50, fFam:null, fShape:null, fRoom:null, sIdx:0,
-    view:'front', zx:50, zy:50, saved:{}, sizeMode:'original', cw:'', ch:'', interest:'Buy this piece', fName:'', fEmail:'', fMsg:'', sent:false,
+    view:'front', zx:50, zy:50, saved:{}, sizeMode:'original', cw:'', ch:'', interest:'Buy this piece', fName:'', fEmail:'', fMsg:'', sent:false, sending:false, sendErr:'',
     vw:window.innerWidth, vh:window.innerHeight };
 
   componentDidMount() {
@@ -207,7 +215,7 @@ class App extends React.Component {
   }
 
   applyRoute() {
-    this.setState({ slug:null, room:null, q:'', fTag:null, fFam:null, fShape:null, fRoom:null, ...parseRoute(), sIdx:0, view:'front', sent:false, fMsg:'', sizeMode:'original', cw:'', ch:'', interest:'Buy this piece' });
+    this.setState({ slug:null, room:null, q:'', fTag:null, fFam:null, fShape:null, fRoom:null, ...parseRoute(), sIdx:0, view:'front', sent:false, sending:false, sendErr:'', fMsg:'', sizeMode:'original', cw:'', ch:'', interest:'Buy this piece' });
   }
   go(to) { if (to !== location.pathname + location.search) history.pushState(null, '', to); this.applyRoute(); window.scrollTo(0,0); }
   // Real links (so pieces can be opened in a new tab and shared), routed in-page on a plain click.
@@ -569,15 +577,24 @@ class App extends React.Component {
           ${field('Email',html`<input type="email" value=${st.fEmail} onChange=${e=>this.setState({fEmail:e.target.value})} autoComplete="email" style=${FIELD} />`)}
           ${field('Message',html`<textarea value=${fMsg} onChange=${e=>this.setState({fMsg:e.target.value})} rows="4" style=${FIELD+';line-height:1.5;resize:vertical'}></textarea>`)}
           <button onClick=${()=>{
+            if (st.sending) return;
+            const email=(st.fEmail||'').trim();
+            if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { this.setState({sendErr:'Please add your email so a reply can reach you.'}); return; }
+            if (!(fMsg||'').trim() && interest!=='Buy this piece' && !(custom&&customSize)) { this.setState({sendErr:'Please write a line or two in the message.'}); return; }
             const subject = `${interest}: ${p.title}${custom&&customSize?` at ${customSize}`:''}`;
-            const body = `${fMsg||''}\n\n—\nPiece: ${p.title} (${location.origin}/art/${p.slug})\nAbout: ${interest}${custom&&customSize?`, ${customSize}`:''}\nName: ${st.fName||''}\nEmail: ${st.fEmail||''}`;
-            window.location.href = mailto(subject, body);
-            this.setState({sent:true});
-          }} className="hov-dark" style="align-self:flex-start;padding:18px 34px;border:none;background:${INK};color:${PAPER};cursor:pointer;font-size:12px;letter-spacing:.32em;text-transform:uppercase">Send message</button>
+            this.setState({sending:true, sendErr:''});
+            sendEnquiry({ _subject:subject, _template:'table', _captcha:'false', _replyto:email,
+              name:(st.fName||'').trim()||'(no name given)', email, about:interest+(custom&&customSize?`, ${customSize}`:''),
+              piece:`${p.title} · ${location.origin}/art/${p.slug}`, message:(fMsg||'').trim()||'(no message)' })
+              .then(()=>this.setState({sending:false, sent:true}))
+              .catch(()=>this.setState({sending:false, sendErr:'fail'}));
+          }} disabled=${st.sending} className="hov-dark" style="align-self:flex-start;padding:18px 34px;border:none;background:${INK};color:${PAPER};cursor:${st.sending?'wait':'pointer'};opacity:${st.sending?.6:1};font-size:12px;letter-spacing:.32em;text-transform:uppercase">${st.sending?'Sending…':'Send message'}</button>
+          ${st.sendErr && html`<p role="alert" style="margin:0;font-size:14px;line-height:1.6;color:#8E5A55">${st.sendErr==='fail'
+            ? html`That didn't go through. Please try again, or write to <a href=${mailto(`Enquiry: ${p.title}`, `${fMsg||''}\n\n—\n${p.title}: ${location.origin}/art/${p.slug}`)} style="color:inherit;border-bottom:1px solid currentColor">${STUDIO_EMAIL}</a>.`
+            : st.sendErr}</p>`}
         </div>` : html`<div style="display:flex;flex-direction:column;gap:16px;padding-top:40px">
           <div style="font-family:'Instrument Serif',serif;font-size:44px;line-height:1.05">Thank you, ${st.fName.split(' ')[0]||'friend'}.</div>
-          <p style="margin:0;font-size:16px;line-height:1.7;color:#5A5149">Your note about ${p.title}${custom&&customSize?` at ${customSize}`:''} is ready in your email app. Press send there, and a reply will reach ${st.fEmail||'you'} within a day, often with a short video of the piece in morning light.</p>
-          <p style="margin:0;font-size:14px;line-height:1.6;color:#7A7067">Nothing opened? Write to <a href=${mailto(`Enquiry: ${p.title}`)} style="color:#8E5A55;border-bottom:1px solid currentColor">${STUDIO_EMAIL}</a>.</p>
+          <p style="margin:0;font-size:16px;line-height:1.7;color:#5A5149">Your note about ${p.title}${custom&&customSize?` at ${customSize}`:''} is in. A reply will reach ${st.fEmail||'you'} within a day, often with a short video of the piece in morning light.</p>
         </div>`}
       </div>
     </section>
