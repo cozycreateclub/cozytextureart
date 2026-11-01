@@ -68,8 +68,11 @@ function parseRoute() {
   return {screen:'notfound'};
 }
 
-// ───────── Decorative procedural textures (texture-vs-print slider, process steps, empty hero) ─────────
-// Not catalogue pieces: they illustrate relief where no photo can.
+// Home hero pieces, in slot order: top left, lower left, top right, lower right, bottom centre (widest).
+const HERO_SLUGS = ['sherbet-rows','lilac-dahlia-no-1','peach-wave','honey-blooms','cloud-rainbow'];
+
+// ───────── Decorative procedural textures (About page process steps only) ─────────
+// Not catalogue pieces: they illustrate a making step where no photo exists yet.
 const C = {cream:'#F6EFE3',butter:'#F3E3B0',peach:'#F5D6C6',rose:'#E6B8BF',lavender:'#D8CDE9',lilac:'#C8BEDF',powder:'#C6D8E8',mist:'#DDE7EC',sage:'#C9D8C1',pistachio:'#D9E4BF',mint:'#CFE6DA',sand:'#E8DCCB',oat:'#EDE3D2',clay:'#E4C7B1',terracotta:'#DDB29A',bubblegum:'#F4B9CF',aqua:'#AFE1DB',lemon:'#F5E69B'};
 const DIM = {rect:[400,500],square:[440,440],round:[440,440],arch:[400,540],land:[520,390]};
 const RAD = {rect:'2px',square:'2px',round:'50%',arch:'50% 50% 2px 2px / 37% 37% 2px 2px',land:'2px'};
@@ -137,10 +140,6 @@ function artSvg(a, o) {
   return h('svg',{viewBox:`0 0 ${w} ${H}`,preserveAspectRatio:'xMidYMid slice',style:{display:'block',width:'100%',height:'100%'},'aria-hidden':true},
     h('defs',null,h('filter',{id,x:0,y:0,width:w,height:H,filterUnits:'userSpaceOnUse',colorInterpolationFilters:'sRGB'},...fx)),
     h('g',{filter:`url(#${id})`},...shapes(a,w,H)));
-}
-function decorBox(a, o) {
-  const [w,H] = DIM[a.shape];
-  return h('div',{style:{width:'100%',aspectRatio:`${w} / ${H}`,borderRadius:RAD[a.shape],overflow:'hidden',background:C[a.cols[0]],boxShadow:shadowFor(o.az)}}, artSvg(a,o));
 }
 
 // Soft warm shadow that falls away from the light (azimuth in degrees).
@@ -249,25 +248,23 @@ class App extends React.Component {
       ? [[5,50,30,-2,.2,.56,.7],[64,49,28,3,.78,.55,1],[38,57,24,2,.5,.64,.8],[6,77,30,-3,.2,.84,1.1],[55,81,38,1,.74,.88,.5]]
       : [[4,9,17,-2,.12,.36,.7],[10,59,13,3,.165,.75,1],[79,7,14,2,.86,.33,.8],[72,58,14.5,-3,.79,.77,1.1],[39,73,20,1,.5,.88,.5]];
     const featured = PIECES.filter(p=>p.featured).concat(PIECES.filter(p=>!p.featured));
-    // The hero always shows the drawn studio textures, never catalogue photos (user decision 2026-10-18).
-    const real = false;
-    const decor = ['plaster','bloom','arch','field','tide'];
+    // The hero shows the artist's own pieces, one per slot, mixing shapes and palettes (user decision 2026-11-01).
+    // Slot 4 (bottom centre) is the widest, so it suits a landscape piece.
+    const heroPieces = HERO_SLUGS.map(bySlug).filter(Boolean);
     const heroArts = slots.map(([l,t,w,rot,cx,cy,d],i)=>{
-      const p = real ? featured[i] : null; if (real && !p) return null;
+      const p = heroPieces[i] || featured[i]; if (!p) return null;
       const dx=(st.lx-cx)*W, dy=(st.ly-cy)*H; const dist=Math.hypot(dx,dy);
       const az=Math.atan2(dy,dx)*180/Math.PI; const el=Math.max(14,Math.min(48,52-dist/18));
       const px=(st.lx-.5)*-28*d, py=(st.ly-.45)*-20*d;
       // Keep pieces of different aspect at a similar visual area.
-      const width = p ? Math.min(w*1.35, w*Math.sqrt(aspect(p.images.front)/.8)) : w;
+      const width = Math.min(w*1.35, w*Math.sqrt(aspect(p.images.front)/.8));
       const pos=`position:absolute;left:${l}%;top:${t}%;width:${width.toFixed(1)}vw;transform:translate(${px.toFixed(1)}px,${py.toFixed(1)}px) rotate(${rot}deg);will-change:transform`;
-      if (!p) return html`<div key=${'d'+i} style=${pos}>${decorBox(DECOR[decor[i]],{uid:'h-'+i,az,el})}</div>`;
       return html`<div key=${p.slug} style=${pos}>${this.link('/art/'+p.slug,html`
         ${photo(p,{az,eager:true,small:true})}
         <div style="margin-top:${m?8:14}px;font-size:${m?8:10}px;letter-spacing:.3em;text-transform:uppercase;color:#7A7067;text-align:center">${p.title}</div>`)}</div>`;
     });
     const heroMove = e=>{ if(!this.hero) return; const r=this.hero.getBoundingClientRect(); this.tx=(e.clientX-r.left)/r.width; this.ty=(e.clientY-r.top)/r.height; this.last=performance.now(); };
 
-    const ca=DECOR.tide;
     const setC=e=>{ const r=this.cmpEl.getBoundingClientRect(); this.setState({cmp:Math.max(2,Math.min(98,(e.clientX-r.left)/r.width*100))}); };
     const FW={portrait:'78%',square:'86%',round:'80%',arch:'68%',landscape:'100%'};
     const featuredRow = featured.slice(0,4).map(p=>html`<div key=${p.slug} className="lift">${this.link('/art/'+p.slug,html`
@@ -298,13 +295,13 @@ class App extends React.Component {
       <h2 style="margin:0;font-family:'Instrument Serif',serif;font-weight:400;font-size:clamp(40px,5vw,72px);line-height:1;text-align:center;max-width:820px">A print is flat. <span style="font-style:italic">This is sculpted.</span></h2>
       <div ref=${el=>{this.cmpEl=el;}} onPointerDown=${e=>{ this.cmpDrag=true; e.currentTarget.setPointerCapture(e.pointerId); setC(e); }} onPointerMove=${e=>{ if(this.cmpDrag) setC(e); }} onPointerUp=${()=>{ this.cmpDrag=false; }}
         style="position:relative;width:min(1080px,100%);aspect-ratio:${m?'4 / 5':'16 / 10'};overflow:hidden;cursor:ew-resize;touch-action:none;box-shadow:0 30px 60px -30px rgba(70,50,30,.35);user-select:none">
-        <div style="position:absolute;inset:0">${artSvg(ca,{uid:'cf',flat:true})}</div>
-        <div style="position:absolute;inset:0;clip-path:inset(0 0 0 ${st.cmp}%)">${artSvg(ca,{uid:'ct',az:200,el:30,relief:4.5})}</div>
+        <img src="/images/home/compare-flat.webp" alt="Sunset Ridges as a flat print would show it: smooth bands of colour with no relief" draggable=${false} style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"/>
+        <img src="/images/home/compare-texture.webp" alt="Close-up of Sunset Ridges: combed ridges of texture paste in orange, coral and red" draggable=${false} style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;clip-path:inset(0 0 0 ${st.cmp}%)"/>
         <div style="position:absolute;top:0;bottom:0;left:${st.cmp}%;width:1.5px;background:${INK};transform:translateX(-50%)">
           <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:54px;height:54px;border-radius:50%;background:${PAPER};border:1.5px solid ${INK};display:flex;align-items:center;justify-content:center;font-size:16px">⇆</div>
         </div>
         <div style="position:absolute;left:${m?12:20}px;bottom:${m?12:20}px;background:rgba(247,244,239,.92);padding:10px 14px;font-size:${m?9:11}px;letter-spacing:.28em;text-transform:uppercase">Printed canvas</div>
-        <div style="position:absolute;right:${m?12:20}px;bottom:${m?12:20}px;background:rgba(247,244,239,.92);padding:10px 14px;font-size:${m?9:11}px;letter-spacing:.28em;text-transform:uppercase">Texture art${m?'':' · 4–8 mm relief'}</div>
+        <div style="position:absolute;right:${m?12:20}px;bottom:${m?12:20}px;background:rgba(247,244,239,.92);padding:10px 14px;font-size:${m?9:11}px;letter-spacing:.28em;text-transform:uppercase">Texture art${m?'':' · Sunset Ridges'}</div>
       </div>
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:48px;width:min(1080px,100%);margin-top:20px">
         ${why.map(([t,p])=>html`<div key=${t} style="display:flex;flex-direction:column;gap:10px">
