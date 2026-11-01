@@ -38,6 +38,9 @@ input,textarea,button{font-family:inherit}
 <script>
 'use strict';
 const ARTIST = 'Cozy Texture Art';
+const STUDIO_EMAIL = 'cozytextureart@gmail.com';
+// The site has no server: enquiries open the visitor's email app with the note already written.
+const mailto = (subject, body='') => `mailto:${STUDIO_EMAIL}?subject=${encodeURIComponent(subject)}${body?`&body=${encodeURIComponent(body)}`:''}`;
 const INK = '#2B2622', PAPER = '#F7F4EF';
 const PIECES = window.ARTWORKS || [];
 const TAGS = window.TAGS || {};
@@ -241,6 +244,7 @@ class App extends React.Component {
       <span style="font-family:'Instrument Serif',serif;font-style:italic;font-size:26px">${ARTIST}</span>
       <div style="display:flex;flex-wrap:wrap;gap:28px;font-size:11px;letter-spacing:.3em;text-transform:uppercase">
         <a href="https://www.instagram.com/cozytextureart/" target="_blank" rel="noopener">Instagram</a>
+        <a href=${mailto('Hello from the website')}>Email</a>
       </div>
       <span style="font-size:12px;color:#7A7067">Hand-built, layer by layer · © 2026</span>
     </footer>`;
@@ -564,10 +568,16 @@ class App extends React.Component {
           ${field('Your name',html`<input value=${st.fName} onChange=${e=>this.setState({fName:e.target.value})} autoComplete="name" style=${FIELD} />`)}
           ${field('Email',html`<input type="email" value=${st.fEmail} onChange=${e=>this.setState({fEmail:e.target.value})} autoComplete="email" style=${FIELD} />`)}
           ${field('Message',html`<textarea value=${fMsg} onChange=${e=>this.setState({fMsg:e.target.value})} rows="4" style=${FIELD+';line-height:1.5;resize:vertical'}></textarea>`)}
-          <button onClick=${()=>this.setState({sent:true})} className="hov-dark" style="align-self:flex-start;padding:18px 34px;border:none;background:${INK};color:${PAPER};cursor:pointer;font-size:12px;letter-spacing:.32em;text-transform:uppercase">Send message</button>
+          <button onClick=${()=>{
+            const subject = `${interest}: ${p.title}${custom&&customSize?` at ${customSize}`:''}`;
+            const body = `${fMsg||''}\n\n—\nPiece: ${p.title} (${location.origin}/art/${p.slug})\nAbout: ${interest}${custom&&customSize?`, ${customSize}`:''}\nName: ${st.fName||''}\nEmail: ${st.fEmail||''}`;
+            window.location.href = mailto(subject, body);
+            this.setState({sent:true});
+          }} className="hov-dark" style="align-self:flex-start;padding:18px 34px;border:none;background:${INK};color:${PAPER};cursor:pointer;font-size:12px;letter-spacing:.32em;text-transform:uppercase">Send message</button>
         </div>` : html`<div style="display:flex;flex-direction:column;gap:16px;padding-top:40px">
           <div style="font-family:'Instrument Serif',serif;font-size:44px;line-height:1.05">Thank you, ${st.fName.split(' ')[0]||'friend'}.</div>
-          <p style="margin:0;font-size:16px;line-height:1.7;color:#5A5149">Your note about ${p.title}${custom&&customSize?` at ${customSize}`:''} is in. A reply will reach ${st.fEmail||'you'} within a day, often with a short video of the piece in morning light.</p>
+          <p style="margin:0;font-size:16px;line-height:1.7;color:#5A5149">Your note about ${p.title}${custom&&customSize?` at ${customSize}`:''} is ready in your email app. Press send there, and a reply will reach ${st.fEmail||'you'} within a day, often with a short video of the piece in morning light.</p>
+          <p style="margin:0;font-size:14px;line-height:1.6;color:#7A7067">Nothing opened? Write to <a href=${mailto(`Enquiry: ${p.title}`)} style="color:#8E5A55;border-bottom:1px solid currentColor">${STUDIO_EMAIL}</a>.</p>
         </div>`}
       </div>
     </section>
@@ -613,7 +623,7 @@ class App extends React.Component {
       <p style="margin:0;font-size:16px;line-height:1.7;color:#5A5149;max-width:560px">Behind Cozy Texture Art is a mother and designer who found her way back to making things by hand. Between family life and design work, texture art became the slow, quiet corner of her day, and every piece carries a little of that calm into your home.</p>
       <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:16px 40px;font-size:12px;letter-spacing:.3em;text-transform:uppercase">
         <a href="https://www.instagram.com/cozytextureart/" target="_blank" rel="noopener" style="border-bottom:1px solid currentColor;padding-bottom:4px">Instagram · @cozytextureart</a>
-        <a href="#" style="border-bottom:1px solid currentColor;padding-bottom:4px">Email the studio</a>
+        <a href=${mailto('Hello from the website')} style="border-bottom:1px solid currentColor;padding-bottom:4px">Email · ${STUDIO_EMAIL}</a>
       </div>
     </section>`;
   }
