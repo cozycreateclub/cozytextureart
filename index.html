@@ -42,12 +42,22 @@ const STUDIO_EMAIL = 'cozytextureart@gmail.com';
 // Enquiries are delivered by FormSubmit (formsubmit.co): a POST to its AJAX endpoint emails STUDIO_EMAIL.
 // The very first submission makes FormSubmit send an "Activate" email to that address; nothing is delivered until it's clicked.
 const FORM_ENDPOINT = `https://formsubmit.co/ajax/${STUDIO_EMAIL}`;
-// FormSubmit can go down (it timed out with 522s on 2026-11-05), so give up after 15 s and let the
-// visitor send the same note from their own email app instead.
-async function sendEnquiry(fields) {
-  const r = await fetch(FORM_ENDPOINT, {method:'POST', headers:{'Content-Type':'application/json', Accept:'application/json'}, body:JSON.stringify(fields), signal:AbortSignal.timeout(15000)});
+// Web3Forms is the backup sender. Its access key is public by design (it only lets this form email the studio).
+const WEB3FORMS_KEY = '63ba8ce1-bd8d-4e8c-b5fd-595fdcd980c3';
+const postJSON = async (url, body) => {
+  const r = await fetch(url, {method:'POST', headers:{'Content-Type':'application/json', Accept:'application/json'}, body:JSON.stringify(body), signal:AbortSignal.timeout(10000)});
   const j = await r.json().catch(()=>({}));
   if (!r.ok || String(j.success) !== 'true') throw new Error(j.message || `HTTP ${r.status}`);
+};
+// FormSubmit can go down (it timed out with 522s on 2026-11-05), so each service gets 10 s: FormSubmit first,
+// then Web3Forms. If both fail the form offers the same note through the visitor's own email app.
+async function sendEnquiry(subject, replyto, fields) {
+  try {
+    await postJSON(FORM_ENDPOINT, {_subject:subject, _template:'table', _captcha:'false', _replyto:replyto, ...fields});
+  } catch (e) {
+    if (!WEB3FORMS_KEY) throw e;
+    await postJSON('https://api.web3forms.com/submit', {access_key:WEB3FORMS_KEY, subject, from_name:'Cozy Texture Art website', replyto, ...fields});
+  }
 }
 // Plain email link, used for the footer/About and as the fallback when sending fails.
 const mailto = (subject, body='') => `mailto:${STUDIO_EMAIL}?subject=${encodeURIComponent(subject)}${body?`&body=${encodeURIComponent(body)}`:''}`;
@@ -605,7 +615,7 @@ class App extends React.Component {
             if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { this.setState({sendErr:'Please add your email so a reply can reach you.'}); return; }
             if (!(fMsg||'').trim() && interest!=='Buy this piece' && !(custom&&customSize)) { this.setState({sendErr:'Please write a line or two in the message.'}); return; }
             this.setState({sending:true, sendErr:''});
-            sendEnquiry({ _subject:enqSubject, _template:'table', _captcha:'false', _replyto:email, ...enqFields(email) })
+            sendEnquiry(enqSubject, email, enqFields(email))
               .then(()=>this.setState({sending:false, sent:true}))
               .catch(()=>this.setState({sending:false, sendErr:'fail'}));
           }} disabled=${st.sending} className="hov-dark" style="align-self:flex-start;padding:18px 34px;border:none;background:${INK};color:${PAPER};cursor:${st.sending?'wait':'pointer'};opacity:${st.sending?.6:1};font-size:12px;letter-spacing:.32em;text-transform:uppercase">${st.sending?'Sending…':'Send message'}</button>
