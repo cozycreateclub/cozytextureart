@@ -973,6 +973,34 @@ window.ARTWORKS = [
       room:  { src: '/images/art/lilac-breeze/room.webp',  w: 1600, h: 1200, alt: 'Lilac Breeze on a cream wall above a light oak sideboard' }
     }
   },
+  {
+    slug: 'mint-garden',
+    title: 'Mint Garden',
+    year: 2026,
+    price: 4700,
+    concept: 'A round canvas painted mint, with a garden of pink daisies growing up from the lower edge. Each petal is a single pressed stroke of paste, among sprigs of lilac lavender, butter-yellow and mint leaves, and small clusters of violet dots.',
+    holds: 'A little garden that blooms all year, framed like a window onto spring.',
+    size: { d: 20 },
+    depth: '',
+    medium: 'Acrylic colour mixed into texture paste, over a painted acrylic ground, on stretched canvas',
+    canvas: 'stretched',
+    shape: 'round',
+    family: 'green',
+    palette: [
+      { name: 'mint', hex: '#7DAA91' },
+      { name: 'blush', hex: '#D7BBC5' },
+      { name: 'lilac', hex: '#6D638F' },
+      { name: 'butter', hex: '#E4EC86' }
+    ],
+    tags: ['florals', 'botanical', 'joyful'],
+    suits: ['Bedroom', 'Kids room', 'Entryway'],
+    status: 'available',
+    featured: false,
+    images: {
+      front: { src: '/images/art/mint-garden/front.webp', w: 1600, h: 1600, alt: 'Mint Garden: a round mint canvas with raised pink daisies, lilac lavender sprigs and yellow and mint leaves rising from the lower edge' },
+      room:  { src: '/images/art/mint-garden/room.webp',  w: 1600, h: 1200, alt: 'Mint Garden on a peach wall above a powder-blue sideboard' }
+    }
+  },
   // ── The Clay Room ──
   {
     slug: 'latte-brickwork',
