@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // Check data/artworks.js: unique slugs, known tags/suits/families/shapes, sizes, images on disk,
-// no price or relief fields, and pop-pastels only on pieces meant for Signature Pop Colours.
+// a whole-rupee price on unsold pieces, no relief fields, and pop-pastels only on pieces meant for Signature Pop Colours.
 // Prints each art room's piece count. Usage: node tools/validate.js
 const fs = require('fs'), path = require('path'), vm = require('vm');
 
@@ -28,13 +28,14 @@ for (const a of ARTWORKS) {
   if (!SHAPES.includes(a.shape)) err(s, `unknown shape "${a.shape}"`);
   if (!STATUS.includes(a.status)) err(s, `unknown status "${a.status}"`);
   if (!a.size || !(a.size.d || (a.size.w && a.size.h))) err(s, 'size needs {w,h} or {d}');
+  if (a.status !== 'sold' && !(Number.isInteger(a.price) && a.price > 0)) err(s, 'price must be a whole number of rupees');
   if (!a.concept || !a.holds) err(s, 'concept and holds are required');
   if (!a.palette || a.palette.length < 3 || a.palette.length > 4) err(s, 'palette needs 3–4 swatches');
   for (const p of a.palette || []) {
     if (!/^[a-z]+$/.test(p.name)) err(s, `swatch name "${p.name}" should be one lower-case word`);
     if (!/^#[0-9A-Fa-f]{6}$/.test(p.hex)) err(s, `swatch hex "${p.hex}" is not #RRGGBB`);
   }
-  for (const f of ['price', 'relief', 'mm']) if (f in a) err(s, `"${f}" field is not used on this site`);
+  for (const f of ['relief', 'mm']) if (f in a) err(s, `"${f}" field is not used on this site`);
   for (const k of ['front', 'room']) {
     const im = a.images && a.images[k];
     if (!im) { err(s, `missing images.${k}`); continue; }
