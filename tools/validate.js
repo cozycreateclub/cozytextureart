@@ -29,6 +29,8 @@ for (const a of ARTWORKS) {
   if (!STATUS.includes(a.status)) err(s, `unknown status "${a.status}"`);
   if (!a.size || !(a.size.d || (a.size.w && a.size.h))) err(s, 'size needs {w,h} or {d}');
   if (a.status !== 'sold' && !(Number.isInteger(a.price) && a.price > 0)) err(s, 'price must be a whole number of rupees');
+  if (!['stretched', 'board'].includes(a.canvas)) err(s, 'canvas must be "stretched" or "board"');
+  else if (!(a.medium || '').endsWith(a.canvas === 'board' ? 'on canvas board' : 'on stretched canvas')) err(s, 'medium does not match canvas');
   if (!a.concept || !a.holds) err(s, 'concept and holds are required');
   if (!a.palette || a.palette.length < 3 || a.palette.length > 4) err(s, 'palette needs 3–4 swatches');
   for (const p of a.palette || []) {
