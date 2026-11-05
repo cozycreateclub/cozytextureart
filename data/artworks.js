@@ -1210,5 +1210,32 @@ window.ARTWORKS = [
       front: { src: '/images/art/peach-shore/front.webp', w: 1272, h: 1600, alt: 'Peach Shore: wavy bands of peach and blue paste, combed into ridges and pressed into dots, deepening to cobalt' },
       room:  { src: '/images/art/peach-shore/room.webp',  w: 1600, h: 1200, alt: 'Peach Shore on a sage-green wall above a pale ash sideboard' }
     }
+  },
+  {
+    slug: 'tangerine-tide',
+    title: 'Tangerine Tide',
+    year: 2026,
+    price: 5800,
+    concept: 'Four panels of sky and sea in blue, white and a little mint, each laid down in long overlapping knife strokes like small waves. Strips of bare canvas run between them in a cross, and a raised tangerine sun sits where they meet.',
+    holds: 'The moment the sun touches the water. A small, bright pause in an ordinary day.',
+    size: { w: 25, h: 25 },
+    depth: '',
+    medium: 'Acrylic colour mixed into texture paste, on canvas',
+    shape: 'square',
+    family: 'cool',
+    palette: [
+      { name: 'canvas', hex: '#F0F1EE' },
+      { name: 'sky', hex: '#97DBF8' },
+      { name: 'ocean', hex: '#5FB3EC' },
+      { name: 'tangerine', hex: '#FC4C1D' }
+    ],
+    tags: ['seascape', 'geometric', 'minimal', 'calm'],
+    suits: ['Living room', 'Bedroom', 'Study'],
+    status: 'available',
+    featured: false,
+    images: {
+      front: { src: '/images/art/tangerine-tide/front.webp', w: 1415, h: 1415, alt: 'Tangerine Tide: four panels of blue and white knife-stroked paste divided by a cross of bare canvas, with a raised tangerine sun where the lines meet' },
+      room:  { src: '/images/art/tangerine-tide/room.webp',  w: 1600, h: 1200, alt: 'Tangerine Tide on a terracotta wall above a light oak sideboard' }
+    }
   }
 ];
