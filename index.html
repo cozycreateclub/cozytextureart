@@ -42,8 +42,10 @@ const STUDIO_EMAIL = 'cozytextureart@gmail.com';
 // Enquiries are delivered by FormSubmit (formsubmit.co): a POST to its AJAX endpoint emails STUDIO_EMAIL.
 // The very first submission makes FormSubmit send an "Activate" email to that address; nothing is delivered until it's clicked.
 const FORM_ENDPOINT = `https://formsubmit.co/ajax/${STUDIO_EMAIL}`;
+// FormSubmit can go down (it timed out with 522s on 2026-11-05), so give up after 15 s and let the
+// visitor send the same note from their own email app instead.
 async function sendEnquiry(fields) {
-  const r = await fetch(FORM_ENDPOINT, {method:'POST', headers:{'Content-Type':'application/json', Accept:'application/json'}, body:JSON.stringify(fields)});
+  const r = await fetch(FORM_ENDPOINT, {method:'POST', headers:{'Content-Type':'application/json', Accept:'application/json'}, body:JSON.stringify(fields), signal:AbortSignal.timeout(15000)});
   const j = await r.json().catch(()=>({}));
   if (!r.ok || String(j.success) !== 'true') throw new Error(j.message || `HTTP ${r.status}`);
 }
@@ -494,6 +496,11 @@ class App extends React.Component {
     const interests=sold?['A custom size','Ask a question']:['Buy this piece','A custom size','Ask a question'];
     const interest=custom?'A custom size':interests.includes(st.interest)?st.interest:interests[0];
     const onInterest=l=>l==='A custom size'?setCustom(true):l==='Buy this piece'?setCustom(false):this.setState({interest:l});
+    // One enquiry, two ways out: FormSubmit, or the visitor's own email app if that fails.
+    const enqSubject=`${interest}: ${p.title}${custom&&customSize?` at ${customSize}`:''}`;
+    const enqFields=email=>({ name:(st.fName||'').trim()||'(no name given)', email, about:interest+(custom&&customSize?`, ${customSize}`:''),
+      piece:`${p.title} · ${location.origin}/art/${p.slug}`, price:priceOf(p)||'n/a', message:(fMsg||'').trim()||'(no message)' });
+    const enqBody=email=>{ const f=enqFields(email); return `${f.message}\n\n—\nName: ${f.name}\nAbout: ${f.about}\nPiece: ${f.piece}\nPrice: ${f.price}`; };
     const sizeOption=(on,disabled,title,sub,onPick)=>html`<label style="display:flex;align-items:flex-start;gap:14px;padding:16px 18px;border:1px solid ${on?INK:'rgba(43,38,34,.25)'};background:${on?'#E9E1D5':'transparent'};cursor:${disabled?'default':'pointer'};opacity:${disabled?.5:1}">
       <input type="radio" name="size-choice" checked=${on} disabled=${disabled} onChange=${onPick} style="position:absolute;opacity:0;width:1px;height:1px;margin:0" />
       <span aria-hidden="true" style="flex:none;margin-top:2px;width:18px;height:18px;border-radius:50%;border:1px solid ${INK};display:flex;align-items:center;justify-content:center">${on && html`<span style="width:10px;height:10px;border-radius:50%;background:${INK}"></span>`}</span>
@@ -597,17 +604,17 @@ class App extends React.Component {
             const email=(st.fEmail||'').trim();
             if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { this.setState({sendErr:'Please add your email so a reply can reach you.'}); return; }
             if (!(fMsg||'').trim() && interest!=='Buy this piece' && !(custom&&customSize)) { this.setState({sendErr:'Please write a line or two in the message.'}); return; }
-            const subject = `${interest}: ${p.title}${custom&&customSize?` at ${customSize}`:''}`;
             this.setState({sending:true, sendErr:''});
-            sendEnquiry({ _subject:subject, _template:'table', _captcha:'false', _replyto:email,
-              name:(st.fName||'').trim()||'(no name given)', email, about:interest+(custom&&customSize?`, ${customSize}`:''),
-              piece:`${p.title} · ${location.origin}/art/${p.slug}`, price:priceOf(p)||'n/a', message:(fMsg||'').trim()||'(no message)' })
+            sendEnquiry({ _subject:enqSubject, _template:'table', _captcha:'false', _replyto:email, ...enqFields(email) })
               .then(()=>this.setState({sending:false, sent:true}))
               .catch(()=>this.setState({sending:false, sendErr:'fail'}));
           }} disabled=${st.sending} className="hov-dark" style="align-self:flex-start;padding:18px 34px;border:none;background:${INK};color:${PAPER};cursor:${st.sending?'wait':'pointer'};opacity:${st.sending?.6:1};font-size:12px;letter-spacing:.32em;text-transform:uppercase">${st.sending?'Sending…':'Send message'}</button>
-          ${st.sendErr && html`<p role="alert" style="margin:0;font-size:14px;line-height:1.6;color:#8E5A55">${st.sendErr==='fail'
-            ? html`That didn't go through. Please try again, or write to <a href=${mailto(`Enquiry: ${p.title}`, `${fMsg||''}\n\n—\n${p.title}: ${location.origin}/art/${p.slug}`)} style="color:inherit;border-bottom:1px solid currentColor">${STUDIO_EMAIL}</a>.`
-            : st.sendErr}</p>`}
+          ${st.sendErr==='fail' ? html`<div role="alert" style="display:flex;flex-direction:column;gap:14px">
+            <p style="margin:0;font-size:14px;line-height:1.6;color:#8E5A55">The message service isn't responding right now, so your note hasn't been sent yet. You can send the same note from your own email app; it's all filled in.</p>
+            <a href=${mailto(enqSubject, enqBody((st.fEmail||'').trim()))} className="hov-dark" style="align-self:flex-start;padding:16px 28px;border:1px solid ${INK};color:${INK};font-size:12px;letter-spacing:.28em;text-transform:uppercase">Send from my email app</a>
+            <p style="margin:0;font-size:13px;line-height:1.6;color:#7A7067">Or try Send message again in a few minutes, or write to ${STUDIO_EMAIL}.</p>
+          </div>`
+            : st.sendErr && html`<p role="alert" style="margin:0;font-size:14px;line-height:1.6;color:#8E5A55">${st.sendErr}</p>`}
         </div>` : html`<div style="display:flex;flex-direction:column;gap:16px;padding-top:40px">
           <div style="font-family:'Instrument Serif',serif;font-size:44px;line-height:1.05">Thank you, ${st.fName.split(' ')[0]||'friend'}.</div>
           <p style="margin:0;font-size:16px;line-height:1.7;color:#5A5149">Your note about ${p.title}${custom&&customSize?` at ${customSize}`:''} is in. A reply will reach ${st.fEmail||'you'} within a day, often with a short video of the piece in morning light.</p>
