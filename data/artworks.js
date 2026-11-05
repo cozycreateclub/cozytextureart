@@ -15,6 +15,7 @@ window.TAGS = {
   // colour story
   earthy: 'Earthy tones',
   'pop-pastels': 'Pop pastels',
+  gradient: 'Gradient',
   neutrals: 'Neutrals',
   // mood
   calm: 'Calm',
@@ -37,7 +38,10 @@ window.ART_ROOMS = [
     tags: ['pop-pastels'] },
   { slug: 'the-grove', name: 'The Grove', sub: 'Fields, tides and gardens',
     text: 'Landscapes you can run a hand across: ridged sand, long grass, slow afternoons outdoors.',
-    tags: ['landscape', 'seascape'] }
+    tags: ['landscape', 'seascape'] },
+  { slug: 'ombre-room', name: 'The Ombré Room', sub: 'Gradient backgrounds, one colour melting into the next',
+    text: 'Grounds blended wet, from sky to sunset or pink to coral, with the texture built up on top so every ridge catches a different shade.',
+    tags: ['gradient'], cover: 'twilight-fern' }
 ];
 
 // Palette families for the collection filter.
@@ -291,7 +295,7 @@ window.ARTWORKS = [
       { name: 'blush', hex: '#FBC6C5' },
       { name: 'petal', hex: '#FEE7EC' }
     ],
-    tags: ['florals', 'pop-pastels', 'joyful'],
+    tags: ['florals', 'pop-pastels', 'joyful', 'gradient'],
     suits: ['Kids room', 'Bedroom', 'Living room'],
     status: 'available',
     featured: false,
@@ -1105,7 +1109,7 @@ window.ARTWORKS = [
       { name: 'cornflower', hex: '#8DB7EA' },
       { name: 'foam', hex: '#E8F4F2' }
     ],
-    tags: ['seascape', 'landscape', 'joyful'],
+    tags: ['seascape', 'landscape', 'joyful', 'gradient'],
     suits: ['Living room', 'Bedroom', 'Study'],
     status: 'available',
     featured: false,
@@ -1133,7 +1137,7 @@ window.ARTWORKS = [
       { name: 'lime', hex: '#A0D396' },
       { name: 'lilac', hex: '#8F86D8' }
     ],
-    tags: ['botanical', 'landscape', 'calm'],
+    tags: ['botanical', 'landscape', 'calm', 'gradient'],
     suits: ['Living room', 'Bedroom', 'Study'],
     status: 'available',
     featured: false,
