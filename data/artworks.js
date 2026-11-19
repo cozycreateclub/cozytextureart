@@ -26,7 +26,12 @@ window.TAGS = {
 
 // Art rooms are collections of tags: a piece appears in every room that shares at least one of its tags.
 // Rooms with no pieces are hidden. `cover` (optional) is the slug of the piece whose photo fronts the room.
+// A room with `maxPrice` holds every available piece priced below it instead of matching tags; `href` sends its
+// card to its own page and `label` replaces the "Room 0N" counter on the card.
 window.ART_ROOMS = [
+  { slug: 'gift-room', name: 'The Gift Room', sub: 'Gifts under ₹ 5,000, new for the holiday season',
+    text: 'Small pieces, sculpted once and never repeated. Easy to wrap, and delivery anywhere in India is included.',
+    tags: [], maxPrice: 5000, href: '/gifts', label: 'New · Holiday season', cover: 'dawn-garden' },
   { slug: 'bloom-room', name: 'The Bloom Room', sub: 'Florals, petals and peonies',
     text: 'Flowers built petal by petal, each one sculpted in texture paste and lifted off the canvas with the tip of the knife.',
     tags: ['florals', 'botanical'], cover: 'lilac-dahlia-no-1' },

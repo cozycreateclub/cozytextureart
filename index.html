@@ -80,13 +80,16 @@ const bySlug = s => PIECES.find(p => p.slug === s);
 // Prices are in INR and include packaging and shipping within India (user, 2026-11-05).
 const inr = n => '₹\u2009' + Number(n).toLocaleString('en-IN');
 const priceOf = p => p.price && p.status !== 'sold' ? inr(p.price) : '';
-// The /gifts landing page (for gift ads) lists available pieces priced below this (user, 2026-11-19).
-const GIFT_MAX = 4000;
+// The /gifts landing page (for gift ads) and The Gift Room list available pieces priced below this. It comes
+// from the room's `maxPrice` in data/artworks.js (user, 2026-11-19: ₹ 5,000, for the holiday season).
+const GIFT_MAX = ((window.ART_ROOMS || []).find(r => r.maxPrice) || {maxPrice: 5000}).maxPrice;
 const SHIP_NOTE = 'Includes packaging and shipping within India. International orders: extra shipping charges apply.';
 const PRICE_TAG = `font-size:12px;letter-spacing:.2em;color:#7A7067`;
 const dims = p => p.size ? (p.size.d ? `${p.size.d} cm diameter` : `${p.size.w} × ${p.size.h} cm`) : '';
 const tagLabel = t => TAGS[t] || t;
-const piecesIn = room => PIECES.filter(p => (p.tags||[]).some(t => room.tags.includes(t)));
+const piecesIn = room => room.maxPrice
+  ? PIECES.filter(p => p.status !== 'sold' && p.price && p.price < room.maxPrice)
+  : PIECES.filter(p => (p.tags||[]).some(t => room.tags.includes(t)));
 const ROOMS = (window.ART_ROOMS || []).map(r => ({...r, pieces: piecesIn(r)})).filter(r => r.pieces.length);
 const roomBySlug = s => ROOMS.find(r => r.slug === s);
 const aspect = img => img ? img.w / img.h : 4/5;
@@ -458,13 +461,14 @@ class App extends React.Component {
     if(isRooms) countLabel=ROOMS.length+(ROOMS.length===1?' room · ':' rooms · ')+PIECES.length+(PIECES.length===1?' piece':' pieces'); else if(inRoom) countLabel=RM.name+' · '+list.length+(list.length===1?' piece':' pieces');
 
     // Room covers wrap into rows, so every room stays visible as more are added (user, 2026-11-19).
-    const artRooms=ROOMS.map((r,ri)=>{ const cover=bySlug(r.cover)||r.pieces[0]; return html`
-      <div key=${r.slug} className="hov-fade" style="min-width:0">${this.link('/collection/'+r.slug,html`
+    let roomNo=0;
+    const artRooms=ROOMS.map(r=>{ const cover=bySlug(r.cover)||r.pieces[0]; const tag=r.label||`Room ${String(++roomNo).padStart(2,'0')}`; return html`
+      <div key=${r.slug} className="hov-fade" style="min-width:0">${this.link(r.href||'/collection/'+r.slug,html`
         <div style="display:flex;flex-direction:column;align-items:center;gap:26px">
           <div style="position:relative;width:100%;height:${m?340:400}px;overflow:hidden;background:#EFEAE2">
             <img src=${cover.images.front.src.replace('/front.webp','/front-sm.webp')} alt="" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover" />
             <div style="position:absolute;left:0;right:0;bottom:0;padding:22px 20px 20px;background:linear-gradient(to top,rgba(247,244,239,.95),rgba(247,244,239,0));display:flex;flex-direction:column;gap:4px">
-              <span style="font-size:10px;letter-spacing:.36em;text-transform:uppercase;color:${INK}">Room ${String(ri+1).padStart(2,'0')}</span>
+              <span style="font-size:10px;letter-spacing:.36em;text-transform:uppercase;color:${INK}">${tag}</span>
               <span style="font-family:'Instrument Serif',serif;font-size:34px;line-height:1;color:${INK}">${r.name}</span>
             </div>
             <div style="position:absolute;top:14px;right:14px;width:58px;height:58px;border-radius:50%;border:1px solid ${INK};background:rgba(247,244,239,.9);display:flex;align-items:center;justify-content:center;font-size:10px;letter-spacing:.14em;text-transform:uppercase;text-align:center;line-height:1.2;color:${INK}">${r.pieces.length+(r.pieces.length===1?' work':' works')}</div>

@@ -37,7 +37,7 @@ Single-page portfolio for **Cozy Texture Art**, built from the "Ira Mehra Textur
 | `/collection/<room-slug>` | Art grid of one room: every piece, widths at true relative canvas size, each linking to its page |
 | `/art/<slug>` | Piece page (the template) |
 | `/about` | About + creator note |
-| `/gifts` | Gifts under ₹ 4,000: landing page for gift ads. Lists available pieces with `price < GIFT_MAX` (4000) in display order, three short notes, then a made-to-order band. Not linked from the nav (user, 2026-11-19) |
+| `/gifts` | Gifts under ₹ 5,000: landing page for gift ads and target of The Gift Room card. Lists available pieces with `price < GIFT_MAX` in display order (stretched and board), three short notes, then a made-to-order band. Not in the nav (user, 2026-11-19) |
 | anything else | "This wall is empty." not-found screen |
 
 Links are real `<a href>` (shareable, open in new tab) routed in-page by `link()`; the title updates per piece/room.
@@ -46,6 +46,7 @@ Links are real `<a href>` (shareable, open in new tab) routed in-page by `link()
 - **Piece** fields (see TEMPLATE in `data/artworks.js`): `slug`, `title`, `year`, `concept` (2–3 lines: what it is, how it was made), `holds` (one brief note on what it represents → "What it holds"), `size` (`{w,h}` cm or `{d}`), optional `depth`, `medium` (default: acrylic colour mixed into texture paste, on canvas), `shape`, `family`, `palette`, `tags`, `suits`, `status`, `featured`, `images`.
 - **Tags** describe what a piece is (subject, colour story, mood). Every tag must exist in `TAGS`. Add new tags there when a piece needs one.
 - **Art rooms are tag collections**: a piece appears in every room sharing at least one tag, so one piece can hang in several rooms. Rooms with no pieces are hidden.
+- **The Gift Room** (user, 2026-11-19, holiday season): first in `ART_ROOMS`, with `maxPrice: 5000` instead of tags, so it holds every available piece under ₹ 5,000. Its card is labelled "New · Holiday season" and links to `/gifts`; `GIFT_MAX` reads the same `maxPrice`. Change the limit there, and drop or relabel the room after the season.
 - **Rooms show a grid, not the one-at-a-time exhibit** (user decision 2026-10-18: "art rooms > art grid > art page"). This overrides §4's "never a product grid"; keep the grid gallery-like: caption stacks, bottom-aligned, no badges.
 - **Prices** (user, 2026-11-05): each piece has `price` in whole rupees, the "FINAL website price" column of her sheet ~/Documents/Cozy Texture Art/cozy-texture-art-final-prices.xlsx (USD column not used on the site). Shown as `₹ 4,300` (`inr()`/`priceOf()`) on cards, the home featured row and the piece page; hidden on sold pieces. Prices include packaging and shipping within India; international orders pay extra shipping (`SHIP_NOTE`). Custom sizes are quoted by email. Buying is still by enquiry; sold pieces switch the CTA to a commission.
 - **Pricing a new piece:** follow `docs/pricing.md` (her pricing guide, not deployed). Use its size table by canvas (stretched / board) and painted background (yes when `medium` says "over a painted acrylic ground"); for other sizes: stretched = ₹1,200 + ₹48 × sq in, painted background + ₹300 + ₹2 × sq in, canvas board −15%, round to ₹100. 15×15, 20×20 and 30×30 cm are priced as 6×6, 8×8 and 12×12 in. Tell her the price you picked.

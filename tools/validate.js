@@ -55,7 +55,8 @@ for (const r of ART_ROOMS) {
 
 console.log(`${ARTWORKS.length} pieces, ${Object.keys(TAGS).length} tags`);
 for (const r of ART_ROOMS) {
-  const n = ARTWORKS.filter(a => a.tags.some(t => r.tags.includes(t))).length;
+  const n = r.maxPrice ? ARTWORKS.filter(a => a.status !== 'sold' && a.price < r.maxPrice).length
+    : ARTWORKS.filter(a => a.tags.some(t => r.tags.includes(t))).length;
   console.log(`  ${r.name.padEnd(24)} ${String(n).padStart(3)}${n ? '' : '  (hidden: no pieces)'}`);
 }
 const featured = ARTWORKS.filter(a => a.featured).length;
