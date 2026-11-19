@@ -223,6 +223,12 @@
     </image:image>
   </url>
   <url>
+    <loc>https://www.cozytextureart.com/art/blush-bouquet</loc>
+    <image:image>
+      <image:loc>https://www.cozytextureart.com/images/art/blush-bouquet/front.webp</image:loc>
+    </image:image>
+  </url>
+  <url>
     <loc>https://www.cozytextureart.com/art/latte-brickwork</loc>
     <image:image>
       <image:loc>https://www.cozytextureart.com/images/art/latte-brickwork/front.webp</image:loc>

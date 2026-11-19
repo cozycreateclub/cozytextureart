@@ -718,7 +718,7 @@ window.ARTWORKS = [
     ],
     tags: ['florals', 'landscape', 'joyful'],
     suits: ['Living room', 'Entryway', 'Study'],
-    status: 'available',
+    status: 'sold',
     featured: false,
     images: {
       front: { src: '/images/art/meadow-morning/front.webp', w: 1600, h: 1600, alt: 'Meadow Morning: textured wildflowers in blue, lilac and apricot on dark stems against a painted blue and green sky' },
@@ -1003,6 +1003,33 @@ window.ARTWORKS = [
     images: {
       front: { src: '/images/art/mint-garden/front.webp', w: 1600, h: 1600, alt: 'Mint Garden: a round mint canvas with raised pink daisies, lilac lavender sprigs and yellow and mint leaves rising from the lower edge' },
       room:  { src: '/images/art/mint-garden/room.webp',  w: 1600, h: 1200, alt: 'Mint Garden on a peach wall above a powder-blue sideboard' }
+    }
+  },
+  {
+    slug: 'blush-bouquet',
+    title: 'Blush Bouquet',
+    year: 2026,
+    concept: 'A square of soft pink painted inside a white canvas border, holding a bouquet in a vase of combed white ridges. Pink tulips and blossoms, cornflower-blue sprigs and butter-yellow flowers are each pressed petal by petal, with fine painted stems and dotted white sprays between them.',
+    holds: 'Flowers brought home for no reason at all, kept blooming on the wall.',
+    size: { w: 25, h: 25 },
+    depth: '',
+    medium: 'Acrylic colour mixed into texture paste, over a painted acrylic ground, on stretched canvas',
+    canvas: 'stretched',
+    shape: 'square',
+    family: 'warm',
+    palette: [
+      { name: 'blush', hex: '#FAD8DF' },
+      { name: 'rose', hex: '#DD849E' },
+      { name: 'cornflower', hex: '#91A5D1' },
+      { name: 'butter', hex: '#E6DD7F' }
+    ],
+    tags: ['florals', 'joyful'],
+    suits: ['Living room', 'Bedroom', 'Dining'],
+    status: 'sold',
+    featured: false,
+    images: {
+      front: { src: '/images/art/blush-bouquet/front.webp', w: 689, h: 689, alt: 'Blush Bouquet: a pink square on white canvas holding a vase of combed white ridges and raised pink, blue and yellow flowers' },
+      room:  { src: '/images/art/blush-bouquet/room.webp',  w: 1600, h: 1200, alt: 'Blush Bouquet on a sage-green wall above a pale ash sideboard' }
     }
   },
   // ── The Clay Room ──
