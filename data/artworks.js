@@ -500,6 +500,34 @@ window.ARTWORKS = [
       room:  { src: '/images/art/sunset-scales/room.webp',  w: 1600, h: 1200, alt: 'Sunset Scales on a navy wall above a light oak sideboard' }
     }
   },
+  {
+    slug: 'seafoam-scales',
+    title: 'Seafoam Scales',
+    year: 2026,
+    price: 16100,
+    concept: 'Rows of rounded scales pressed edge to edge across the canvas, each a single dab of paste. Bubblegum pink and soft gold at the top shift down into seafoam and deep lagoon teal at the bottom.',
+    holds: 'A sunset reflected in shallow water, broken into a thousand ripples.',
+    size: { w: 50, h: 40 },
+    depth: '',
+    medium: 'Acrylic colour mixed into texture paste, on stretched canvas',
+    canvas: 'stretched',
+    shape: 'landscape',
+    family: 'cool',
+    palette: [
+      { name: 'bubblegum', hex: '#CE8E9D' },
+      { name: 'mustard', hex: '#B69E68' },
+      { name: 'seafoam', hex: '#669693' },
+      { name: 'lagoon', hex: '#437E7A' }
+    ],
+    tags: ['abstract', 'pop-pastels', 'joyful'],
+    suits: ['Living room', 'Bedroom', 'Dining'],
+    status: 'available',
+    featured: false,
+    images: {
+      front: { src: '/images/art/seafoam-scales/front.webp', w: 1600, h: 1275, alt: 'Seafoam Scales: rows of raised scales shading from bubblegum pink and gold into seafoam and teal' },
+      room:  { src: '/images/art/seafoam-scales/room.webp',  w: 1600, h: 1200, alt: 'Seafoam Scales on a plum wall above a pale ash sideboard' }
+    }
+  },
   // ── The Bloom Room ──
   {
     slug: 'butter-daisies',
@@ -1028,8 +1056,120 @@ window.ARTWORKS = [
     status: 'sold',
     featured: false,
     images: {
-      front: { src: '/images/art/blush-bouquet/front.webp', w: 689, h: 689, alt: 'Blush Bouquet: a pink square on white canvas holding a vase of combed white ridges and raised pink, blue and yellow flowers' },
+      front: { src: '/images/art/blush-bouquet/front.webp', w: 1600, h: 1600, alt: 'Blush Bouquet: a pink square on white canvas holding a vase of combed white ridges and raised pink, blue and yellow flowers' },
       room:  { src: '/images/art/blush-bouquet/room.webp',  w: 1600, h: 1200, alt: 'Blush Bouquet on a sage-green wall above a pale ash sideboard' }
+    }
+  },
+  {
+    slug: 'tulip-moon',
+    title: 'Tulip Moon',
+    year: 2026,
+    price: 4700,
+    concept: 'A round canvas painted soft lavender, with a field of tulips rising across it. Each violet and lemon cup is pressed in two or three strokes of paste, on fine mint stems, with sprays of tiny white dots between them.',
+    holds: 'A spring evening caught in a circle, the kind you would keep on a windowsill.',
+    size: { d: 20 },
+    depth: '',
+    medium: 'Acrylic colour mixed into texture paste, over a painted acrylic ground, on stretched canvas',
+    canvas: 'stretched',
+    shape: 'round',
+    family: 'cool',
+    palette: [
+      { name: 'lavender', hex: '#B8AEB7' },
+      { name: 'violet', hex: '#7E6BAC' },
+      { name: 'lemon', hex: '#EBD045' },
+      { name: 'mint', hex: '#669C81' }
+    ],
+    tags: ['florals', 'botanical', 'calm'],
+    suits: ['Bedroom', 'Entryway', 'Kids room'],
+    status: 'available',
+    featured: false,
+    images: {
+      front: { src: '/images/art/tulip-moon/front.webp', w: 1600, h: 1600, alt: 'Tulip Moon: a round lavender canvas with raised violet and lemon tulips on fine mint stems and sprays of white dots' },
+      room:  { src: '/images/art/tulip-moon/room.webp',  w: 1600, h: 1200, alt: 'Tulip Moon on a sage-green wall above a pale ash sideboard' }
+    }
+  },
+  {
+    slug: 'pistachio-blooms',
+    title: 'Pistachio Blooms',
+    year: 2026,
+    price: 6200,
+    concept: 'Four large blossoms fill a hot-pink ground. Each pistachio petal is spread wide and outlined in a raised rim of paste, around a violet star and a golden, dotted centre.',
+    holds: 'Big, happy flowers for a wall that needs cheering up.',
+    size: { w: 25, h: 30 },
+    depth: '',
+    medium: 'Acrylic colour mixed into texture paste, over a painted acrylic ground, on canvas board',
+    canvas: 'board',
+    shape: 'portrait',
+    family: 'warm',
+    palette: [
+      { name: 'pistachio', hex: '#AAA67F' },
+      { name: 'bubblegum', hex: '#D5638C' },
+      { name: 'violet', hex: '#726696' },
+      { name: 'gold', hex: '#AD913F' }
+    ],
+    tags: ['florals', 'joyful'],
+    suits: ['Living room', 'Bedroom', 'Dining'],
+    status: 'available',
+    featured: false,
+    images: {
+      front: { src: '/images/art/pistachio-blooms/front.webp', w: 1328, h: 1600, alt: 'Pistachio Blooms: four large pistachio-green flowers with violet centres, raised in paste on a hot-pink ground' },
+      room:  { src: '/images/art/pistachio-blooms/room.webp',  w: 1600, h: 1200, alt: 'Pistachio Blooms on a cream wall above a light oak sideboard' }
+    }
+  },
+  {
+    slug: 'lilac-spiral',
+    title: 'Lilac Spiral',
+    year: 2026,
+    price: 7300,
+    concept: 'A ground that melts from aqua into lilac, with a softer panel set inside it. Over it, a long trail of single leaf strokes in mint, powder blue, lilac and cream curls into a spiral and sweeps back out across the bottom.',
+    holds: 'A slow, looping thought that ends somewhere calm.',
+    size: { w: 25, h: 30 },
+    depth: '',
+    medium: 'Acrylic colour mixed into texture paste, over a painted acrylic ground, on stretched canvas',
+    canvas: 'stretched',
+    shape: 'portrait',
+    family: 'cool',
+    palette: [
+      { name: 'aqua', hex: '#9AC8C0' },
+      { name: 'lilac', hex: '#9F76A4' },
+      { name: 'mint', hex: '#90BC9A' },
+      { name: 'powder', hex: '#9AABCB' }
+    ],
+    tags: ['botanical', 'abstract', 'gradient', 'calm'],
+    suits: ['Bedroom', 'Living room', 'Study'],
+    status: 'available',
+    featured: false,
+    images: {
+      front: { src: '/images/art/lilac-spiral/front.webp', w: 1330, h: 1600, alt: 'Lilac Spiral: a trail of mint, lilac and powder-blue leaf strokes curling into a spiral over an aqua-to-lilac gradient' },
+      room:  { src: '/images/art/lilac-spiral/room.webp',  w: 1600, h: 1200, alt: 'Lilac Spiral on a deep green wall above a walnut sideboard' }
+    }
+  },
+  {
+    slug: 'sunrise-sprigs',
+    title: 'Sunrise Sprigs',
+    year: 2026,
+    price: 6800,
+    concept: 'A sky that fades from tangerine through lemon into blue, crossed by blocks of sky and terracotta. Three long sprigs of pressed leaves, two powder blue and one butter yellow, cut across it, with a small knotted sun in the corner.',
+    holds: 'The first light of a holiday morning, before anyone else is awake.',
+    size: { w: 23, h: 30 },
+    depth: '',
+    medium: 'Acrylic colour mixed into texture paste, over a painted acrylic ground, on stretched canvas',
+    canvas: 'stretched',
+    shape: 'portrait',
+    family: 'warm',
+    palette: [
+      { name: 'tangerine', hex: '#DE6446' },
+      { name: 'lemon', hex: '#D3BD6C' },
+      { name: 'sky', hex: '#619EC7' },
+      { name: 'terracotta', hex: '#D98970' }
+    ],
+    tags: ['botanical', 'abstract', 'gradient', 'joyful'],
+    suits: ['Living room', 'Dining', 'Entryway'],
+    status: 'available',
+    featured: false,
+    images: {
+      front: { src: '/images/art/sunrise-sprigs/front.webp', w: 1222, h: 1600, alt: 'Sunrise Sprigs: blue and yellow sprigs of raised leaves crossing a tangerine-to-blue gradient, with a small coiled sun' },
+      room:  { src: '/images/art/sunrise-sprigs/room.webp',  w: 1600, h: 1200, alt: 'Sunrise Sprigs on a navy wall above a light oak sideboard' }
     }
   },
   // ── The Clay Room ──
@@ -1086,6 +1226,34 @@ window.ARTWORKS = [
     images: {
       front: { src: '/images/art/cobalt-shore/front.webp', w: 1600, h: 1227, alt: 'Cobalt Shore: sand-textured paste meeting overlapping scallops in white, seafoam and cobalt blue' },
       room:  { src: '/images/art/cobalt-shore/room.webp',  w: 1600, h: 1200, alt: 'Cobalt Shore on a deep green wall above a walnut sideboard' }
+    }
+  },
+  {
+    slug: 'sage-scales',
+    title: 'Sage Scales',
+    year: 2026,
+    price: 16100,
+    concept: 'Rows of rounded scales pressed edge to edge across the whole canvas, each one a single dab of paste with a raised rim. Sage and olive at the top and bottom give way to a band of mustard, blush and teal through the middle.',
+    holds: 'A field seen from far away, every patch a slightly different green.',
+    size: { w: 50, h: 40 },
+    depth: '',
+    medium: 'Acrylic colour mixed into texture paste, on stretched canvas',
+    canvas: 'stretched',
+    shape: 'landscape',
+    family: 'green',
+    palette: [
+      { name: 'sage', hex: '#7F8D6E' },
+      { name: 'olive', hex: '#5B6C4C' },
+      { name: 'mustard', hex: '#BD8F4B' },
+      { name: 'teal', hex: '#549493' }
+    ],
+    tags: ['abstract', 'earthy', 'calm'],
+    suits: ['Living room', 'Study', 'Dining'],
+    status: 'available',
+    featured: false,
+    images: {
+      front: { src: '/images/art/sage-scales/front.webp', w: 1600, h: 1275, alt: 'Sage Scales: rows of raised scales in sage, olive, mustard and teal covering the canvas' },
+      room:  { src: '/images/art/sage-scales/room.webp',  w: 1600, h: 1200, alt: 'Sage Scales on a terracotta wall above a light oak sideboard' }
     }
   },
   // ── The Grove ──
@@ -1339,6 +1507,90 @@ window.ARTWORKS = [
     images: {
       front: { src: '/images/art/tangerine-tide/front.webp', w: 1415, h: 1415, alt: 'Tangerine Tide: four panels of blue and white knife-stroked paste divided by a cross of bare canvas, with a raised tangerine sun where the lines meet' },
       room:  { src: '/images/art/tangerine-tide/room.webp',  w: 1600, h: 1200, alt: 'Tangerine Tide on a terracotta wall above a light oak sideboard' }
+    }
+  },
+  {
+    slug: 'lotus-pond',
+    title: 'Lotus Pond',
+    year: 2026,
+    price: 7300,
+    concept: 'A pond of soft circular brushstrokes in pistachio, seafoam and aqua. Orange koi with flowing tails are pulled out in paste, with small white lotus flowers pressed petal by petal and a scatter of white dots for bubbles.',
+    holds: 'A quiet garden pond, where nothing hurries.',
+    size: { w: 30, h: 25 },
+    depth: '',
+    medium: 'Acrylic colour mixed into texture paste, over a painted acrylic ground, on stretched canvas',
+    canvas: 'stretched',
+    shape: 'landscape',
+    family: 'green',
+    palette: [
+      { name: 'pistachio', hex: '#95A990' },
+      { name: 'seafoam', hex: '#8FB0A6' },
+      { name: 'aqua', hex: '#7FB2C6' },
+      { name: 'apricot', hex: '#DA9C71' }
+    ],
+    tags: ['landscape', 'calm'],
+    suits: ['Living room', 'Study', 'Entryway'],
+    status: 'available',
+    featured: false,
+    images: {
+      front: { src: '/images/art/lotus-pond/front.webp', w: 1600, h: 1329, alt: 'Lotus Pond: orange koi and white lotus flowers raised in paste over swirling green and aqua water' },
+      room:  { src: '/images/art/lotus-pond/room.webp',  w: 1600, h: 1200, alt: 'Lotus Pond on a cream wall above a light oak sideboard' }
+    }
+  },
+  {
+    slug: 'shoal-swirl',
+    title: 'Shoal Swirl',
+    year: 2026,
+    price: 6800,
+    concept: 'A deep cobalt sea lightening to a pale glow at the centre. Around it a shoal of fish turns in a wide circle, each fish a single knife stroke of pink, peach, mint or lilac paste with a flicked tail.',
+    holds: 'Moving together and still finding room to shine.',
+    size: { w: 23, h: 30 },
+    depth: '',
+    medium: 'Acrylic colour mixed into texture paste, over a painted acrylic ground, on stretched canvas',
+    canvas: 'stretched',
+    shape: 'portrait',
+    family: 'cool',
+    palette: [
+      { name: 'cobalt', hex: '#1131A2' },
+      { name: 'sky', hex: '#7FB9DA' },
+      { name: 'bubblegum', hex: '#CB7E9F' },
+      { name: 'cream', hex: '#EEE1D6' }
+    ],
+    tags: ['seascape', 'abstract', 'joyful'],
+    suits: ['Living room', 'Bedroom', 'Kids room'],
+    status: 'available',
+    featured: false,
+    images: {
+      front: { src: '/images/art/shoal-swirl/front.webp', w: 1222, h: 1600, alt: 'Shoal Swirl: a circle of pastel fish, each a single stroke of paste, turning around a pale glow in a cobalt sea' },
+      room:  { src: '/images/art/shoal-swirl/room.webp',  w: 1600, h: 1200, alt: 'Shoal Swirl on a peach wall above a powder-blue sideboard' }
+    }
+  },
+  {
+    slug: 'sunset-swell',
+    title: 'Sunset Swell',
+    year: 2026,
+    price: 6300,
+    concept: 'Thick, combed bands of paste sweep diagonally across the canvas: cobalt and sky-blue sea below, then violet, pink and tangerine, up to a butter-yellow sun with a knotted centre.',
+    holds: 'The last warm minutes of a beach day, when the sea turns every colour at once.',
+    size: { w: 25, h: 25 },
+    depth: '',
+    medium: 'Acrylic colour mixed into texture paste, over a painted acrylic ground, on stretched canvas',
+    canvas: 'stretched',
+    shape: 'square',
+    family: 'warm',
+    palette: [
+      { name: 'cobalt', hex: '#204FC5' },
+      { name: 'violet', hex: '#B267BA' },
+      { name: 'tangerine', hex: '#FC744D' },
+      { name: 'butter', hex: '#F7E399' }
+    ],
+    tags: ['seascape', 'landscape', 'joyful'],
+    suits: ['Living room', 'Bedroom', 'Study'],
+    status: 'available',
+    featured: false,
+    images: {
+      front: { src: '/images/art/sunset-swell/front.webp', w: 1600, h: 1600, alt: 'Sunset Swell: diagonal combed bands of cobalt, violet, pink and tangerine paste rising to a butter-yellow sun' },
+      room:  { src: '/images/art/sunset-swell/room.webp',  w: 1600, h: 1200, alt: 'Sunset Swell on a lilac wall above a light oak sideboard' }
     }
   }
 ];

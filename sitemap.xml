@@ -115,6 +115,12 @@
     </image:image>
   </url>
   <url>
+    <loc>https://www.cozytextureart.com/art/seafoam-scales</loc>
+    <image:image>
+      <image:loc>https://www.cozytextureart.com/images/art/seafoam-scales/front.webp</image:loc>
+    </image:image>
+  </url>
+  <url>
     <loc>https://www.cozytextureart.com/art/butter-daisies</loc>
     <image:image>
       <image:loc>https://www.cozytextureart.com/images/art/butter-daisies/front.webp</image:loc>
@@ -229,6 +235,30 @@
     </image:image>
   </url>
   <url>
+    <loc>https://www.cozytextureart.com/art/tulip-moon</loc>
+    <image:image>
+      <image:loc>https://www.cozytextureart.com/images/art/tulip-moon/front.webp</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.cozytextureart.com/art/pistachio-blooms</loc>
+    <image:image>
+      <image:loc>https://www.cozytextureart.com/images/art/pistachio-blooms/front.webp</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.cozytextureart.com/art/lilac-spiral</loc>
+    <image:image>
+      <image:loc>https://www.cozytextureart.com/images/art/lilac-spiral/front.webp</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.cozytextureart.com/art/sunrise-sprigs</loc>
+    <image:image>
+      <image:loc>https://www.cozytextureart.com/images/art/sunrise-sprigs/front.webp</image:loc>
+    </image:image>
+  </url>
+  <url>
     <loc>https://www.cozytextureart.com/art/latte-brickwork</loc>
     <image:image>
       <image:loc>https://www.cozytextureart.com/images/art/latte-brickwork/front.webp</image:loc>
@@ -238,6 +268,12 @@
     <loc>https://www.cozytextureart.com/art/cobalt-shore</loc>
     <image:image>
       <image:loc>https://www.cozytextureart.com/images/art/cobalt-shore/front.webp</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.cozytextureart.com/art/sage-scales</loc>
+    <image:image>
+      <image:loc>https://www.cozytextureart.com/images/art/sage-scales/front.webp</image:loc>
     </image:image>
   </url>
   <url>
@@ -292,6 +328,24 @@
     <loc>https://www.cozytextureart.com/art/tangerine-tide</loc>
     <image:image>
       <image:loc>https://www.cozytextureart.com/images/art/tangerine-tide/front.webp</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.cozytextureart.com/art/lotus-pond</loc>
+    <image:image>
+      <image:loc>https://www.cozytextureart.com/images/art/lotus-pond/front.webp</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.cozytextureart.com/art/shoal-swirl</loc>
+    <image:image>
+      <image:loc>https://www.cozytextureart.com/images/art/shoal-swirl/front.webp</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.cozytextureart.com/art/sunset-swell</loc>
+    <image:image>
+      <image:loc>https://www.cozytextureart.com/images/art/sunset-swell/front.webp</image:loc>
     </image:image>
   </url>
 </urlset>
