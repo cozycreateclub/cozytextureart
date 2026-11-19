@@ -31,6 +31,7 @@ for (const a of ARTWORKS) {
   if (a.status !== 'sold' && !(Number.isInteger(a.price) && a.price > 0)) err(s, 'price must be a whole number of rupees');
   if (!['stretched', 'board'].includes(a.canvas)) err(s, 'canvas must be "stretched" or "board"');
   else if (!(a.medium || '').endsWith(a.canvas === 'board' ? 'on canvas board' : 'on stretched canvas')) err(s, 'medium does not match canvas');
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(a.added || '')) err(s, 'added must be a YYYY-MM-DD date');
   if (!a.concept || !a.holds) err(s, 'concept and holds are required');
   if (!a.palette || a.palette.length < 3 || a.palette.length > 4) err(s, 'palette needs 3–4 swatches');
   for (const p of a.palette || []) {
