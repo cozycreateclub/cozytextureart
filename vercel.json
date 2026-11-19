@@ -3,7 +3,8 @@
     { "source": "/art/:slug", "destination": "/index.html" },
     { "source": "/collection", "destination": "/index.html" },
     { "source": "/collection/:room", "destination": "/index.html" },
-    { "source": "/about", "destination": "/index.html" }
+    { "source": "/about", "destination": "/index.html" },
+    { "source": "/gifts", "destination": "/index.html" }
   ],
   "headers": [
     { "source": "/images/(.*)", "headers": [{ "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }] },

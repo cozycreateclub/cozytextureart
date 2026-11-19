@@ -21,7 +21,7 @@ Single-page portfolio for **Cozy Texture Art**, built from the "Ira Mehra Textur
 - `tools/validate.js` — `node tools/validate.js`: unique slugs/titles, tags in `TAGS`, suits in `SUITS`, images on disk, a whole-rupee `price` on unsold pieces, no relief fields; prints each room's piece count. Run after every catalogue change.
 - Python: these tools need Pillow (and numpy for mockups). If the system Python lacks them, make a venv in the session scratchpad (`python3 -m venv …; pip install pillow numpy`) rather than installing globally.
 - `tools/dev_server.py [port] [dir]` — local server with the same fallback as Vercel (unknown paths → `index.html`).
-- `vercel.json` — hosting is Vercel; rewrites `/art/:slug`, `/collection`, `/collection/:room`, `/about` to `index.html`.
+- `vercel.json` — hosting is Vercel; rewrites `/art/:slug`, `/collection`, `/collection/:room`, `/about`, `/gifts` to `index.html`.
 - `vendor/`, `fonts/` — React 18.3.1; Instrument Serif + Jost woff2.
 - `design/ira-mehra-design-system.html` — the source design system (v1.0, October 2026), kept for reference and excluded from deploys by `.vercelignore`. It is a bundled page: open it in a browser, or read its data (colours, segments, voice, terms, naming) from the `<script data-dc-script>` inside the `__bundler/template` JSON. The **Design system** section below is its summary, with the Cozy Texture Art adaptations applied.
 - Inline style strings are parsed into React style objects by `hx`/`parseStyle`, so markup stays close to HTML. Hover states use the `.hov-*` / `.lift` classes in `<style>` (inline styles can't do `:hover`).
@@ -37,6 +37,7 @@ Single-page portfolio for **Cozy Texture Art**, built from the "Ira Mehra Textur
 | `/collection/<room-slug>` | Art grid of one room: every piece, widths at true relative canvas size, each linking to its page |
 | `/art/<slug>` | Piece page (the template) |
 | `/about` | About + creator note |
+| `/gifts` | Gifts under ₹ 4,000: landing page for gift ads. Lists available pieces with `price < GIFT_MAX` (4000) in display order, three short notes, then a made-to-order band. Not linked from the nav (user, 2026-11-19) |
 | anything else | "This wall is empty." not-found screen |
 
 Links are real `<a href>` (shareable, open in new tab) routed in-page by `link()`; the title updates per piece/room.

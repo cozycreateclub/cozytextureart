@@ -80,6 +80,8 @@ const bySlug = s => PIECES.find(p => p.slug === s);
 // Prices are in INR and include packaging and shipping within India (user, 2026-11-05).
 const inr = n => '₹\u2009' + Number(n).toLocaleString('en-IN');
 const priceOf = p => p.price && p.status !== 'sold' ? inr(p.price) : '';
+// The /gifts landing page (for gift ads) lists available pieces priced below this (user, 2026-11-19).
+const GIFT_MAX = 4000;
 const SHIP_NOTE = 'Includes packaging and shipping within India. International orders: extra shipping charges apply.';
 const PRICE_TAG = `font-size:12px;letter-spacing:.2em;color:#7A7067`;
 const dims = p => p.size ? (p.size.d ? `${p.size.d} cm diameter` : `${p.size.w} × ${p.size.h} cm`) : '';
@@ -97,6 +99,7 @@ function parseRoute() {
   if (parts[0] === 'collection') return {screen:'collection', room:parts[1] || null, fTag:u.searchParams.get('tag'), q:u.searchParams.get('q') || ''};
   if (parts[0] === 'art' && parts[1] && bySlug(parts[1])) return {screen:'detail', slug:parts[1]};
   if (parts[0] === 'about') return {screen:'about'};
+  if (parts[0] === 'gifts') return {screen:'gifts'};
   return {screen:'notfound'};
 }
 
@@ -235,7 +238,7 @@ class App extends React.Component {
 
   syncHead() {
     const st=this.state; const p=st.screen==='detail'&&bySlug(st.slug); const r=st.screen==='collection'&&roomBySlug(st.room);
-    document.title = p ? `${p.title} · ${ARTIST}` : r ? `${r.name} · ${ARTIST}` : st.screen==='collection' ? `Collection · ${ARTIST}` : st.screen==='about' ? `About · ${ARTIST}` : ARTIST;
+    document.title = p ? `${p.title} · ${ARTIST}` : r ? `${r.name} · ${ARTIST}` : st.screen==='collection' ? `Collection · ${ARTIST}` : st.screen==='about' ? `About · ${ARTIST}` : st.screen==='gifts' ? `Gifts under ${inr(GIFT_MAX)} · ${ARTIST}` : ARTIST;
     const m=document.querySelector('meta[name=description]'); if (m && p) m.content = p.concept || p.holds || m.content;
   }
 
@@ -281,6 +284,62 @@ class App extends React.Component {
       </div>
       <span style="font-size:12px;color:#7A7067">Hand-built, layer by layer · © 2026</span>
     </footer>`;
+  }
+
+  // Grid of pieces at true relative canvas width, with caption stacks. Used by rooms, filters and /gifts.
+  pieceGrid(list, m) {
+    const widthOf=p=>p.size?(p.size.w||p.size.d||30):30;
+    const maxW=Math.max(...list.map(widthOf));
+    return html`<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(${m?'140px':'240px'},1fr));gap:${m?'40px 20px':'64px 48px'};align-items:end">
+      ${list.map(p=>html`<div key=${p.slug} className="lift">${this.link('/art/'+p.slug,html`
+        <div style="display:flex;flex-direction:column;align-items:center;gap:${m?14:20}px">
+          <div style="width:${(widthOf(p)/maxW*86).toFixed(1)}%">${photo(p,{az:230,small:true})}</div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:5px;text-align:center">
+            <div style="font-size:${m?11:13}px;letter-spacing:.24em;text-transform:uppercase">${p.title}</div>
+            <div style="font-family:'Instrument Serif',serif;font-style:italic;font-size:${m?16:18}px;color:#5A5149">${dims(p)}</div>
+            ${priceOf(p) && html`<div style=${PRICE_TAG}>${priceOf(p)}</div>`}
+            ${STATUS_LABEL[p.status] && html`<div style="font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#8E5A55">${STATUS_LABEL[p.status]}</div>`}
+          </div>
+        </div>`)}</div>`)}
+    </div>`;
+  }
+
+  // ───────── Gifts under ₹ 4,000 (landing page for gift ads) ─────────
+  gifts(m) {
+    const list=PIECES.filter(p=>p.status!=='sold'&&p.price&&p.price<GIFT_MAX);
+    const sides=list.flatMap(p=>p.size?(p.size.d?[p.size.d]:[p.size.w,p.size.h]):[]);
+    const span=sides.length?(Math.min(...sides)===Math.max(...sides)?`${Math.min(...sides)} cm`:`${Math.min(...sides)} to ${Math.max(...sides)} cm`):'';
+    const boards=list.length>0&&list.every(p=>p.canvas==='board');
+    const notes=[['Shipping included','Packaging and delivery anywhere in India are part of every price. Orders abroad pay extra shipping, quoted by email.'],
+      ['One of one','Each piece is sculpted once, in layers of texture paste, and never reproduced.'],
+      ['Easy to place',boards?'On canvas board: lean it on a shelf, prop it on a small stand, or slip it into a frame.':'Small enough for a desk, a shelf or a narrow wall.']];
+    return html`
+    <section data-screen-label="05 Gifts" style="${SECT};padding-top:64px;padding-bottom:56px;display:flex;flex-direction:column;align-items:center;gap:22px;text-align:center">
+      ${eyebrow(`Gifts under ${inr(GIFT_MAX)}`)}
+      <h1 style="margin:0;font-family:'Instrument Serif',serif;font-weight:400;font-size:clamp(44px,5.4vw,80px);line-height:1">Small enough to give. <span style="font-style:italic">Still one of one.</span></h1>
+      <p style="margin:0;max-width:560px;font-size:16px;line-height:1.7;color:#4A433C;text-wrap:pretty">Hand-sculpted texture art${boards?' on canvas board':''}${span?`, ${span} across`:''}: a small, tactile present for a new home, a birthday or a desk that needs some colour.</p>
+    </section>
+    <section style="${SECT};padding-bottom:64px">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:28px 48px;max-width:1080px;margin:0 auto;border-top:1px dotted rgba(43,38,34,.35);border-bottom:1px dotted rgba(43,38,34,.35);padding:28px 0">
+        ${notes.map(([t,d])=>html`<div key=${t} style="display:flex;flex-direction:column;gap:8px;text-align:center">
+          <div style="font-size:11px;letter-spacing:.32em;text-transform:uppercase">${t}</div>
+          <p style="margin:0;font-size:14px;line-height:1.6;color:#5A5149;text-wrap:pretty">${d}</p>
+        </div>`)}
+      </div>
+    </section>
+    <section style="${SECT};padding-bottom:100px;display:flex;flex-direction:column;gap:40px">
+      <div style="font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:#7A7067;text-align:center">${list.length+(list.length===1?' piece':' pieces')} under ${inr(GIFT_MAX)}</div>
+      ${list.length ? this.pieceGrid(list,m) : html`<p style="margin:20px auto;max-width:520px;text-align:center;font-family:'Instrument Serif',serif;font-style:italic;font-size:26px;line-height:1.3;color:#5A5149">The small pieces have all found homes for now. Write in about a gift made to order.</p>`}
+    </section>
+    <section style="${SECT};background:#F0EBE3;padding-top:90px;padding-bottom:90px;display:flex;flex-direction:column;align-items:center;gap:22px;text-align:center">
+      ${eyebrow('Made to order')}
+      <h2 style="margin:0;font-family:'Instrument Serif',serif;font-weight:400;font-size:clamp(36px,4.4vw,60px);line-height:1.05">A gift in their colours. <span style="font-style:italic">Made just once.</span></h2>
+      <p style="margin:0;max-width:520px;font-size:15px;line-height:1.7;color:#5A5149;text-wrap:pretty">Share a palette or a size and a piece can be made for them. It takes about one to two weeks, as each layer dries before the next.</p>
+      <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:28px;margin-top:10px">
+        <a href=${mailto('A gift made to order')} style=${TEXT_LINK}>Write about a gift →</a>
+        ${this.link('/collection','See the whole collection →',TEXT_LINK)}
+      </div>
+    </section>`;
   }
 
   // ───────── Home ─────────
@@ -421,26 +480,13 @@ class App extends React.Component {
     // Widths follow real canvas widths, so a 30 cm piece and a 60 cm piece read at true relative scale.
     let single=null;
     if (list.length) {
-      const widthOf=p=>p.size?(p.size.w||p.size.d||30):30;
-      const maxW=Math.max(...list.map(widthOf));
       single=html`<div style="display:flex;flex-direction:column;gap:40px;padding-top:20px">
         <div style="display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center">
           ${eyebrow(active?'Your selection':RM.name)}
           ${!active && RM.sub && html`<div style="font-family:'Instrument Serif',serif;font-style:italic;font-size:22px;color:#5A5149">${RM.sub}</div>`}
           ${!active && RM.text && html`<p style="margin:0;max-width:520px;font-size:15px;line-height:1.65;color:#5A5149;text-wrap:pretty">${RM.text}</p>`}
         </div>
-        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(${m?'140px':'240px'},1fr));gap:${m?'40px 20px':'64px 48px'};align-items:end">
-          ${list.map(p=>html`<div key=${p.slug} className="lift">${this.link('/art/'+p.slug,html`
-            <div style="display:flex;flex-direction:column;align-items:center;gap:${m?14:20}px">
-              <div style="width:${(widthOf(p)/maxW*86).toFixed(1)}%">${photo(p,{az:230,small:true})}</div>
-              <div style="display:flex;flex-direction:column;align-items:center;gap:5px;text-align:center">
-                <div style="font-size:${m?11:13}px;letter-spacing:.24em;text-transform:uppercase">${p.title}</div>
-                <div style="font-family:'Instrument Serif',serif;font-style:italic;font-size:${m?16:18}px;color:#5A5149">${dims(p)}</div>
-                ${priceOf(p) && html`<div style=${PRICE_TAG}>${priceOf(p)}</div>`}
-                ${STATUS_LABEL[p.status] && html`<div style="font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#8E5A55">${STATUS_LABEL[p.status]}</div>`}
-              </div>
-            </div>`)}</div>`)}
-        </div>
+        ${this.pieceGrid(list,m)}
       </div>`;
     }
 
@@ -697,6 +743,7 @@ class App extends React.Component {
     if (st.screen==='collection') body=this.collection(m);
     else if (st.screen==='detail') body=this.detail(m);
     else if (st.screen==='about') body=this.about(m);
+    else if (st.screen==='gifts') body=this.gifts(m);
     else if (st.screen==='notfound') body=this.notFound();
     else body=this.home(m);
     return html`<div style="min-height:100vh;background:${PAPER};position:relative">
