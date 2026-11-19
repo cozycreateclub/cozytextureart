@@ -195,7 +195,6 @@ const portrait = (basis, which='studio') => html`<div style="flex:0 1 ${basis};a
 </div>`;
 
 const eyebrow = (t, extra='') => html`<div style="border-top:1.5px solid ${INK};padding-top:12px;font-size:11px;letter-spacing:.42em;text-transform:uppercase;${extra}">${t}</div>`;
-const roundBtn = (onClick, label, size=48) => html`<button onClick=${onClick} aria-label=${label==='←'?'Previous':'Next'} style="flex:none;width:${size}px;height:${size}px;border-radius:50%;border:1px solid ${INK};background:transparent;cursor:pointer;font-size:16px;color:${INK}">${label}</button>`;
 const chipBtn = (c, inner) => html`<button onClick=${c.onClick} style="display:flex;align-items:center;gap:10px;padding:${c.pad||'8px 16px'};border-radius:999px;border:1px solid ${c.bd};background:${c.bg};color:${INK};cursor:pointer;font-size:13px;letter-spacing:.06em">${inner||c.label}</button>`;
 const SECT = 'padding-left:clamp(16px,4vw,56px);padding-right:clamp(16px,4vw,56px);box-sizing:border-box';
 const TEXT_LINK = `cursor:pointer;font-size:12px;letter-spacing:.36em;text-transform:uppercase;color:${INK};border-bottom:1px solid ${INK};padding-bottom:6px`;
@@ -392,8 +391,9 @@ class App extends React.Component {
     let countLabel=res.length+(res.length===1?' piece':' pieces');
     if(isRooms) countLabel=ROOMS.length+(ROOMS.length===1?' room · ':' rooms · ')+PIECES.length+(PIECES.length===1?' piece':' pieces'); else if(inRoom) countLabel=RM.name+' · '+list.length+(list.length===1?' piece':' pieces');
 
+    // Room covers wrap into rows, so every room stays visible as more are added (user, 2026-11-19).
     const artRooms=ROOMS.map((r,ri)=>{ const cover=bySlug(r.cover)||r.pieces[0]; return html`
-      <div key=${r.slug} className="hov-fade" style="flex:0 0 ${m?'78vw':'clamp(280px,calc(25% - 30px),380px)'};scroll-snap-align:start">${this.link('/collection/'+r.slug,html`
+      <div key=${r.slug} className="hov-fade" style="min-width:0">${this.link('/collection/'+r.slug,html`
         <div style="display:flex;flex-direction:column;align-items:center;gap:26px">
           <div style="position:relative;width:100%;height:${m?340:400}px;overflow:hidden;background:#EFEAE2">
             <img src=${cover.images.front.src.replace('/front.webp','/front-sm.webp')} alt="" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover" />
@@ -456,14 +456,8 @@ class App extends React.Component {
       </div>
       ${noResults && html`<p style="margin:40px 0;text-align:center;font-family:'Instrument Serif',serif;font-style:italic;font-size:28px;color:#5A5149">Nothing matches yet. Try a softer search, or write in about a commission.</p>`}
       ${isRooms && html`<div style="display:flex;flex-direction:column;gap:28px">
-        <div style="display:flex;justify-content:space-between;align-items:center;gap:16px">
-          ${eyebrow('Art rooms')}
-          ${ROOMS.length>(m?1:4) && html`<div style="display:flex;gap:12px">
-            ${roundBtn(()=>this.rowEl&&this.rowEl.scrollBy({left:-this.rowEl.clientWidth*.8,behavior:'smooth'}),'←')}
-            ${roundBtn(()=>this.rowEl&&this.rowEl.scrollBy({left:this.rowEl.clientWidth*.8,behavior:'smooth'}),'→')}
-          </div>`}
-        </div>
-        <div ref=${el=>{this.rowEl=el;}} className="noscroll" style="display:flex;gap:${m?20:40}px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding:10px 0 20px">${artRooms}</div>
+        <div style="display:flex">${eyebrow('Art rooms')}</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(${m?'260px':'300px'},1fr));gap:${m?'48px 20px':'64px 40px'};padding:10px 0 20px">${artRooms}</div>
       </div>`}
       ${single}`}
     </section>`;

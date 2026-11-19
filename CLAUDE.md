@@ -158,7 +158,7 @@ The user sends **one raw photo per piece** (a phone shot, maybe angled, with wal
 - **Hero:** one idea, "Art you can feel." Three approved forms — A: five pieces scattered with parallax (current); B: one large piece with prev/next; C: full-bleed surface detail with a huge centred serif headline. Never a banner carousel.
 - **Texture vs print:** a drag slider comparing a flat print with the textured piece, then three short columns.
 - **Featured row:** four works in one row, bottoms aligned, each with a caption stack.
-- **Art rooms:** a horizontal row of room covers. Selecting a room opens the Exhibit. Never a product grid.
+- **Art rooms:** room covers in a wrapping grid (auto-fill, min 300px; 260px on mobile), so every room shows as more are added (user, 2026-11-19, replacing the horizontal scroll row with arrows). Selecting a room opens its grid.
 - **Exhibit:** one work at a time, centred, arrows either side, colour-dot navigation. Shows a 2–3 line note, specs and price.
 - **Piece page:** left, the viewer (5 views + 3D turn + studio film); right, title, price, specs, "What it holds", swatches and actions.
 - **Enquire:** a paper-deep band. A personal promise on the left, the underline form on the right. On send, a thank-you in the studio's voice replaces the form.
