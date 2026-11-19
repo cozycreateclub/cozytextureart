@@ -496,7 +496,7 @@ window.ARTWORKS = [
     status: 'available',
     featured: true,
     images: {
-      front: { src: '/images/art/sunset-scales/front.webp', w: 1272, h: 1600, alt: 'Sunset Scales: rows of raised knife-pressed scales shading from coral, red and orange to sea green and teal' },
+      front: { src: '/images/art/sunset-scales/front.webp', w: 1274, h: 1600, alt: 'Sunset Scales: rows of raised knife-pressed scales shading from coral, red and orange to sea green and teal' },
       room:  { src: '/images/art/sunset-scales/room.webp',  w: 1600, h: 1200, alt: 'Sunset Scales on a navy wall above a light oak sideboard' }
     }
   },
@@ -1477,7 +1477,7 @@ window.ARTWORKS = [
     status: 'available',
     featured: true,
     images: {
-      front: { src: '/images/art/peach-shore/front.webp', w: 1272, h: 1600, alt: 'Peach Shore: wavy bands of peach and blue paste, combed into ridges and pressed into dots, deepening to cobalt' },
+      front: { src: '/images/art/peach-shore/front.webp', w: 1275, h: 1600, alt: 'Peach Shore: wavy bands of peach and blue paste, combed into ridges and pressed into dots, deepening to cobalt' },
       room:  { src: '/images/art/peach-shore/room.webp',  w: 1600, h: 1200, alt: 'Peach Shore on a sage-green wall above a pale ash sideboard' }
     }
   },
