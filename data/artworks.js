@@ -31,22 +31,22 @@ window.TAGS = {
 window.ART_ROOMS = [
   { slug: 'gift-room', name: 'The Gift Room', sub: 'Gifts under ₹ 5,000, new for the holiday season',
     text: 'Small pieces, sculpted once and never repeated. Easy to wrap, and delivery anywhere in India is included.',
-    tags: [], maxPrice: 5000, href: '/gifts', label: 'New · Holiday season', cover: 'dawn-garden' },
+    tags: [], maxPrice: 5000, href: '/gifts', label: 'New · Holiday season', cover: 'tulip-moon' },
   { slug: 'bloom-room', name: 'The Bloom Room', sub: 'Florals, petals and peonies',
     text: 'Flowers built petal by petal, each one sculpted in texture paste and lifted off the canvas with the tip of the knife.',
-    tags: ['florals', 'botanical'], cover: 'lilac-dahlia-no-1' },
+    tags: ['florals', 'botanical'], cover: 'pistachio-blooms' },
   { slug: 'clay-room', name: 'The Clay Room', sub: 'Earthy tones: oat, sand and terracotta',
     text: 'Colours of unfired clay and old lime walls. Grounding pieces for warm wood and linen homes.',
-    tags: ['earthy', 'neutrals'], cover: 'marigold-scales' },
+    tags: ['earthy', 'neutrals'], cover: 'sage-scales' },
   { slug: 'signature-pop', name: 'Signature Pop Colours', sub: 'The brightest pastels',
     text: 'Bubblegum, aqua, lemon and lilac. The cozy signature palette, made for rooms that want a little joy.',
-    tags: ['pop-pastels'], cover: 'sherbet-rows' },
+    tags: ['pop-pastels'], cover: 'seafoam-scales' },
   { slug: 'the-grove', name: 'The Grove', sub: 'Fields, tides and gardens',
     text: 'Landscapes you can run a hand across: ridged sand, long grass, slow afternoons outdoors.',
-    tags: ['landscape', 'seascape'], cover: 'matcha-tide' },
+    tags: ['landscape', 'seascape'], cover: 'sunset-swell' },
   { slug: 'ombre-room', name: 'The Ombré Room', sub: 'Gradient backgrounds, one colour melting into the next',
     text: 'Grounds blended wet, from sky to sunset or pink to coral, with the texture built up on top so every ridge catches a different shade.',
-    tags: ['gradient'], cover: 'twilight-fern' }
+    tags: ['gradient'], cover: 'sunrise-sprigs' }
 ];
 
 // Palette families for the collection filter.
