@@ -7,7 +7,8 @@ const ROOT = path.dirname(__dirname);
 const SITE = 'https://www.cozytextureart.com';
 const win = {};
 vm.runInNewContext(fs.readFileSync(path.join(ROOT, 'data/artworks.js'), 'utf8'), { window: win });
-const { ART_ROOMS, ARTWORKS } = win;
+const { ART_ROOMS } = win;
+const ARTWORKS = win.ARTWORKS.filter(a => !a.hidden);
 
 const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 const url = (loc, extra = '') => `  <url>\n    <loc>${esc(SITE + loc)}</loc>${extra}\n  </url>`;

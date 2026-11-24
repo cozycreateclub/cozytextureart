@@ -86,8 +86,9 @@ async function sendEnquiry(subject, replyto, fields) {
 const mailto = (subject, body='') => `mailto:${STUDIO_EMAIL}?subject=${encodeURIComponent(subject)}${body?`&body=${encodeURIComponent(body)}`:''}`;
 const INK = '#2B2622', PAPER = '#F7F4EF';
 // Display order everywhere (user, 2026-11-19): stretched canvas before canvas board, then newest first by
-// `added`; pieces added on the same day keep the reverse of their file order.
-const PIECES = (window.ARTWORKS || []).map((p, i) => ({p, i}))
+// `added`; pieces added on the same day keep the reverse of their file order. Pieces with `hidden: true` are left
+// out everywhere (their pages show the not-found screen).
+const PIECES = (window.ARTWORKS || []).map((p, i) => ({p, i})).filter(x => !x.p.hidden)
   .sort((a, b) => (a.p.canvas === 'board') - (b.p.canvas === 'board') || (b.p.added || '').localeCompare(a.p.added || '') || b.i - a.i)
   .map(x => x.p);
 const TAGS = window.TAGS || {};

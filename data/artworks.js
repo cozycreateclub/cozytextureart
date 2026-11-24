@@ -370,6 +370,7 @@ window.ARTWORKS = [
     tags: ['florals', 'pop-pastels', 'joyful'],
     suits: ['Bedroom', 'Kids room'],
     status: 'available',
+    hidden: true,                        // kept in the catalogue but not shown anywhere (user, 2026-11-24)
     featured: false,
     images: {
       front: { src: '/images/art/bubblegum-dahlia/front.webp', w: 1600, h: 1600, alt: 'Bubblegum Dahlia: one large pink textured dahlia with a lemon centre inside a border of lemon dots' },
@@ -428,6 +429,7 @@ window.ARTWORKS = [
     tags: ['abstract', 'geometric', 'pop-pastels', 'calm'],
     suits: ['Bedroom', 'Study'],
     status: 'available',
+    hidden: true,                        // kept in the catalogue but not shown anywhere (user, 2026-11-24)
     featured: false,
     images: {
       front: { src: '/images/art/iris-scales/front.webp', w: 1600, h: 1600, alt: 'Iris Scales: rows of raised scallops shading from white to deep violet on a lilac ground' },
@@ -457,6 +459,7 @@ window.ARTWORKS = [
     tags: ['florals', 'geometric', 'pop-pastels', 'joyful'],
     suits: ['Kids room', 'Bedroom', 'Dining'],
     status: 'available',
+    hidden: true,                        // kept in the catalogue but not shown anywhere (user, 2026-11-24)
     featured: false,
     images: {
       front: { src: '/images/art/melon-checks/front.webp', w: 1600, h: 1600, alt: 'Melon Checks: twenty-five piped pastel flowers on a melon and mint checkerboard' },

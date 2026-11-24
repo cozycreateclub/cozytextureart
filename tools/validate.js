@@ -49,14 +49,16 @@ for (const a of ARTWORKS) {
 }
 
 for (const r of ART_ROOMS) {
+  if (r.cover && (ARTWORKS.find(a => a.slug === r.cover) || {}).hidden) err(r.slug, `cover "${r.cover}" is hidden`);
   for (const t of r.tags) if (!(t in TAGS)) err(r.slug, `room uses unknown tag "${t}"`);
   if (r.cover && !seen.has(r.cover)) err(r.slug, `cover "${r.cover}" is not a piece`);
 }
 
-console.log(`${ARTWORKS.length} pieces, ${Object.keys(TAGS).length} tags`);
+console.log(`${ARTWORKS.length} pieces (${ARTWORKS.filter(a => a.hidden).length} hidden), ${Object.keys(TAGS).length} tags`);
 for (const r of ART_ROOMS) {
-  const n = r.maxPrice ? ARTWORKS.filter(a => a.status !== 'sold' && a.price < r.maxPrice).length
-    : ARTWORKS.filter(a => a.tags.some(t => r.tags.includes(t))).length;
+  const shown = ARTWORKS.filter(a => !a.hidden);
+  const n = r.maxPrice ? shown.filter(a => a.status !== 'sold' && a.price < r.maxPrice).length
+    : shown.filter(a => a.tags.some(t => r.tags.includes(t))).length;
   console.log(`  ${r.name.padEnd(24)} ${String(n).padStart(3)}${n ? '' : '  (hidden: no pieces)'}`);
 }
 const featured = ARTWORKS.filter(a => a.featured).length;
