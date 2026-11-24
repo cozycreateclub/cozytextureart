@@ -2,7 +2,7 @@
 // Written 2026-11-24 for the Razorpay website check, from her pricing guide (docs/pricing.md) and the site.
 // Each section has a heading `h` and either paragraphs `p` or a bullet list `list` (or both).
 // Refund defaults (no change-of-mind returns, 48-hour damage window, refunds in 5–7 working days) confirmed by
-// her 2026-11-24. The line marked CONFIRM is still open.
+// her 2026-11-24. The Contact page shows the city only (Bangalore), by her choice.
 window.POLICY_UPDATED = '24 November 2026';
 window.POLICIES = [
   {
@@ -99,7 +99,7 @@ window.POLICIES = [
       { h: 'Email', p: ['cozytextureart@gmail.com'] },
       { h: 'Instagram', p: ['@cozytextureart · instagram.com/cozytextureart'] },
       { h: 'About a painting', p: ['Each painting page has an enquiry form. Use it to ask about the piece, buy it, or ask for it in a custom size.'] },
-      { h: 'Studio', p: ['Cozy Texture Art, run by Priyanka Meena. India.'] } // CONFIRM: Razorpay may ask for a full business address and phone here
+      { h: 'Studio', p: ['Cozy Texture Art, run by Priyanka Meena. Bangalore, India.'] } // city only (user, 2026-11-24); no street address or phone
     ]
   }
 ];
