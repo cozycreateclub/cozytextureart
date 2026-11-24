@@ -49,6 +49,19 @@ window.ART_ROOMS = [
     tags: ['gradient'], cover: 'sunrise-sprigs' }
 ];
 
+// Styles: families of paintings that look alike (same technique or motif), so the site can hang them side by side
+// for easy scanning and buying in sets (user, 2026-11-24). Every piece has one `style`.
+window.STYLES = {
+  scales: 'Scales and dabs',
+  waves: 'Waves and shores',
+  swirls: 'Swirls, leaves and feathers',
+  meadows: 'Meadows and stems',
+  bouquets: 'Bouquets in vases',
+  dahlias: 'Dahlias',
+  blooms: 'Pressed blooms',
+  checks: 'Checks and tiles',
+  whimsy: 'Whimsy'
+};
 // Palette families for the collection filter.
 window.FAMILIES = {
   warm: { label: 'Blush & butter', dots: ['#EFC6C6', '#F3E3B0', '#F2CDB0'] },
@@ -74,6 +87,7 @@ window.SUITS = ['Living room', 'Bedroom', 'Entryway', 'Dining', 'Kitchen', 'Kids
   canvas: 'stretched',                    // 'stretched' (stretched canvas) or 'board' (canvas board)
   shape: 'portrait',                     // portrait | square | round | arch | landscape
   family: 'cool',                        // warm | green | cool | neutral
+  style: 'blooms',                       // one key of STYLES: look-alike pieces are shown together
   palette: [ { name: 'lilac', hex: '#C8BEDF' } ],   // 3–4 pigments from the photo; one lower-case word each
   tags: ['arches', 'calm'],              // from TAGS; these decide which art rooms it joins
   suits: ['Bedroom', 'Entryway'],        // from SUITS
@@ -101,6 +115,7 @@ window.ARTWORKS = [
     canvas: 'stretched',
     shape: 'portrait',
     family: 'warm',
+    style: 'scales',
     palette: [
       { name: 'bubblegum', hex: '#D594B4' },
       { name: 'blush', hex: '#E0C2D3' },
@@ -130,6 +145,7 @@ window.ARTWORKS = [
     canvas: 'stretched',
     shape: 'square',
     family: 'cool',
+    style: 'dahlias',
     palette: [
       { name: 'orchid', hex: '#CF8ED2' },
       { name: 'lilac', hex: '#E7D5E9' },
@@ -159,6 +175,7 @@ window.ARTWORKS = [
     canvas: 'stretched',
     shape: 'portrait',
     family: 'green',
+    style: 'waves',
     palette: [
       { name: 'matcha', hex: '#AEC4AF' },
       { name: 'mint', hex: '#C9DCC6' },
@@ -188,6 +205,7 @@ window.ARTWORKS = [
     canvas: 'board',
     shape: 'square',
     family: 'warm',
+    style: 'checks',
     palette: [
       { name: 'mint', hex: '#BFD0C3' },
       { name: 'blush', hex: '#F1C6E3' },
@@ -217,6 +235,7 @@ window.ARTWORKS = [
     canvas: 'board',
     shape: 'portrait',
     family: 'green',
+    style: 'scales',
     palette: [
       { name: 'butter', hex: '#F1E3A6' },
       { name: 'marigold', hex: '#C9973F' },
@@ -246,6 +265,7 @@ window.ARTWORKS = [
     canvas: 'board',
     shape: 'portrait',
     family: 'warm',
+    style: 'scales',
     palette: [
       { name: 'lemon', hex: '#E9E58F' },
       { name: 'peach', hex: '#E3B79E' },
@@ -275,6 +295,7 @@ window.ARTWORKS = [
     canvas: 'stretched',
     shape: 'square',
     family: 'cool',
+    style: 'dahlias',
     palette: [
       { name: 'orchid', hex: '#C88CC6' },
       { name: 'lilac', hex: '#DABDDE' },
@@ -303,6 +324,7 @@ window.ARTWORKS = [
     canvas: 'stretched',
     shape: 'portrait',
     family: 'warm',
+    style: 'meadows',
     palette: [
       { name: 'guava', hex: '#FC6292' },
       { name: 'coral', hex: '#FC7C7C' },
@@ -332,6 +354,7 @@ window.ARTWORKS = [
     canvas: 'board',
     shape: 'square',
     family: 'warm',
+    style: 'swirls',
     palette: [
       { name: 'bubblegum', hex: '#F3A4B4' },
       { name: 'lemon', hex: '#FCF07B' },
@@ -361,6 +384,7 @@ window.ARTWORKS = [
     canvas: 'board',
     shape: 'square',
     family: 'warm',
+    style: 'dahlias',
     palette: [
       { name: 'bubblegum', hex: '#E2A5D2' },
       { name: 'blush', hex: '#F5C9EB' },
@@ -391,6 +415,7 @@ window.ARTWORKS = [
     canvas: 'board',
     shape: 'square',
     family: 'green',
+    style: 'checks',
     palette: [
       { name: 'aqua', hex: '#86C8C9' },
       { name: 'lemon', hex: '#F8EA6A' },
@@ -420,6 +445,7 @@ window.ARTWORKS = [
     canvas: 'board',
     shape: 'square',
     family: 'cool',
+    style: 'scales',
     palette: [
       { name: 'milk', hex: '#EDEFFC' },
       { name: 'lavender', hex: '#C8C7DE' },
@@ -450,6 +476,7 @@ window.ARTWORKS = [
     canvas: 'board',
     shape: 'square',
     family: 'warm',
+    style: 'checks',
     palette: [
       { name: 'melon', hex: '#B87B73' },
       { name: 'mint', hex: '#6A9B93' },
@@ -480,6 +507,7 @@ window.ARTWORKS = [
     canvas: 'board',
     shape: 'portrait',
     family: 'warm',
+    style: 'blooms',
     palette: [
       { name: 'rose', hex: '#C19295' },
       { name: 'lilac', hex: '#A48CA3' },
@@ -509,6 +537,7 @@ window.ARTWORKS = [
     canvas: 'stretched',
     shape: 'portrait',
     family: 'warm',
+    style: 'scales',
     palette: [
       { name: 'papaya', hex: '#EF8B6D' },
       { name: 'tangerine', hex: '#FA8E3B' },
@@ -538,6 +567,7 @@ window.ARTWORKS = [
     canvas: 'stretched',
     shape: 'landscape',
     family: 'cool',
+    style: 'scales',
     palette: [
       { name: 'bubblegum', hex: '#CE8E9D' },
       { name: 'mustard', hex: '#B69E68' },
@@ -568,6 +598,7 @@ window.ARTWORKS = [
     canvas: 'board',
     shape: 'landscape',
     family: 'cool',
+    style: 'blooms',
     palette: [
       { name: 'sage', hex: '#ADC7AA' },
       { name: 'butter', hex: '#EFD7A4' },
@@ -597,6 +628,7 @@ window.ARTWORKS = [
     canvas: 'board',
     shape: 'portrait',
     family: 'green',
+    style: 'bouquets',
     palette: [
       { name: 'mint', hex: '#8AC9BC' },
       { name: 'milk', hex: '#F2F0EC' },
@@ -626,6 +658,7 @@ window.ARTWORKS = [
     canvas: 'board',
     shape: 'square',
     family: 'warm',
+    style: 'blooms',
     palette: [
       { name: 'honey', hex: '#F1C15B' },
       { name: 'cornflower', hex: '#AFC3E6' },
@@ -655,6 +688,7 @@ window.ARTWORKS = [
     canvas: 'board',
     shape: 'square',
     family: 'cool',
+    style: 'blooms',
     palette: [
       { name: 'oyster', hex: '#D9D7D2' },
       { name: 'blush', hex: '#D9B8A6' },
@@ -684,6 +718,7 @@ window.ARTWORKS = [
     canvas: 'board',
     shape: 'landscape',
     family: 'cool',
+    style: 'blooms',
     palette: [
       { name: 'teal', hex: '#66AFC7' },
       { name: 'raspberry', hex: '#883D65' },
@@ -713,6 +748,7 @@ window.ARTWORKS = [
     canvas: 'board',
     shape: 'square',
     family: 'cool',
+    style: 'checks',
     palette: [
       { name: 'lemon', hex: '#E2E58A' },
       { name: 'rose', hex: '#D6A1C6' },
@@ -742,6 +778,7 @@ window.ARTWORKS = [
     canvas: 'board',
     shape: 'square',
     family: 'cool',
+    style: 'blooms',
     palette: [
       { name: 'lemon', hex: '#E8E39A' },
       { name: 'lilac', hex: '#C8BEE8' },
@@ -771,6 +808,7 @@ window.ARTWORKS = [
     canvas: 'stretched',
     shape: 'square',
     family: 'green',
+    style: 'meadows',
     palette: [
       { name: 'sky', hex: '#6FA7DA' },
       { name: 'lime', hex: '#C9E08E' },
@@ -800,6 +838,7 @@ window.ARTWORKS = [
     canvas: 'stretched',
     shape: 'square',
     family: 'cool',
+    style: 'meadows',
     palette: [
       { name: 'peach', hex: '#EBC0A8' },
       { name: 'lavender', hex: '#B4ADD6' },
@@ -829,6 +868,7 @@ window.ARTWORKS = [
     canvas: 'board',
     shape: 'square',
     family: 'warm',
+    style: 'blooms',
     palette: [
       { name: 'mauve', hex: '#D8BDC4' },
       { name: 'milk', hex: '#F6F4F1' },
@@ -858,6 +898,7 @@ window.ARTWORKS = [
     canvas: 'board',
     shape: 'square',
     family: 'neutral',
+    style: 'checks',
     palette: [
       { name: 'latte', hex: '#C3A288' },
       { name: 'oat', hex: '#E3D3C2' },
@@ -887,6 +928,7 @@ window.ARTWORKS = [
     canvas: 'board',
     shape: 'square',
     family: 'warm',
+    style: 'blooms',
     palette: [
       { name: 'raspberry', hex: '#BF4D75' },
       { name: 'bubblegum', hex: '#E28DAD' },
@@ -916,6 +958,7 @@ window.ARTWORKS = [
     canvas: 'board',
     shape: 'portrait',
     family: 'green',
+    style: 'blooms',
     palette: [
       { name: 'sage', hex: '#B0BFAB' },
       { name: 'milk', hex: '#F3F4EF' },
@@ -945,6 +988,7 @@ window.ARTWORKS = [
     canvas: 'board',
     shape: 'portrait',
     family: 'cool',
+    style: 'bouquets',
     palette: [
       { name: 'lilac', hex: '#D2C5D3' },
       { name: 'cream', hex: '#F4F1E3' },
@@ -974,6 +1018,7 @@ window.ARTWORKS = [
     canvas: 'board',
     shape: 'square',
     family: 'cool',
+    style: 'blooms',
     palette: [
       { name: 'lilac', hex: '#958FAF' },
       { name: 'butter', hex: '#EFEB97' },
@@ -1003,6 +1048,7 @@ window.ARTWORKS = [
     canvas: 'board',
     shape: 'square',
     family: 'warm',
+    style: 'blooms',
     palette: [
       { name: 'blush', hex: '#CCA7AA' },
       { name: 'orchid', hex: '#EBB8D9' },
@@ -1032,6 +1078,7 @@ window.ARTWORKS = [
     canvas: 'stretched',
     shape: 'portrait',
     family: 'cool',
+    style: 'swirls',
     palette: [
       { name: 'blossom', hex: '#E8BED6' },
       { name: 'lilac', hex: '#A289CF' },
@@ -1061,6 +1108,7 @@ window.ARTWORKS = [
     canvas: 'stretched',
     shape: 'round',
     family: 'green',
+    style: 'meadows',
     palette: [
       { name: 'mint', hex: '#7DAA91' },
       { name: 'blush', hex: '#D7BBC5' },
@@ -1090,6 +1138,7 @@ window.ARTWORKS = [
     canvas: 'stretched',
     shape: 'square',
     family: 'warm',
+    style: 'bouquets',
     palette: [
       { name: 'blush', hex: '#FAD8DF' },
       { name: 'rose', hex: '#DD849E' },
@@ -1119,6 +1168,7 @@ window.ARTWORKS = [
     canvas: 'stretched',
     shape: 'round',
     family: 'cool',
+    style: 'meadows',
     palette: [
       { name: 'lavender', hex: '#B8AEB7' },
       { name: 'violet', hex: '#7E6BAC' },
@@ -1148,6 +1198,7 @@ window.ARTWORKS = [
     canvas: 'board',
     shape: 'portrait',
     family: 'warm',
+    style: 'blooms',
     palette: [
       { name: 'pistachio', hex: '#AAA67F' },
       { name: 'bubblegum', hex: '#D5638C' },
@@ -1177,6 +1228,7 @@ window.ARTWORKS = [
     canvas: 'stretched',
     shape: 'portrait',
     family: 'cool',
+    style: 'swirls',
     palette: [
       { name: 'aqua', hex: '#9AC8C0' },
       { name: 'lilac', hex: '#9F76A4' },
@@ -1206,6 +1258,7 @@ window.ARTWORKS = [
     canvas: 'stretched',
     shape: 'portrait',
     family: 'warm',
+    style: 'swirls',
     palette: [
       { name: 'tangerine', hex: '#DE6446' },
       { name: 'lemon', hex: '#D3BD6C' },
@@ -1236,6 +1289,7 @@ window.ARTWORKS = [
     canvas: 'stretched',
     shape: 'portrait',
     family: 'neutral',
+    style: 'checks',
     palette: [
       { name: 'chalk', hex: '#F2F0EE' },
       { name: 'latte', hex: '#D9C2B2' },
@@ -1264,6 +1318,7 @@ window.ARTWORKS = [
     canvas: 'stretched',
     shape: 'landscape',
     family: 'cool',
+    style: 'waves',
     palette: [
       { name: 'sand', hex: '#E2C8B5' },
       { name: 'seafoam', hex: '#BBE3D9' },
@@ -1293,6 +1348,7 @@ window.ARTWORKS = [
     canvas: 'stretched',
     shape: 'landscape',
     family: 'green',
+    style: 'scales',
     palette: [
       { name: 'sage', hex: '#7F8D6E' },
       { name: 'olive', hex: '#5B6C4C' },
@@ -1323,6 +1379,7 @@ window.ARTWORKS = [
     canvas: 'stretched',
     shape: 'portrait',
     family: 'warm',
+    style: 'waves',
     palette: [
       { name: 'apricot', hex: '#FD9676' },
       { name: 'tangerine', hex: '#F2994E' },
@@ -1352,6 +1409,7 @@ window.ARTWORKS = [
     canvas: 'stretched',
     shape: 'portrait',
     family: 'cool',
+    style: 'waves',
     palette: [
       { name: 'cobalt', hex: '#2F4FC8' },
       { name: 'peach', hex: '#E6A97A' },
@@ -1381,6 +1439,7 @@ window.ARTWORKS = [
     canvas: 'stretched',
     shape: 'portrait',
     family: 'green',
+    style: 'swirls',
     palette: [
       { name: 'indigo', hex: '#332C72' },
       { name: 'lemon', hex: '#E2DC6E' },
@@ -1410,6 +1469,7 @@ window.ARTWORKS = [
     canvas: 'stretched',
     shape: 'landscape',
     family: 'warm',
+    style: 'whimsy',
     palette: [
       { name: 'mint', hex: '#B1CBC7' },
       { name: 'bubblegum', hex: '#F2A8C4' },
@@ -1439,6 +1499,7 @@ window.ARTWORKS = [
     canvas: 'board',
     shape: 'square',
     family: 'cool',
+    style: 'swirls',
     palette: [
       { name: 'lavender', hex: '#C4B0DC' },
       { name: 'blush', hex: '#E6C2D8' },
@@ -1468,6 +1529,7 @@ window.ARTWORKS = [
     canvas: 'board',
     shape: 'portrait',
     family: 'green',
+    style: 'swirls',
     palette: [
       { name: 'cornflower', hex: '#5E8EDB' },
       { name: 'teal', hex: '#3F9E9C' },
@@ -1497,6 +1559,7 @@ window.ARTWORKS = [
     canvas: 'board',
     shape: 'square',
     family: 'cool',
+    style: 'meadows',
     palette: [
       { name: 'lilac', hex: '#BEA0B4' },
       { name: 'sage', hex: '#9BA78F' },
@@ -1526,6 +1589,7 @@ window.ARTWORKS = [
     canvas: 'stretched',
     shape: 'portrait',
     family: 'cool',
+    style: 'waves',
     palette: [
       { name: 'peach', hex: '#E1C2A4' },
       { name: 'sand', hex: '#CEA885' },
@@ -1555,6 +1619,7 @@ window.ARTWORKS = [
     canvas: 'stretched',
     shape: 'square',
     family: 'cool',
+    style: 'waves',
     palette: [
       { name: 'canvas', hex: '#F0F1EE' },
       { name: 'sky', hex: '#97DBF8' },
@@ -1584,6 +1649,7 @@ window.ARTWORKS = [
     canvas: 'stretched',
     shape: 'landscape',
     family: 'green',
+    style: 'waves',
     palette: [
       { name: 'pistachio', hex: '#95A990' },
       { name: 'seafoam', hex: '#8FB0A6' },
@@ -1613,6 +1679,7 @@ window.ARTWORKS = [
     canvas: 'stretched',
     shape: 'portrait',
     family: 'cool',
+    style: 'swirls',
     palette: [
       { name: 'cobalt', hex: '#1131A2' },
       { name: 'sky', hex: '#7FB9DA' },
@@ -1642,6 +1709,7 @@ window.ARTWORKS = [
     canvas: 'stretched',
     shape: 'square',
     family: 'warm',
+    style: 'waves',
     palette: [
       { name: 'cobalt', hex: '#204FC5' },
       { name: 'violet', hex: '#B267BA' },

@@ -7,7 +7,7 @@ const fs = require('fs'), path = require('path'), vm = require('vm');
 const ROOT = path.dirname(__dirname);
 const win = {};
 vm.runInNewContext(fs.readFileSync(path.join(ROOT, 'data/artworks.js'), 'utf8'), { window: win });
-const { TAGS, ART_ROOMS, FAMILIES, SUITS, ARTWORKS } = win;
+const { TAGS, ART_ROOMS, FAMILIES, SUITS, ARTWORKS, STYLES } = win;
 
 const errors = [];
 const err = (slug, msg) => errors.push(`${slug}: ${msg}`);
@@ -25,6 +25,7 @@ for (const a of ARTWORKS) {
   for (const t of a.tags || []) if (!(t in TAGS)) err(s, `unknown tag "${t}"`);
   for (const u of a.suits || []) if (!SUITS.includes(u)) err(s, `unknown suit "${u}"`);
   if (!(a.family in FAMILIES)) err(s, `unknown family "${a.family}"`);
+  if (!(a.style in (STYLES || {}))) err(s, `unknown style "${a.style}"`);
   if (!SHAPES.includes(a.shape)) err(s, `unknown shape "${a.shape}"`);
   if (!STATUS.includes(a.status)) err(s, `unknown status "${a.status}"`);
   if (!a.size || !(a.size.d || (a.size.w && a.size.h))) err(s, 'size needs {w,h} or {d}');

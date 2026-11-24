@@ -86,11 +86,23 @@ async function sendEnquiry(subject, replyto, fields) {
 // Plain email link, used for the footer/About and as the fallback when sending fails.
 const mailto = (subject, body='') => `mailto:${STUDIO_EMAIL}?subject=${encodeURIComponent(subject)}${body?`&body=${encodeURIComponent(body)}`:''}`;
 const INK = '#2B2622', PAPER = '#F7F4EF';
-// Display order everywhere (user, 2026-11-19): stretched canvas before canvas board, then newest first by
-// `added`; pieces added on the same day keep the reverse of their file order. Pieces with `hidden: true` are left
-// out everywhere (their pages show the not-found screen).
-const PIECES = (window.ARTWORKS || []).map((p, i) => ({p, i})).filter(x => !x.p.hidden)
-  .sort((a, b) => (a.p.canvas === 'board') - (b.p.canvas === 'board') || (b.p.added || '').localeCompare(a.p.added || '') || b.i - a.i)
+// Display order everywhere (user, 2026-11-24): look-alike pieces (same `style`) hang together so buyers can scan
+// and pick sets. Families with the biggest pieces come first; inside a family, biggest first, then stretched canvas
+// before board, then newest by `added`. Pieces with `hidden: true` are left out everywhere (their pages show the
+// not-found screen).
+const areaOf = p => p.size ? (p.size.d ? p.size.d * p.size.d : p.size.w * p.size.h) : 0;
+const VISIBLE = (window.ARTWORKS || []).map((p, i) => ({p, i})).filter(x => !x.p.hidden);
+const STYLE_RANK = (() => {
+  const best = {};
+  for (const {p} of VISIBLE) {
+    const k = p.style || '', b = best[k];
+    if (!b || areaOf(p) > b.area || (areaOf(p) === b.area && (p.added || '') > b.added)) best[k] = {area: areaOf(p), added: p.added || ''};
+  }
+  return Object.keys(best).sort((a, b) => best[b].area - best[a].area || best[b].added.localeCompare(best[a].added) || a.localeCompare(b));
+})();
+const PIECES = VISIBLE
+  .sort((a, b) => STYLE_RANK.indexOf(a.p.style || '') - STYLE_RANK.indexOf(b.p.style || '') || areaOf(b.p) - areaOf(a.p)
+    || (a.p.canvas === 'board') - (b.p.canvas === 'board') || (b.p.added || '').localeCompare(a.p.added || '') || b.i - a.i)
   .map(x => x.p);
 const TAGS = window.TAGS || {};
 const FAMILIES = window.FAMILIES || {};
@@ -420,8 +432,10 @@ class App extends React.Component {
     const slots = m
       ? [[5,50,30,-2,.2,.56,.7],[64,49,28,3,.78,.55,1],[38,57,24,2,.5,.64,.8],[6,77,30,-3,.2,.84,1.1],[55,81,38,1,.74,.88,.5]]
       : [[4,9,17,-2,.12,.36,.7],[10,59,13,3,.165,.75,1],[79,7,14,2,.86,.33,.8],[72,58,14.5,-3,.79,.77,1.1],[39,73,20,1,.5,.88,.5]];
-    // The home featured row shows the newest available pieces, in display order.
-    const featured = PIECES.filter(p=>p.status!=='sold').concat(PIECES.filter(p=>p.status==='sold'));
+    // The home featured row shows the lead (biggest) available piece of each style, in display order, so it mixes styles.
+    const avail=PIECES.filter(p=>p.status!=='sold'), seen=new Set();
+    const leads=avail.filter(p=>{ const k=p.style||p.slug; if (seen.has(k)) return false; seen.add(k); return true; });
+    const featured = leads.concat(avail.filter(p=>!leads.includes(p)), PIECES.filter(p=>p.status==='sold'));
     // The hero shows the artist's own pieces, one per slot, mixing shapes and palettes (user decision 2026-11-01).
     // Slot 4 (bottom centre) is the widest, so it suits a landscape piece.
     const heroPieces = HERO_SLUGS.map(bySlug).filter(Boolean);
