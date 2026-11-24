@@ -1,7 +1,8 @@
 // Cozy Texture Art — policy pages (Terms, Privacy, Refunds, Shipping, Contact), shown at /<slug>.
 // Written 2026-11-24 for the Razorpay website check, from her pricing guide (docs/pricing.md) and the site.
 // Each section has a heading `h` and either paragraphs `p` or a bullet list `list` (or both).
-// Lines marked CONFIRM are sensible defaults she has not confirmed yet.
+// Refund defaults (no change-of-mind returns, 48-hour damage window, refunds in 5–7 working days) confirmed by
+// her 2026-11-24. The line marked CONFIRM is still open.
 window.POLICY_UPDATED = '24 November 2026';
 window.POLICIES = [
   {
@@ -67,11 +68,11 @@ window.POLICIES = [
         'Custom pieces: the 50% deposit is non-refundable once work has started. If you cancel before work starts, the deposit is refunded in full.'
       ] },
       { h: 'Returns', list: [
-        'Ready-made paintings are not returnable for a change of mind, since each piece is one of one.', // CONFIRM
+        'Ready-made paintings are not returnable for a change of mind, since each piece is one of one.',
         'Custom pieces cannot be returned.'
       ] },
-      { h: 'Damaged in transit', p: ['If your painting arrives damaged, email cozytextureart@gmail.com within 48 hours of delivery with photos of the piece and the packaging (an unboxing video helps). The studio will offer a repair, a replacement of similar value or a full refund, whichever suits you.'] }, // CONFIRM
-      { h: 'How refunds are paid', p: ['Approved refunds go back to the original payment method within 5–7 working days. Your bank may take a few more days to show it.'] } // CONFIRM
+      { h: 'Damaged in transit', p: ['If your painting arrives damaged, email cozytextureart@gmail.com within 48 hours of delivery with photos of the piece and the packaging (an unboxing video helps). The studio will offer a repair, a replacement of similar value or a full refund, whichever suits you.'] },
+      { h: 'How refunds are paid', p: ['Approved refunds go back to the original payment method within 5–7 working days. Your bank may take a few more days to show it.'] }
     ]
   },
   {

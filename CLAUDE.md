@@ -38,7 +38,7 @@ Single-page portfolio for **Cozy Texture Art**, built from the "Ira Mehra Textur
 | `/art/<slug>` | Piece page (the template) |
 | `/about` | About + creator note |
 | `/gifts` | Gifts under ₹ 2,000: landing page for gift ads and target of The Gift Room card. Lists available pieces with `price < GIFT_MAX` in display order (stretched and board), three short notes, then a made-to-order band. Not in the nav (user, 2026-11-19) |
-| `/terms`, `/privacy`, `/refunds`, `/shipping`, `/contact` | Policy pages for the Razorpay website check (2026-11-24). Text lives in `data/policies.js` (`POLICIES`, `POLICY_UPDATED`); `policy()` renders them and the footer links to all five. Lines marked CONFIRM there are defaults she hasn't confirmed (no change-of-mind returns, 48-hour damage window, refund in 5–7 working days, no street address yet) |
+| `/terms`, `/privacy`, `/refunds`, `/shipping`, `/contact` | Policy pages for the Razorpay website check (2026-11-24). Text lives in `data/policies.js` (`POLICIES`, `POLICY_UPDATED`); `policy()` renders them and the footer links to all five. Refund terms (no change-of-mind returns, 48-hour damage window, refunds in 5–7 working days) confirmed by her 2026-11-24; the Contact page still has no street address or phone (marked CONFIRM) |
 | anything else | "This wall is empty." not-found screen |
 
 Links are real `<a href>` (shareable, open in new tab) routed in-page by `link()`; the title updates per piece/room.
