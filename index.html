@@ -53,6 +53,7 @@ input,textarea,button{font-family:inherit}
 <script src="/vendor/react-dom-18.3.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/htm@3.1.1/dist/htm.umd.js"></script>
 <script src="/data/artworks.js"></script>
+<script src="/data/policies.js"></script>
 <script>
 'use strict';
 const ARTIST = 'Cozy Texture Art';
@@ -119,6 +120,9 @@ const roomBySlug = s => ROOMS.find(r => r.slug === s);
 const aspect = img => img ? img.w / img.h : 4/5;
 
 // ───────── Routing: /, /collection, /collection/<room>, /art/<slug>, /about ─────────
+const POLICIES = window.POLICIES || [];
+const policyBySlug = s => POLICIES.find(p => p.slug === s);
+
 function parseRoute() {
   const u = new URL(location.href);
   const parts = u.pathname.split('/').filter(Boolean);
@@ -127,6 +131,7 @@ function parseRoute() {
   if (parts[0] === 'art' && parts[1] && bySlug(parts[1])) return {screen:'detail', slug:parts[1]};
   if (parts[0] === 'about') return {screen:'about'};
   if (parts[0] === 'gifts') return {screen:'gifts'};
+  if (parts.length === 1 && policyBySlug(parts[0])) return {screen:'policy', slug:parts[0]};
   return {screen:'notfound'};
 }
 
@@ -273,7 +278,7 @@ class App extends React.Component {
 
   syncHead() {
     const st=this.state; const p=st.screen==='detail'&&bySlug(st.slug); const r=st.screen==='collection'&&roomBySlug(st.room);
-    document.title = p ? `${p.title} · ${ARTIST}` : r ? `${r.name} · ${ARTIST}` : st.screen==='collection' ? `Collection · ${ARTIST}` : st.screen==='about' ? `About · ${ARTIST}` : st.screen==='gifts' ? `Gifts under ${inr(GIFT_MAX)} · ${ARTIST}` : ARTIST;
+    document.title = p ? `${p.title} · ${ARTIST}` : r ? `${r.name} · ${ARTIST}` : st.screen==='collection' ? `Collection · ${ARTIST}` : st.screen==='about' ? `About · ${ARTIST}` : st.screen==='gifts' ? `Gifts under ${inr(GIFT_MAX)} · ${ARTIST}` : st.screen==='policy'&&policyBySlug(st.slug) ? `${policyBySlug(st.slug).title} · ${ARTIST}` : ARTIST;
     const m=document.querySelector('meta[name=description]'); if (m && p) m.content = p.concept || p.holds || m.content;
   }
 
@@ -318,6 +323,9 @@ class App extends React.Component {
         <a href=${mailto('Hello from the website')}>Email</a>
       </div>
       <span style="font-size:12px;color:#7A7067">Hand-built, layer by layer · © 2026</span>
+      ${POLICIES.length>0 && html`<nav aria-label="Policies" style="flex:1 1 100%;display:flex;flex-wrap:wrap;gap:10px 24px;padding-top:18px;border-top:1px dotted rgba(43,38,34,.35);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#7A7067">
+        ${POLICIES.map(p=>html`<span key=${p.slug}>${this.link('/'+p.slug,p.name,'','hov-ul')}</span>`)}
+      </nav>`}
     </footer>`;
   }
 
@@ -337,6 +345,31 @@ class App extends React.Component {
           </div>
         </div>`)}</div>`)}
     </div>`;
+  }
+
+  // ───────── Policy pages (/terms, /privacy, /refunds, /shipping, /contact), text in data/policies.js ─────────
+  policy(m) {
+    const P=policyBySlug(this.state.slug); if (!P) return this.notFound();
+    const IG='https://www.instagram.com/cozytextureart/';
+    const rich=t=>t===STUDIO_EMAIL ? html`<a href=${mailto('Hello from the website')} style="border-bottom:1px solid currentColor">${t}</a>`
+      : t.startsWith('@cozytextureart') ? html`<a href=${IG} target="_blank" rel="noopener" style="border-bottom:1px solid currentColor">${t}</a>` : t;
+    const BODY='margin:0;font-size:16px;line-height:1.75;color:#4A433C;text-wrap:pretty';
+    return html`<section data-screen-label="06 Policy" style="${SECT};padding-top:64px;padding-bottom:110px;display:flex;flex-direction:column;align-items:center">
+      <div style="width:min(640px,100%);display:flex;flex-direction:column;gap:22px">
+        ${eyebrow('Studio policies','align-self:flex-start')}
+        <h1 style="margin:0;font-family:'Instrument Serif',serif;font-weight:400;font-size:clamp(40px,5vw,64px);line-height:1">${P.title}</h1>
+        <div style="font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:#7A7067">Last updated ${window.POLICY_UPDATED||''}</div>
+        <p style=${BODY}>${P.intro}</p>
+        ${P.sections.map(sec=>html`<div key=${sec.h} style="display:flex;flex-direction:column;gap:10px;padding-top:18px;border-top:1px dotted rgba(43,38,34,.35)">
+          <h2 style="margin:0;font-family:'Instrument Serif',serif;font-weight:400;font-size:28px;line-height:1.15">${sec.h}</h2>
+          ${(sec.p||[]).map((t,i)=>html`<p key=${'p'+i} style=${BODY}>${rich(t)}</p>`)}
+          ${sec.list && html`<ul style="margin:0;padding-left:20px;display:flex;flex-direction:column;gap:8px">${sec.list.map((t,i)=>html`<li key=${i} style="font-size:16px;line-height:1.7;color:#4A433C">${t}</li>`)}</ul>`}
+        </div>`)}
+        <div style="display:flex;flex-wrap:wrap;gap:10px 22px;padding-top:24px;border-top:1px dotted rgba(43,38,34,.35);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#7A7067">
+          ${POLICIES.filter(o=>o.slug!==P.slug).map(o=>html`<span key=${o.slug}>${this.link('/'+o.slug,o.name,'border-bottom:1px solid rgba(43,38,34,.3);padding-bottom:3px','hov-ul')}</span>`)}
+        </div>
+      </div>
+    </section>`;
   }
 
   // ───────── Gifts under ₹ 4,000 (landing page for gift ads) ─────────
@@ -369,7 +402,7 @@ class App extends React.Component {
     <section style="${SECT};background:#F0EBE3;padding-top:90px;padding-bottom:90px;display:flex;flex-direction:column;align-items:center;gap:22px;text-align:center">
       ${eyebrow('Made to order')}
       <h2 style="margin:0;font-family:'Instrument Serif',serif;font-weight:400;font-size:clamp(36px,4.4vw,60px);line-height:1.05">A gift in their colours. <span style="font-style:italic">Made just once.</span></h2>
-      <p style="margin:0;max-width:520px;font-size:15px;line-height:1.7;color:#5A5149;text-wrap:pretty">Share a palette or a size and a piece can be made for them. It takes about one to two weeks, as each layer dries before the next.</p>
+      <p style="margin:0;max-width:520px;font-size:15px;line-height:1.7;color:#5A5149;text-wrap:pretty">Share a palette or a size and a piece can be made for them. It takes about two to three weeks, as each layer dries before the next.</p>
       <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:28px;margin-top:10px">
         <a href=${mailto('A gift made to order')} style=${TEXT_LINK}>Write about a gift →</a>
         ${this.link('/collection','See the whole collection →',TEXT_LINK)}
@@ -670,7 +703,7 @@ class App extends React.Component {
           <div style="display:flex;flex-direction:column;gap:12px">
             <button onClick=${toEnquire} className="hov-dark" style="padding:20px;border:none;background:${INK};color:${PAPER};cursor:pointer;font-size:12px;letter-spacing:.32em;text-transform:uppercase">${custom?'Enquire about my size':'Enquire about this piece'}</button>
             <button onClick=${()=>this.setState(s=>({saved:{...s.saved,[p.slug]:!s.saved[p.slug]}}))} style="padding:18px;border:1px solid ${INK};background:transparent;color:${INK};cursor:pointer;font-size:12px;letter-spacing:.32em;text-transform:uppercase">${st.saved[p.slug]?'Saved ✓':'Save for later'}</button>
-            <p style="margin:6px 0 0;font-size:13px;line-height:1.6;color:#7A7067">${custom?'Custom sizes are made to order: about one to two weeks depending on size, as every layer dries before the next, then crated. The price for your size is quoted by email.':'One of one. Crated and shipped in 5–7 days. The price includes packaging and shipping within India; international orders pay extra shipping, quoted by email.'}</p>
+            <p style="margin:6px 0 0;font-size:13px;line-height:1.6;color:#7A7067">${custom?'Custom sizes are made to order: about two to three weeks, as every layer dries before the next, then crated. The price for your size is quoted by email.':'One of one. Crated and shipped in 5–7 days. The price includes packaging and shipping within India; international orders pay extra shipping, quoted by email.'}</p>
           </div>
         </div>
       </div>
@@ -776,6 +809,7 @@ class App extends React.Component {
     else if (st.screen==='detail') body=this.detail(m);
     else if (st.screen==='about') body=this.about(m);
     else if (st.screen==='gifts') body=this.gifts(m);
+    else if (st.screen==='policy') body=this.policy(m);
     else if (st.screen==='notfound') body=this.notFound();
     else body=this.home(m);
     return html`<div style="min-height:100vh;background:${PAPER};position:relative">
