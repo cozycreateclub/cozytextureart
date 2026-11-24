@@ -104,8 +104,8 @@ const bySlug = s => PIECES.find(p => p.slug === s);
 const inr = n => '₹\u2009' + Number(n).toLocaleString('en-IN');
 const priceOf = p => p.price && p.status !== 'sold' ? inr(p.price) : '';
 // The /gifts landing page (for gift ads) and The Gift Room list available pieces priced below this. It comes
-// from the room's `maxPrice` in data/artworks.js (user, 2026-11-19: ₹ 5,000, for the holiday season).
-const GIFT_MAX = ((window.ART_ROOMS || []).find(r => r.maxPrice) || {maxPrice: 5000}).maxPrice;
+// from the room's `maxPrice` in data/artworks.js (user: ₹ 5,000 on 2026-11-19, ₹ 2,000 from 2026-11-24 after the price drop).
+const GIFT_MAX = ((window.ART_ROOMS || []).find(r => r.maxPrice) || {maxPrice: 2000}).maxPrice;
 const SHIP_NOTE = 'Includes packaging and shipping within India. International orders: extra shipping charges apply.';
 const PRICE_TAG = `font-size:12px;letter-spacing:.2em;color:#7A7067`;
 const dims = p => p.size ? (p.size.d ? `${p.size.d} cm diameter` : `${p.size.w} × ${p.size.h} cm`) : '';
