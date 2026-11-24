@@ -574,7 +574,7 @@ window.ARTWORKS = [
       { name: 'seafoam', hex: '#669693' },
       { name: 'lagoon', hex: '#437E7A' }
     ],
-    tags: ['abstract', 'pop-pastels', 'joyful'],
+    tags: ['abstract', 'pop-pastels', 'earthy', 'joyful'],
     suits: ['Living room', 'Bedroom', 'Dining'],
     status: 'available',
     featured: false,
@@ -1355,7 +1355,7 @@ window.ARTWORKS = [
       { name: 'mustard', hex: '#BD8F4B' },
       { name: 'teal', hex: '#549493' }
     ],
-    tags: ['abstract', 'earthy', 'calm'],
+    tags: ['abstract', 'earthy', 'pop-pastels', 'calm'],
     suits: ['Living room', 'Study', 'Dining'],
     status: 'available',
     featured: false,
