@@ -155,7 +155,9 @@ function parseRoute() {
 // The home "texture vs print" slider section is hidden for now (user, 2026-11-19). Set true to bring it back.
 const SHOW_COMPARE = false;
 
-const HERO_SLUGS = ['sunset-scales','tulip-moon','lilac-breeze','peach-shore','seafoam-scales'];
+// Four pieces: the bottom-centre slot is left empty, because a piece there had to shrink to fit under the text
+// (user, 2026-11-24). Add a fifth slug to fill it again.
+const HERO_SLUGS = ['sunset-scales','tulip-moon','lilac-breeze','peach-shore'];
 
 // ───────── Decorative procedural textures (About page process steps only) ─────────
 // Not catalogue pieces: they illustrate a making step where no photo exists yet.
@@ -440,7 +442,7 @@ class App extends React.Component {
     // Slot 4 (bottom centre) is the widest, so it suits a landscape piece.
     const heroPieces = HERO_SLUGS.map(bySlug).filter(Boolean);
     const heroArts = slots.map(([l,t,w,rot,cx,cy,d],i)=>{
-      const p = heroPieces[i] || featured[i]; if (!p) return null;
+      const p = HERO_SLUGS.length ? heroPieces[i] : featured[i]; if (!p) return null;
       const dx=(st.lx-cx)*W, dy=(st.ly-cy)*H; const dist=Math.hypot(dx,dy);
       const az=Math.atan2(dy,dx)*180/Math.PI; const el=Math.max(14,Math.min(48,52-dist/18));
       const px=(st.lx-.5)*-28*d, py=(st.ly-.45)*-20*d;
