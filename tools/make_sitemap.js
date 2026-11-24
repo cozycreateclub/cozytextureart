@@ -15,7 +15,7 @@ const url = (loc, extra = '') => `  <url>\n    <loc>${esc(SITE + loc)}</loc>${ex
 
 const rooms = ART_ROOMS.filter(r => ARTWORKS.some(a => a.tags.some(t => r.tags.includes(t))));
 const urls = [
-  url('/'), url('/collection'), url('/about'), url('/gifts'),
+  url('/'), url('/collection'), url('/collection/all'), url('/about'), url('/gifts'),
   ...['terms', 'privacy', 'refunds', 'shipping', 'contact'].map(s => url('/' + s)),
   ...rooms.map(r => url('/collection/' + r.slug)),
   ...ARTWORKS.map(a => url('/art/' + a.slug,

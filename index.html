@@ -117,6 +117,10 @@ const piecesIn = room => room.maxPrice
   : PIECES.filter(p => (p.tags||[]).some(t => room.tags.includes(t)));
 const ROOMS = (window.ART_ROOMS || []).map(r => ({...r, pieces: piecesIn(r)})).filter(r => r.pieces.length);
 const roomBySlug = s => ROOMS.find(r => r.slug === s);
+// /collection/all: every painting in one grid. It sits after the real rooms in the room switcher and next/previous links.
+const ALL_ROOM = {slug: 'all', name: 'All paintings', sub: 'Every painting in the studio, newest first', text: '', pieces: PIECES};
+const roomOrAll = s => s === 'all' ? ALL_ROOM : roomBySlug(s);
+const ROOM_NAV = ROOMS.length ? [...ROOMS, ALL_ROOM] : [];
 const aspect = img => img ? img.w / img.h : 4/5;
 
 // ───────── Routing: /, /collection, /collection/<room>, /art/<slug>, /about ─────────
@@ -277,7 +281,7 @@ class App extends React.Component {
   }
 
   syncHead() {
-    const st=this.state; const p=st.screen==='detail'&&bySlug(st.slug); const r=st.screen==='collection'&&roomBySlug(st.room);
+    const st=this.state; const p=st.screen==='detail'&&bySlug(st.slug); const r=st.screen==='collection'&&roomOrAll(st.room);
     document.title = p ? `${p.title} · ${ARTIST}` : r ? `${r.name} · ${ARTIST}` : st.screen==='collection' ? `Collection · ${ARTIST}` : st.screen==='about' ? `About · ${ARTIST}` : st.screen==='gifts' ? `Gifts under ${inr(GIFT_MAX)} · ${ARTIST}` : st.screen==='policy'&&policyBySlug(st.slug) ? `${policyBySlug(st.slug).title} · ${ARTIST}` : ARTIST;
     const m=document.querySelector('meta[name=description]'); if (m && p) m.content = p.concept || p.holds || m.content;
   }
@@ -519,7 +523,7 @@ class App extends React.Component {
     const active=!!((st.q||'').trim()||st.fFam||st.fTag||st.fShape||st.fRoom);
     // Filters sit behind a toggle so the art shows in the first screen (user, 2026-11-19); the button shows how many are on.
     const nF=[st.fFam,st.fTag,st.fShape,st.fRoom].filter(Boolean).length;
-    const RM=roomBySlug(st.room);
+    const RM=roomOrAll(st.room);
     const list = active ? res : RM ? RM.pieces : [];
     const isRooms=!active&&!RM&&ROOMS.length>0, noResults=active&&res.length===0, inRoom=!!RM&&!active;
     let countLabel=res.length+(res.length===1?' piece':' pieces');
@@ -543,6 +547,19 @@ class App extends React.Component {
 
     // Art grid: every piece in the room (or matching the filters), each linking to its page.
     // Widths follow real canvas widths, so a 30 cm piece and a 60 cm piece read at true relative scale.
+    // Inside a room: jump straight to any other room, or step to the previous/next one, without going back (user, 2026-11-24).
+    const ri=RM?ROOM_NAV.findIndex(r=>r.slug===RM.slug):-1;
+    const roomSwitch=html`<nav aria-label="Art rooms" ref=${el=>{ if (el&&m) (document.fonts?document.fonts.ready:Promise.resolve()).then(()=>{ const on=el.querySelector('[data-on]'); if (on) el.scrollLeft+=on.getBoundingClientRect().left-el.getBoundingClientRect().left; }); }} style="display:flex;flex-wrap:${m?'nowrap':'wrap'};justify-content:${m?'flex-start':'center'};gap:10px;overflow-x:${m?'auto':'visible'};scrollbar-width:none;padding-bottom:4px">
+      ${ROOM_NAV.map(r=>{ const on=RM&&r.slug===RM.slug; return html`<span key=${r.slug} data-on=${on?'':undefined} style="flex:none">${this.link('/collection/'+r.slug,r.name,`display:inline-block;padding:9px 16px;border-radius:999px;border:1px solid ${on?INK:'rgba(43,38,34,.25)'};background:${on?'#E9E1D5':'transparent'};font-size:12px;letter-spacing:.08em;color:${INK};white-space:nowrap`)}</span>`; })}
+    </nav>`;
+    const pa=ri>=0?ROOM_NAV[(ri-1+ROOM_NAV.length)%ROOM_NAV.length]:null, na=ri>=0?ROOM_NAV[(ri+1)%ROOM_NAV.length]:null;
+    const pagerSide=(r,dir)=>this.link('/collection/'+r.slug,html`<span style="display:flex;flex-direction:column;gap:6px;align-items:${dir<0?'flex-start':'flex-end'}">
+        <span style="font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:#7A7067">${dir<0?'← Previous room':'Next room →'}</span>
+        <span style="font-family:'Instrument Serif',serif;font-size:${m?24:32}px;line-height:1.05;color:${INK}">${r.name}</span>
+      </span>`,'','hov-ul');
+    const roomPager=pa&&na&&html`<div style="display:flex;justify-content:space-between;align-items:flex-end;gap:24px;padding-top:36px;margin-top:20px;border-top:1px dotted rgba(43,38,34,.35)">
+      ${pagerSide(pa,-1)}${pagerSide(na,1)}
+    </div>`;
     let single=null;
     if (list.length) {
       single=html`<div style="display:flex;flex-direction:column;gap:40px;padding-top:20px">
@@ -551,7 +568,9 @@ class App extends React.Component {
           ${!active && RM.sub && html`<div style="font-family:'Instrument Serif',serif;font-style:italic;font-size:22px;color:#5A5149">${RM.sub}</div>`}
           ${!active && RM.text && html`<p style="margin:0;max-width:520px;font-size:15px;line-height:1.65;color:#5A5149;text-wrap:pretty">${RM.text}</p>`}
         </div>
+        ${inRoom && roomSwitch}
         ${this.pieceGrid(list,m)}
+        ${inRoom && roomPager}
       </div>`;
     }
 
@@ -577,7 +596,7 @@ class App extends React.Component {
       </div>`}
       ${noResults && html`<p style="margin:40px 0;text-align:center;font-family:'Instrument Serif',serif;font-style:italic;font-size:28px;color:#5A5149">Nothing matches yet. Try a softer search, or write in about a commission.</p>`}
       ${isRooms && html`<div style="display:flex;flex-direction:column;gap:28px">
-        <div style="display:flex">${eyebrow('Art rooms')}</div>
+        <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap">${eyebrow('Art rooms')}${this.link('/collection/all',`View all ${PIECES.length} paintings →`,TEXT_LINK)}</div>
         <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(${m?'260px':'300px'},1fr));gap:${m?'48px 20px':'64px 40px'};padding:10px 0 20px">${artRooms}</div>
       </div>`}
       ${single}`}

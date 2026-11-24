@@ -34,7 +34,8 @@ Single-page portfolio for **Cozy Texture Art**, built from the "Ira Mehra Textur
 |---|---|
 | `/` | Home |
 | `/collection` (`?tag=<tag>`, `?q=`) | Filters + art rooms row; with a filter, a grid of matching pieces |
-| `/collection/<room-slug>` | Art grid of one room: every piece, widths at true relative canvas size, each linking to its page |
+| `/collection/<room-slug>` | Art grid of one room: every piece, widths at true relative canvas size, each linking to its page. A pill row of every room (plus All paintings) sits above the grid and Previous/Next room links below it, so visitors move between rooms without going back (user, 2026-11-24) |
+| `/collection/all` | All paintings in one grid (`ALL_ROOM`), linked as "View all N paintings →" beside the Art rooms heading and last in the room switcher |
 | `/art/<slug>` | Piece page (the template) |
 | `/about` | About + creator note |
 | `/gifts` | Gifts under ₹ 2,000: landing page for gift ads and target of The Gift Room card. Lists available pieces with `price < GIFT_MAX` in display order (stretched and board), three short notes, then a made-to-order band. Not in the nav (user, 2026-11-19) |
