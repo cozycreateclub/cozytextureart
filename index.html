@@ -108,6 +108,7 @@ const INK = '#2B2622', PAPER = '#F7F4EF';
 // and pick sets. Families with the biggest pieces come first; inside a family, biggest first, then stretched canvas
 // before board, then newest by `added`. Pieces with `hidden: true` are left out everywhere (their pages show the
 // not-found screen).
+const CANVAS_RANK = p => ({stretched: 0, board: 1, magnet: 2})[p.canvas] ?? 1;
 const areaOf = p => p.size ? (p.size.d ? p.size.d * p.size.d : p.size.w * p.size.h) : 0;
 const VISIBLE = (window.ARTWORKS || []).map((p, i) => ({p, i})).filter(x => !x.p.hidden);
 const STYLE_RANK = (() => {
@@ -120,7 +121,7 @@ const STYLE_RANK = (() => {
 })();
 const PIECES = VISIBLE
   .sort((a, b) => STYLE_RANK.indexOf(a.p.style || '') - STYLE_RANK.indexOf(b.p.style || '') || areaOf(b.p) - areaOf(a.p)
-    || (a.p.canvas === 'board') - (b.p.canvas === 'board') || (b.p.added || '').localeCompare(a.p.added || '') || b.i - a.i)
+    || CANVAS_RANK(a.p) - CANVAS_RANK(b.p) || (b.p.added || '').localeCompare(a.p.added || '') || b.i - a.i)
   .map(x => x.p);
 const TAGS = window.TAGS || {};
 const FAMILIES = window.FAMILIES || {};
@@ -654,8 +655,9 @@ class App extends React.Component {
       (p.suits||[]).length>0 && {k:'Suits',v:p.suits.join(', ')},
       {k:'Year',v:String(p.year)}
     ].filter(Boolean);
-    const views=[{k:'front',l:'Front'},roomImg&&{k:'room',l:'In a room'},{k:'close',l:'Close-up'}].filter(Boolean);
-    const VLABEL={front:'Front view',room:'In a room',close:m?'Close-up · drag to explore':'Close-up · move to explore'};
+    const roomLabel=(roomImg&&roomImg.label)||'In a room';
+    const views=[{k:'front',l:'Front'},roomImg&&{k:'room',l:roomLabel},{k:'close',l:'Close-up'}].filter(Boolean);
+    const VLABEL={front:'Front view',room:roomLabel,close:m?'Close-up · drag to explore':'Close-up · move to explore'};
     const a=aspect(front);
     const stage=(v,small)=>{
       if (v==='room') return html`<img src=${roomImg.src} alt=${roomImg.alt||`${p.title} on a wall at home`} draggable="false" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover" />`;

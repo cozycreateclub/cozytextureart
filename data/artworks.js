@@ -21,7 +21,9 @@ window.TAGS = {
   calm: 'Calm',
   joyful: 'Joyful',
   spiritual: 'Spiritual',
-  minimal: 'Minimal'
+  minimal: 'Minimal',
+  // occasion
+  christmas: 'Christmas'
 };
 
 // Art rooms are collections of tags: a piece appears in every room that shares at least one of its tags.
@@ -32,6 +34,9 @@ window.ART_ROOMS = [
   { slug: 'gift-room', name: 'The Gift Room', sub: 'Gifts under ₹ 2,000, new for the holiday season',
     text: 'Small pieces, sculpted once and never repeated. Easy to wrap, and delivery anywhere in India is included.',
     tags: [], maxPrice: 2000, href: '/gifts', label: 'New · Holiday season', cover: 'tulip-moon' },
+  { slug: 'christmas-room', name: 'The Christmas Room', sub: 'Texture magnets for the holidays, ₹ 599 each',
+    text: 'Round fridge magnets sculpted in texture paste: snowflakes, wreaths, berries and little trees. Small enough to post, sweet enough to collect.',
+    tags: ['christmas'], label: 'New · Christmas', cover: 'frost-tree' },
   { slug: 'bloom-room', name: 'The Bloom Room', sub: 'Florals, petals and peonies',
     text: 'Flowers built petal by petal, each one sculpted in texture paste and lifted off the canvas with the tip of the knife.',
     tags: ['florals', 'botanical'], cover: 'pistachio-blooms' },
@@ -60,7 +65,8 @@ window.STYLES = {
   dahlias: 'Dahlias',
   blooms: 'Pressed blooms',
   checks: 'Checks and tiles',
-  whimsy: 'Whimsy'
+  whimsy: 'Whimsy',
+  christmas: 'Christmas magnets'
 };
 // Palette families for the collection filter.
 window.FAMILIES = {
@@ -1723,6 +1729,243 @@ window.ARTWORKS = [
     images: {
       front: { src: '/images/art/sunset-swell/front.webp', w: 1600, h: 1600, alt: 'Sunset Swell: diagonal combed bands of cobalt, violet, pink and tangerine paste rising to a butter-yellow sun' },
       room:  { src: '/images/art/sunset-swell/room.webp',  w: 1600, h: 1200, alt: 'Sunset Swell on a lilac wall above a light oak sideboard' }
+    }
+  },
+  // ── The Christmas Room (texture magnets) ──
+  {
+    slug: 'winter-berries',
+    title: 'Winter Berries',
+    year: 2026,
+    added: '2026-11-25',
+    price: 599,
+    concept: 'A cream magnet combed into fine ridges, scattered with tiny sprigs: pistachio leaves pressed in single dabs and clusters of raised cherry-red berries.',
+    holds: 'A little sprig of the season for the fridge door.',
+    size: { d: 9 },
+    depth: '',
+    medium: 'Acrylic colour mixed into texture paste, on a round fridge magnet',
+    canvas: 'magnet',
+    shape: 'round',
+    family: 'neutral',
+    style: 'christmas',
+    palette: [
+      { name: 'cream', hex: '#D7D5C6' },
+      { name: 'pistachio', hex: '#97B173' },
+      { name: 'cherry', hex: '#B85A56' }
+    ],
+    tags: ['christmas', 'botanical', 'joyful'],
+    suits: ['Kitchen', 'Kids room'],
+    status: 'available',
+    featured: false,
+    images: {
+      front: { src: '/images/art/winter-berries/front.webp', w: 1600, h: 1600, alt: 'Winter Berries: a round cream magnet with combed ridges and raised sprigs of green leaves and red berries' },
+      room:  { src: '/images/art/winter-berries/room.webp',  w: 1600, h: 1200, label: 'In hand', alt: 'Winter Berries magnet held in a hand, with small festive trees and baubles behind' }
+    }
+  },
+  {
+    slug: 'snow-swirl',
+    title: 'Snow Swirl',
+    year: 2026,
+    added: '2026-11-25',
+    price: 599,
+    concept: 'Sky blue and cream swirled together in loose circles, with raised white snowflakes piped over the top and tiny dots of falling snow.',
+    holds: 'A snowy sky in the palm of your hand.',
+    size: { d: 9 },
+    depth: '',
+    medium: 'Acrylic colour mixed into texture paste, on a round fridge magnet',
+    canvas: 'magnet',
+    shape: 'round',
+    family: 'cool',
+    style: 'christmas',
+    palette: [
+      { name: 'sky', hex: '#88AACC' },
+      { name: 'powder', hex: '#A3BAC9' },
+      { name: 'cream', hex: '#CFCDC2' }
+    ],
+    tags: ['christmas', 'abstract', 'calm'],
+    suits: ['Kitchen', 'Kids room'],
+    status: 'available',
+    featured: false,
+    images: {
+      front: { src: '/images/art/snow-swirl/front.webp', w: 1600, h: 1600, alt: 'Snow Swirl: a round magnet of swirled blue and cream with raised white snowflakes and dots' },
+      room:  { src: '/images/art/snow-swirl/room.webp',  w: 1600, h: 1200, label: 'In hand', alt: 'Snow Swirl magnet held in a hand, with small festive trees and baubles behind' }
+    }
+  },
+  {
+    slug: 'lilac-snowfall',
+    title: 'Lilac Snowfall',
+    year: 2026,
+    added: '2026-11-25',
+    price: 599,
+    concept: 'A soft lilac ground brushed smooth, with raised white snowflakes of every size and small dots of snow drifting between them.',
+    holds: 'A quiet winter evening, wrapped in lilac.',
+    size: { d: 9 },
+    depth: '',
+    medium: 'Acrylic colour mixed into texture paste, on a round fridge magnet',
+    canvas: 'magnet',
+    shape: 'round',
+    family: 'cool',
+    style: 'christmas',
+    palette: [
+      { name: 'lilac', hex: '#CCBED4' },
+      { name: 'lavender', hex: '#8F7A8A' },
+      { name: 'cream', hex: '#CECABF' }
+    ],
+    tags: ['christmas', 'calm'],
+    suits: ['Kitchen', 'Kids room'],
+    status: 'available',
+    featured: false,
+    images: {
+      front: { src: '/images/art/lilac-snowfall/front.webp', w: 1600, h: 1600, alt: 'Lilac Snowfall: a round lilac magnet with raised white snowflakes and dots' },
+      room:  { src: '/images/art/lilac-snowfall/room.webp',  w: 1600, h: 1200, label: 'In hand', alt: 'Lilac Snowfall magnet held in a hand, with small festive trees and baubles behind' }
+    }
+  },
+  {
+    slug: 'blush-wreath',
+    title: 'Blush Wreath',
+    year: 2026,
+    added: '2026-11-25',
+    price: 599,
+    concept: 'A blush-pink ground holding a ring of pressed pistachio leaves over darker painted pine, with tiny clusters of raised red berries around the wreath.',
+    holds: 'A wreath for the smallest door in the house.',
+    size: { d: 9 },
+    depth: '',
+    medium: 'Acrylic colour mixed into texture paste, on a round fridge magnet',
+    canvas: 'magnet',
+    shape: 'round',
+    family: 'warm',
+    style: 'christmas',
+    palette: [
+      { name: 'blush', hex: '#E3CBC5' },
+      { name: 'pistachio', hex: '#91A86C' },
+      { name: 'pine', hex: '#6D864C' },
+      { name: 'cherry', hex: '#B25857' }
+    ],
+    tags: ['christmas', 'botanical', 'joyful'],
+    suits: ['Kitchen', 'Kids room'],
+    status: 'available',
+    featured: false,
+    images: {
+      front: { src: '/images/art/blush-wreath/front.webp', w: 1600, h: 1600, alt: 'Blush Wreath: a round blush-pink magnet with a raised wreath of green leaves and red berries' },
+      room:  { src: '/images/art/blush-wreath/room.webp',  w: 1600, h: 1200, label: 'In hand', alt: 'Blush Wreath magnet held in a hand, with small festive trees and baubles behind' }
+    }
+  },
+  {
+    slug: 'snowfield-tree',
+    title: 'Snowfield Tree',
+    year: 2026,
+    added: '2026-11-25',
+    price: 599,
+    concept: 'A bright sky-blue magnet with a pressed-leaf Christmas tree, red and silver baubles, a star on top, a cinnamon trunk and a drift of white snow along the bottom.',
+    holds: 'The tree you drew as a child, finally in 3D.',
+    size: { d: 9 },
+    depth: '',
+    medium: 'Acrylic colour mixed into texture paste, on a round fridge magnet',
+    canvas: 'magnet',
+    shape: 'round',
+    family: 'cool',
+    style: 'christmas',
+    palette: [
+      { name: 'sky', hex: '#769AC4' },
+      { name: 'pistachio', hex: '#95A475' },
+      { name: 'cinnamon', hex: '#845B3D' },
+      { name: 'cream', hex: '#E2DDD0' }
+    ],
+    tags: ['christmas', 'joyful'],
+    suits: ['Kitchen', 'Kids room'],
+    status: 'available',
+    featured: false,
+    images: {
+      front: { src: '/images/art/snowfield-tree/front.webp', w: 1600, h: 1600, alt: 'Snowfield Tree: a round blue magnet with a raised green Christmas tree, baubles, star and snowy ground' },
+      room:  { src: '/images/art/snowfield-tree/room.webp',  w: 1600, h: 1200, label: 'In hand', alt: 'Snowfield Tree magnet held in a hand, with small festive trees and baubles behind' }
+    }
+  },
+  {
+    slug: 'little-fir',
+    title: 'Little Fir',
+    year: 2026,
+    added: '2026-11-25',
+    price: 599,
+    concept: 'A pale sky-blue magnet with a soft green fir made of pressed strokes, dotted with red and silver baubles, under a cream star and gentle falling snow.',
+    holds: 'A small tree for a cosy kitchen.',
+    size: { d: 9 },
+    depth: '',
+    medium: 'Acrylic colour mixed into texture paste, on a round fridge magnet',
+    canvas: 'magnet',
+    shape: 'round',
+    family: 'cool',
+    style: 'christmas',
+    palette: [
+      { name: 'sky', hex: '#99B5CD' },
+      { name: 'pistachio', hex: '#9EB37A' },
+      { name: 'cinnamon', hex: '#976943' },
+      { name: 'cherry', hex: '#B75A51' }
+    ],
+    tags: ['christmas', 'joyful'],
+    suits: ['Kitchen', 'Kids room'],
+    status: 'available',
+    featured: false,
+    images: {
+      front: { src: '/images/art/little-fir/front.webp', w: 1600, h: 1600, alt: 'Little Fir: a round pale-blue magnet with a raised green fir tree, baubles and a cream star' },
+      room:  { src: '/images/art/little-fir/room.webp',  w: 1600, h: 1200, label: 'In hand', alt: 'Little Fir magnet held in a hand, with small festive trees and baubles behind' }
+    }
+  },
+  {
+    slug: 'blush-pine',
+    title: 'Blush Pine',
+    year: 2026,
+    added: '2026-11-25',
+    price: 599,
+    concept: 'A shimmering blush ground with a tall pine of layered leaf strokes, feathered with darker green, dotted with red and white baubles and a silver star.',
+    holds: 'Christmas in your favourite shade of pink.',
+    size: { d: 9 },
+    depth: '',
+    medium: 'Acrylic colour mixed into texture paste, on a round fridge magnet',
+    canvas: 'magnet',
+    shape: 'round',
+    family: 'warm',
+    style: 'christmas',
+    palette: [
+      { name: 'blush', hex: '#E9D3D0' },
+      { name: 'pistachio', hex: '#87A86D' },
+      { name: 'pine', hex: '#6C7E49' },
+      { name: 'cherry', hex: '#C25A58' }
+    ],
+    tags: ['christmas', 'joyful'],
+    suits: ['Kitchen', 'Kids room'],
+    status: 'available',
+    featured: false,
+    images: {
+      front: { src: '/images/art/blush-pine/front.webp', w: 1600, h: 1600, alt: 'Blush Pine: a round pink magnet with a raised layered green pine tree, baubles and a silver star' },
+      room:  { src: '/images/art/blush-pine/room.webp',  w: 1600, h: 1200, label: 'In hand', alt: 'Blush Pine magnet held in a hand, with small festive trees and baubles behind' }
+    }
+  },
+  {
+    slug: 'frost-tree',
+    title: 'Frost Tree',
+    year: 2026,
+    added: '2026-11-25',
+    price: 599,
+    concept: 'A sky-blue magnet spread in rough, crackled paste, with a white tree built from thick pressed strokes and dotted with raised red baubles.',
+    holds: 'The first frost of December, caught in paste.',
+    size: { d: 9 },
+    depth: '',
+    medium: 'Acrylic colour mixed into texture paste, on a round fridge magnet',
+    canvas: 'magnet',
+    shape: 'round',
+    family: 'cool',
+    style: 'christmas',
+    palette: [
+      { name: 'sky', hex: '#7E9FBE' },
+      { name: 'cream', hex: '#CBC7B9' },
+      { name: 'cherry', hex: '#AC514B' }
+    ],
+    tags: ['christmas', 'minimal'],
+    suits: ['Kitchen', 'Kids room'],
+    status: 'available',
+    featured: false,
+    images: {
+      front: { src: '/images/art/frost-tree/front.webp', w: 1600, h: 1600, alt: 'Frost Tree: a round textured blue magnet with a raised white tree and red baubles' },
+      room:  { src: '/images/art/frost-tree/room.webp',  w: 1600, h: 1200, label: 'In hand', alt: 'Frost Tree magnet held in a hand, with small festive trees and baubles behind' }
     }
   }
 ];

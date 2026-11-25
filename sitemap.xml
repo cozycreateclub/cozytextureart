@@ -31,6 +31,9 @@
     <loc>https://www.cozytextureart.com/contact</loc>
   </url>
   <url>
+    <loc>https://www.cozytextureart.com/collection/christmas-room</loc>
+  </url>
+  <url>
     <loc>https://www.cozytextureart.com/collection/bloom-room</loc>
   </url>
   <url>
@@ -349,6 +352,54 @@
     <loc>https://www.cozytextureart.com/art/sunset-swell</loc>
     <image:image>
       <image:loc>https://www.cozytextureart.com/images/art/sunset-swell/front.webp</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.cozytextureart.com/art/winter-berries</loc>
+    <image:image>
+      <image:loc>https://www.cozytextureart.com/images/art/winter-berries/front.webp</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.cozytextureart.com/art/snow-swirl</loc>
+    <image:image>
+      <image:loc>https://www.cozytextureart.com/images/art/snow-swirl/front.webp</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.cozytextureart.com/art/lilac-snowfall</loc>
+    <image:image>
+      <image:loc>https://www.cozytextureart.com/images/art/lilac-snowfall/front.webp</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.cozytextureart.com/art/blush-wreath</loc>
+    <image:image>
+      <image:loc>https://www.cozytextureart.com/images/art/blush-wreath/front.webp</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.cozytextureart.com/art/snowfield-tree</loc>
+    <image:image>
+      <image:loc>https://www.cozytextureart.com/images/art/snowfield-tree/front.webp</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.cozytextureart.com/art/little-fir</loc>
+    <image:image>
+      <image:loc>https://www.cozytextureart.com/images/art/little-fir/front.webp</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.cozytextureart.com/art/blush-pine</loc>
+    <image:image>
+      <image:loc>https://www.cozytextureart.com/images/art/blush-pine/front.webp</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.cozytextureart.com/art/frost-tree</loc>
+    <image:image>
+      <image:loc>https://www.cozytextureart.com/images/art/frost-tree/front.webp</image:loc>
     </image:image>
   </url>
 </urlset>
