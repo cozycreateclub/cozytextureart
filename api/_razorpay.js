@@ -3,7 +3,8 @@
 const fs = require('fs'), path = require('path'), vm = require('vm');
 
 function keys() {
-  const id = process.env.RAZORPAY_KEY_ID, secret = process.env.RAZORPAY_KEY_SECRET;
+  // Trim: keys pasted into the Vercel dashboard can pick up stray spaces or line breaks.
+  const id = (process.env.RAZORPAY_KEY_ID || '').trim(), secret = (process.env.RAZORPAY_KEY_SECRET || '').trim();
   return id && secret ? {id, secret} : null;
 }
 
