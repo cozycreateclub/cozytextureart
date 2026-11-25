@@ -700,10 +700,10 @@ class App extends React.Component {
     const B=st.buyer, setB=(k,v)=>this.setState(s=>({buyer:{...s.buyer,[k]:v}}));
     const startPay=async()=>{
       if (st.buying) return;
-      const miss=[['name','your name'],['phone','a phone number'],['address','the delivery address'],['city','the city'],['pincode','the PIN code']].find(([k])=>!(B[k]||'').trim());
+      const miss=[['name','your name'],['email','your email for the confirmation'],['phone','a phone number'],['address','the delivery address'],['city','the city'],['pincode','the PIN code']].find(([k])=>!(B[k]||'').trim());
       if (miss) return this.setState({buyErr:`Please add ${miss[1]}.`});
       if (!/^\d{6}$/.test(B.pincode.trim())) return this.setState({buyErr:'Please check the PIN code: it should be 6 digits.'});
-      if (B.email && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(B.email.trim())) return this.setState({buyErr:'Please check the email address.'});
+      if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(B.email.trim())) return this.setState({buyErr:'Please check the email address.'});
       this.setState({buying:true, buyErr:''});
       try {
         await loadCheckout();
@@ -719,9 +719,9 @@ class App extends React.Component {
             try {
               const v=await callApi('/api/verify-payment',resp);
               if (!v.verified) throw new Error('not verified');
-              this.setState({buying:false, buyErr:'', bought:{slug:p.slug, id:resp.razorpay_payment_id}});
+              this.setState({buying:false, buyErr:'', bought:{slug:p.slug, id:resp.razorpay_payment_id, emailed:!!v.buyerEmailed}});
               track('Purchase', pieceParams(p));
-              sendEnquiry(`Order paid: ${p.title}`, B.email.trim()||STUDIO_EMAIL, { name:B.name.trim(), email:B.email.trim()||'(not given)', phone:B.phone.trim(),
+              if (!v.studioEmailed) sendEnquiry(`Order paid: ${p.title}`, B.email.trim()||STUDIO_EMAIL, { name:B.name.trim(), email:B.email.trim()||'(not given)', phone:B.phone.trim(),
                 address:`${B.address.trim()}, ${B.city.trim()} ${B.pincode.trim()}`, piece:`${p.title} · ${location.origin}/art/${p.slug}`, price:priceOf(p),
                 payment:resp.razorpay_payment_id, order:resp.razorpay_order_id, message:`Paid online through Razorpay${testMode?' (TEST MODE, no real money)':''}. Please mark this painting sold.` }).catch(()=>{});
             } catch (e) {
@@ -736,7 +736,7 @@ class App extends React.Component {
     const bought=st.bought&&st.bought.slug===p.slug;
     const buyBlock=bought ? html`<div role="status" style="display:flex;flex-direction:column;gap:12px;padding:22px;background:#F0EBE3">
         <div style="font-family:'Instrument Serif',serif;font-size:32px;line-height:1.05">Thank you, ${B.name.trim().split(' ')[0]||'friend'}.</div>
-        <p style="margin:0;font-size:15px;line-height:1.7;color:#4A433C">${p.title} is yours. Payment of ${priceOf(p)} is received${testMode?' (test mode, no real money)':''}, and it will be packed and dispatched within 5–7 days. Tracking details will follow by email or message.</p>
+        <p style="margin:0;font-size:15px;line-height:1.7;color:#4A433C">${p.title} is yours. Payment of ${priceOf(p)} is received${testMode?' (test mode, no real money)':''}, and it will be packed and dispatched within 5–7 days. ${st.bought.emailed?`A confirmation is on its way to ${B.email.trim()}.`:''} Tracking details will follow by email or message.</p>
         <p style="margin:0;font-size:12px;letter-spacing:.12em;color:#7A7067">Payment reference ${st.bought.id}</p>
       </div>`
       : !st.buyOpen ? html`<button onClick=${()=>this.setState({buyOpen:true,buyErr:''})} className="hov-dark" style="padding:20px;border:none;background:${INK};color:${PAPER};cursor:pointer;font-size:12px;letter-spacing:.32em;text-transform:uppercase">Buy now · ${priceOf(p)}</button>`
@@ -745,7 +745,7 @@ class App extends React.Component {
         ${field('Full name',html`<input value=${B.name} onChange=${e=>setB('name',e.target.value)} autoComplete="name" style=${FIELD} />`)}
         <div style="display:grid;grid-template-columns:${m?'1fr':'1fr 1fr'};gap:16px">
           ${field('Phone',html`<input type="tel" value=${B.phone} onChange=${e=>setB('phone',e.target.value)} autoComplete="tel" style=${FIELD} />`)}
-          ${field('Email (for the receipt)',html`<input type="email" value=${B.email} onChange=${e=>setB('email',e.target.value)} autoComplete="email" style=${FIELD} />`)}
+          ${field('Email (for your confirmation)',html`<input type="email" value=${B.email} onChange=${e=>setB('email',e.target.value)} autoComplete="email" style=${FIELD} />`)}
         </div>
         ${field('Address',html`<input value=${B.address} onChange=${e=>setB('address',e.target.value)} autoComplete="street-address" placeholder="House, street, area" style=${FIELD} />`)}
         <div style="display:grid;grid-template-columns:2fr 1fr;gap:16px">

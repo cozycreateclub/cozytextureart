@@ -1,0 +1,8 @@
+{
+  "name": "cozy-texture-art",
+  "private": true,
+  "description": "Static site; these dependencies are only for the Vercel functions in /api.",
+  "dependencies": {
+    "nodemailer": "6.9.16"
+  }
+}

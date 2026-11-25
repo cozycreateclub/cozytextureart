@@ -4,3 +4,4 @@ design/
 mockups/
 docs/
 .env
+node_modules/
