@@ -75,6 +75,24 @@ const postJSON = async (url, body) => {
 };
 // FormSubmit can go down (it timed out with 522s on 2026-11-05), so each service gets 10 s: FormSubmit first,
 // then Web3Forms. If both fail the form offers the same note through the visitor's own email app.
+// Razorpay Standard Checkout (2026-11-25). /api/create-order makes the order at the catalogue price and
+// /api/verify-payment checks the signature; the keys live only in Vercel environment variables. With test keys the
+// Buy button stays hidden unless the page was opened with ?testpay (remembered for the tab), so visitors never see it.
+const PAY_TEST = (() => { try { if (new URLSearchParams(location.search).has('testpay')) sessionStorage.setItem('testpay', '1'); return sessionStorage.getItem('testpay') === '1'; } catch (e) { return false; } })();
+let checkoutLoading = null;
+const loadCheckout = () => checkoutLoading || (checkoutLoading = new Promise((ok, fail) => {
+  if (window.Razorpay) return ok();
+  const sc = document.createElement('script'); sc.src = 'https://checkout.razorpay.com/v1/checkout.js';
+  sc.onload = () => ok(); sc.onerror = () => { checkoutLoading = null; fail(new Error('The payment window could not load. Check your connection and try again.')); };
+  document.head.appendChild(sc);
+}));
+const callApi = async (url, data) => {
+  const r = await fetch(url, {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(data)});
+  const j = await r.json().catch(() => ({}));
+  if (!r.ok) throw new Error(j.error || `Something went wrong (${r.status})`);
+  return j;
+};
+
 async function sendEnquiry(subject, replyto, fields) {
   try {
     await postJSON(FORM_ENDPOINT, {_subject:subject, _template:'table', _captcha:'false', _replyto:replyto, ...fields});
@@ -262,9 +280,11 @@ const TEXT_LINK = `cursor:pointer;font-size:12px;letter-spacing:.36em;text-trans
 class App extends React.Component {
   state = { ...parseRoute(), lx:.5, ly:.45, cmp:50, fFam:null, fShape:null, fRoom:null, sIdx:0,
     view:'front', zx:50, zy:50, saved:{}, sizeMode:'original', cw:'', ch:'', interest:'Buy this piece', fName:'', fEmail:'', fMsg:'', sent:false, sending:false, sendErr:'',
+    pay:null, buyOpen:false, buying:false, buyErr:'', bought:null, buyer:{name:'',email:'',phone:'',address:'',city:'',pincode:''},
     vw:window.innerWidth, vh:window.innerHeight };
 
   componentDidMount() {
+    fetch('/api/create-order').then(r=>r.ok?r.json():null).then(c=>{ if (c) this.setState({pay:c}); }).catch(()=>{});
     this.tx=.5; this.ty=.45; this.last=0; this.frame=0;
     const reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
     const tick = now => {
@@ -301,7 +321,7 @@ class App extends React.Component {
   }
 
   applyRoute() {
-    this.setState({ slug:null, room:null, q:'', fTag:null, fFam:null, fShape:null, fRoom:null, ...parseRoute(), sIdx:0, view:'front', sent:false, sending:false, sendErr:'', fMsg:'', sizeMode:'original', cw:'', ch:'', interest:'Buy this piece' });
+    this.setState({ slug:null, room:null, q:'', fTag:null, fFam:null, fShape:null, fRoom:null, ...parseRoute(), sIdx:0, view:'front', sent:false, sending:false, sendErr:'', fMsg:'', sizeMode:'original', cw:'', ch:'', interest:'Buy this piece', buyOpen:false, buying:false, buyErr:'', bought:null });
   }
   go(to) { if (to !== location.pathname + location.search) history.pushState(null, '', to); this.applyRoute(); window.scrollTo(0,0); }
   // Real links (so pieces can be opened in a new tab and shared), routed in-page on a plain click.
@@ -674,6 +694,70 @@ class App extends React.Component {
       </span>
     </label>`;
     const NUM=`width:100%;box-sizing:border-box;${FIELD}`;
+    // Buy now: a short delivery form, then Razorpay's checkout over the page. Only for available, priced originals.
+    const pay=st.pay, testMode=pay&&pay.mode==='test';
+    const canBuy=!!(pay&&pay.enabled&&(pay.mode==='live'||PAY_TEST)&&!custom&&p.status==='available'&&priceOf(p));
+    const B=st.buyer, setB=(k,v)=>this.setState(s=>({buyer:{...s.buyer,[k]:v}}));
+    const startPay=async()=>{
+      if (st.buying) return;
+      const miss=[['name','your name'],['phone','a phone number'],['address','the delivery address'],['city','the city'],['pincode','the PIN code']].find(([k])=>!(B[k]||'').trim());
+      if (miss) return this.setState({buyErr:`Please add ${miss[1]}.`});
+      if (!/^\d{6}$/.test(B.pincode.trim())) return this.setState({buyErr:'Please check the PIN code: it should be 6 digits.'});
+      if (B.email && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(B.email.trim())) return this.setState({buyErr:'Please check the email address.'});
+      this.setState({buying:true, buyErr:''});
+      try {
+        await loadCheckout();
+        const o=await callApi('/api/create-order',{slug:p.slug,buyer:B});
+        let failed=false;
+        const rz=new window.Razorpay({
+          key:o.key_id, amount:o.amount, currency:o.currency, order_id:o.order_id,
+          name:ARTIST, description:o.title, notes:{slug:p.slug},
+          prefill:{name:B.name.trim(), email:B.email.trim(), contact:(d=>d.length===10?'+91'+d:B.phone.trim())(B.phone.replace(/\D/g,''))},
+          theme:{color:INK},
+          modal:{ondismiss:()=>{ if (!this.state.bought) this.setState({buying:false, buyErr:failed?this.state.buyErr:'Payment was cancelled. The painting is still here whenever you are ready.'}); }},
+          handler:async resp=>{
+            try {
+              const v=await callApi('/api/verify-payment',resp);
+              if (!v.verified) throw new Error('not verified');
+              this.setState({buying:false, buyErr:'', bought:{slug:p.slug, id:resp.razorpay_payment_id}});
+              track('Purchase', pieceParams(p));
+              sendEnquiry(`Order paid: ${p.title}`, B.email.trim()||STUDIO_EMAIL, { name:B.name.trim(), email:B.email.trim()||'(not given)', phone:B.phone.trim(),
+                address:`${B.address.trim()}, ${B.city.trim()} ${B.pincode.trim()}`, piece:`${p.title} · ${location.origin}/art/${p.slug}`, price:priceOf(p),
+                payment:resp.razorpay_payment_id, order:resp.razorpay_order_id, message:`Paid online through Razorpay${testMode?' (TEST MODE, no real money)':''}. Please mark this painting sold.` }).catch(()=>{});
+            } catch (e) {
+              this.setState({buying:false, buyErr:`The payment went through but could not be confirmed here. Please write to ${STUDIO_EMAIL} with reference ${resp.razorpay_payment_id}.`});
+            }
+          }
+        });
+        rz.on('payment.failed', e=>{ failed=true; this.setState({buyErr:`That payment didn't go through${e&&e.error&&e.error.description?`: ${e.error.description}`:''}. You can try again in the payment window.`}); });
+        rz.open();
+      } catch (e) { this.setState({buying:false, buyErr:e.message}); }
+    };
+    const bought=st.bought&&st.bought.slug===p.slug;
+    const buyBlock=bought ? html`<div role="status" style="display:flex;flex-direction:column;gap:12px;padding:22px;background:#F0EBE3">
+        <div style="font-family:'Instrument Serif',serif;font-size:32px;line-height:1.05">Thank you, ${B.name.trim().split(' ')[0]||'friend'}.</div>
+        <p style="margin:0;font-size:15px;line-height:1.7;color:#4A433C">${p.title} is yours. Payment of ${priceOf(p)} is received${testMode?' (test mode, no real money)':''}, and it will be packed and dispatched within 5–7 days. Tracking details will follow by email or message.</p>
+        <p style="margin:0;font-size:12px;letter-spacing:.12em;color:#7A7067">Payment reference ${st.bought.id}</p>
+      </div>`
+      : !st.buyOpen ? html`<button onClick=${()=>this.setState({buyOpen:true,buyErr:''})} className="hov-dark" style="padding:20px;border:none;background:${INK};color:${PAPER};cursor:pointer;font-size:12px;letter-spacing:.32em;text-transform:uppercase">Buy now · ${priceOf(p)}</button>`
+      : html`<div style="display:flex;flex-direction:column;gap:16px;padding:22px 0 4px;border-top:1px dotted rgba(43,38,34,.35)">
+        <div style="font-size:11px;letter-spacing:.38em;text-transform:uppercase;color:#7A7067">Deliver to${testMode?' · test mode':''}</div>
+        ${field('Full name',html`<input value=${B.name} onChange=${e=>setB('name',e.target.value)} autoComplete="name" style=${FIELD} />`)}
+        <div style="display:grid;grid-template-columns:${m?'1fr':'1fr 1fr'};gap:16px">
+          ${field('Phone',html`<input type="tel" value=${B.phone} onChange=${e=>setB('phone',e.target.value)} autoComplete="tel" style=${FIELD} />`)}
+          ${field('Email (for the receipt)',html`<input type="email" value=${B.email} onChange=${e=>setB('email',e.target.value)} autoComplete="email" style=${FIELD} />`)}
+        </div>
+        ${field('Address',html`<input value=${B.address} onChange=${e=>setB('address',e.target.value)} autoComplete="street-address" placeholder="House, street, area" style=${FIELD} />`)}
+        <div style="display:grid;grid-template-columns:2fr 1fr;gap:16px">
+          ${field('City',html`<input value=${B.city} onChange=${e=>setB('city',e.target.value)} autoComplete="address-level2" style=${FIELD} />`)}
+          ${field('PIN code',html`<input inputMode="numeric" maxLength="6" value=${B.pincode} onChange=${e=>setB('pincode',e.target.value.replace(/[^0-9]/g,''))} autoComplete="postal-code" style=${FIELD} />`)}
+        </div>
+        <button onClick=${startPay} disabled=${st.buying} className="hov-dark" style="margin-top:6px;padding:20px;border:none;background:${INK};color:${PAPER};cursor:${st.buying?'wait':'pointer'};opacity:${st.buying?.6:1};font-size:12px;letter-spacing:.32em;text-transform:uppercase">${st.buying?'Opening payment…':`Pay ${priceOf(p)}`}</button>
+        ${st.buyErr && html`<p role="alert" style="margin:0;font-size:14px;line-height:1.6;color:#8E5A55">${st.buyErr}</p>`}
+        <p style="margin:0;font-size:13px;line-height:1.6;color:#7A7067">Secure payment by Razorpay: UPI, cards, netbanking or wallets. Delivery anywhere in India is included. Orders from abroad: please enquire for a shipping quote.${testMode?' Test mode: use Razorpay test cards or UPI success@razorpay; no real money moves.':''}</p>
+        <span onClick=${()=>this.setState({buyOpen:false,buyErr:''})} style="align-self:flex-start;cursor:pointer;font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:#7A7067;border-bottom:1px solid rgba(43,38,34,.3);padding-bottom:3px">Cancel</span>
+      </div>`;
+
     const sizeChoice=html`<fieldset style="border:none;margin:0;padding:0;min-width:0;display:flex;flex-direction:column;gap:10px">
       <legend style="padding:0;margin-bottom:12px;font-size:11px;letter-spacing:.38em;text-transform:uppercase;color:#7A7067">Size</legend>
       ${sizeOption(!custom,sold,'Original',sold?`${dims(p)} · sold`:`${dims(p)} · ${priceOf(p)||'one of one'}`,()=>setCustom(false))}
@@ -739,8 +823,9 @@ class App extends React.Component {
             ${p.tags.map(t=>html`<span key=${t}>${this.link('/collection?tag='+encodeURIComponent(t),tagLabel(t),`display:inline-block;padding:7px 14px;border-radius:999px;border:1px solid rgba(43,38,34,.25);font-size:12px;letter-spacing:.06em;color:${INK}`,'hov-ul')}</span>`)}
           </div>`}
           ${sizeChoice}
+          ${canBuy && buyBlock}
           <div style="display:flex;flex-direction:column;gap:12px">
-            <button onClick=${toEnquire} className="hov-dark" style="padding:20px;border:none;background:${INK};color:${PAPER};cursor:pointer;font-size:12px;letter-spacing:.32em;text-transform:uppercase">${custom?'Enquire about my size':'Enquire about this piece'}</button>
+            <button onClick=${toEnquire} className=${canBuy?'':'hov-dark'} style="padding:${canBuy?18:20}px;border:${canBuy?`1px solid ${INK}`:'none'};background:${canBuy?'transparent':INK};color:${canBuy?INK:PAPER};cursor:pointer;font-size:12px;letter-spacing:.32em;text-transform:uppercase">${custom?'Enquire about my size':'Enquire about this piece'}</button>
             <button onClick=${()=>this.setState(s=>({saved:{...s.saved,[p.slug]:!s.saved[p.slug]}}))} style="padding:18px;border:1px solid ${INK};background:transparent;color:${INK};cursor:pointer;font-size:12px;letter-spacing:.32em;text-transform:uppercase">${st.saved[p.slug]?'Saved ✓':'Save for later'}</button>
             <p style="margin:6px 0 0;font-size:13px;line-height:1.6;color:#7A7067">${custom?'Custom sizes are made to order: about two to three weeks, as every layer dries before the next, then crated. The price for your size is quoted by email.':'One of one. Crated and shipped in 5–7 days. The price includes packaging and shipping within India; international orders pay extra shipping, quoted by email.'}</p>
           </div>
