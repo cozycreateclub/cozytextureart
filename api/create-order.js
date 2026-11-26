@@ -25,7 +25,17 @@ module.exports = async (req, res) => {
   if (piece.status !== 'available') return send(res, 409, {error: 'This painting has already found a home'});
   const amount = Math.round(Number(piece.price) * 100);
   if (!Number.isInteger(amount) || amount < 100) return send(res, 400, {error: 'This painting has no price yet'});
-  for (const f of ['name', 'phone', 'address', 'pincode']) if (!clip(buyer[f], 255)) return send(res, 400, {error: `Missing ${f}`});
+  // Same delivery checks as the Buy form, so a bad address or number can't reach an order.
+  const t = f => clip(buyer[f], 255);
+  let phone = t('phone').replace(/\D/g, '');
+  if (phone.length === 12 && phone.startsWith('91')) phone = phone.slice(2); else if (phone.length === 11 && phone.startsWith('0')) phone = phone.slice(1);
+  if (t('name').replace(/[^A-Za-z]/g, '').length < 2 || /\d/.test(t('name'))) return send(res, 400, {error: 'Please check your name'});
+  if (!/^[^@\s]+@[^@\s]+\.[A-Za-z]{2,}$/.test(t('email'))) return send(res, 400, {error: 'Please check your email address'});
+  if (!/^[6-9]\d{9}$/.test(phone)) return send(res, 400, {error: 'Please enter a 10-digit Indian mobile number'});
+  if (t('address').length < 10 || t('address').split(' ').length < 2 || !/[A-Za-z]/.test(t('address'))) return send(res, 400, {error: 'Please add the full delivery address'});
+  if (!/^[A-Za-z][A-Za-z .'-]+$/.test(t('city'))) return send(res, 400, {error: 'Please check the city name'});
+  if (!/^[1-9]\d{5}$/.test(t('pincode'))) return send(res, 400, {error: 'PIN codes are 6 digits'});
+  buyer.phone = '+91 ' + phone;
 
   const {status, data} = await razorpay('POST', '/orders', k, {
     amount, currency: 'INR', receipt: clip(`${slug}-${Date.now()}`, 40),
