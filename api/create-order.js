@@ -1,14 +1,21 @@
 // POST /api/create-order  { slug, buyer: { name, email, phone, address, city, pincode } }
 // Creates a Razorpay order for one painting at its catalogue price and returns { order_id, amount, currency, key_id }.
 // The buyer's delivery details ride along as order notes, so they show in the Razorpay dashboard next to the payment.
-// GET returns { enabled, mode } so the site knows whether to show Buy now (test keys stay hidden from visitors).
+// GET returns { enabled, mode } so the site knows whether to show Buy now (test keys stay hidden from visitors);
+// GET ?mailcheck also reports whether the order-email Gmail sign-in works.
 const {keys, catalogue, body, send, razorpay} = require('./_razorpay');
+const {mailStatus} = require('./_mail');
 
 const clip = (v, n) => String(v || '').replace(/\s+/g, ' ').trim().slice(0, n);
 
 module.exports = async (req, res) => {
   const k = keys();
-  if (req.method === 'GET') return send(res, 200, {enabled: !!k, mode: k ? (k.id.startsWith('rzp_live_') ? 'live' : 'test') : null});
+  if (req.method === 'GET') {
+    const status = {enabled: !!k, mode: k ? (k.id.startsWith('rzp_live_') ? 'live' : 'test') : null};
+    // ?mailcheck signs in to the order-email Gmail account without sending, and reports only ok / error code.
+    if (/[?&]mailcheck\b/.test(req.url || '')) status.mail = await mailStatus();
+    return send(res, 200, status);
+  }
   if (req.method !== 'POST') return send(res, 405, {error: 'Use POST'});
   if (!k) return send(res, 500, {error: 'Payments are not set up yet'});
 

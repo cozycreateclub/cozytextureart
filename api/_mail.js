@@ -79,4 +79,12 @@ Remember to mark this painting sold on the website.`;
   };
 }
 
-module.exports = {sendMail, orderEmails};
+// For the setup check in create-order (GET ?mailcheck): signs in to Gmail without sending anything.
+async function mailStatus() {
+  const t = mailer();
+  if (!t) return {configured: false, ok: false};
+  try { await t.verify(); return {configured: true, ok: true}; }
+  catch (e) { return {configured: true, ok: false, error: String(e && (e.responseCode || e.code) || 'failed')}; }
+}
+
+module.exports = {sendMail, orderEmails, mailStatus};

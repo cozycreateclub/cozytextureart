@@ -1976,7 +1976,7 @@ window.ARTWORKS = [
     title: 'Frost Tree',
     year: 2026,
     added: '2026-11-25',
-    price: 599,
+    price: 10, // TEMPORARY for a live test purchase (2026-11-26): set back to 599
     concept: 'A sky-blue magnet spread in rough, crackled paste, with a white tree built from thick pressed strokes and dotted with raised red baubles.',
     holds: 'The first frost of December, caught in paste.',
     size: { d: 7.5 },
