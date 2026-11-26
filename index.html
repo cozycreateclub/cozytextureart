@@ -431,6 +431,30 @@ class App extends React.Component {
     </section>`;
   }
 
+  // Room cover cards (collection page and home page). They wrap into rows, so every room stays visible as more are
+  // added (user, 2026-11-19).
+  roomCards(m) {
+    let roomNo=0;
+    return ROOMS.map(r=>{ const cover=bySlug(r.cover)||r.pieces[0]; const tag=r.label||`Room ${String(++roomNo).padStart(2,'0')}`; return html`
+      <div key=${r.slug} className="hov-fade" style="min-width:0">${this.link(r.href||'/collection/'+r.slug,html`
+        <div style="position:relative;width:100%;height:${m?340:400}px;overflow:hidden;background:#EFEAE2">
+          <img src=${r.coverImage||cover.images.front.src.replace('/front.webp','/front-sm.webp')} alt="" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:${r.coverImage?'50% 40%':'50% 50%'}" />
+          <div style="position:absolute;left:0;right:0;bottom:0;padding:70px 22px 22px;background:linear-gradient(to top,rgba(34,29,25,.78) 0%,rgba(34,29,25,.5) 45%,rgba(34,29,25,0) 100%);display:flex;flex-direction:column;gap:6px;color:${PAPER};text-shadow:0 1px 8px rgba(20,16,12,.35)">
+            <span style="font-size:11px;font-weight:500;letter-spacing:.32em;text-transform:uppercase">${tag}</span>
+            <span style="font-family:'Instrument Serif',serif;font-size:36px;line-height:1">${r.name}</span>
+            <span style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-top:2px">
+              <span style="font-family:'Instrument Serif',serif;font-style:italic;font-size:19px">${r.pieces.length+(r.pieces.length===1?' painting':' paintings')}</span>
+              <span style="font-size:11px;font-weight:500;letter-spacing:.3em;text-transform:uppercase">Enter →</span>
+            </span>
+          </div>
+        </div>`)}</div>`; });
+  }
+
+  // Grid of room cards; the same grid on the collection page and the home page.
+  roomGrid(m) {
+    return html`<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(${m?'260px':'300px'},1fr));gap:${m?'48px 20px':'64px 40px'};padding:10px 0 20px">${this.roomCards(m)}</div>`;
+  }
+
   // ───────── Gifts under ₹ 4,000 (landing page for gift ads) ─────────
   gifts(m) {
     const list=PIECES.filter(p=>p.status!=='sold'&&p.price&&p.price<GIFT_MAX);
@@ -550,10 +574,15 @@ class App extends React.Component {
     ${featuredRow.length>0 && html`<section data-screen-label="01c Featured" style="${SECT};padding-top:${SHOW_COMPARE?60:110}px;padding-bottom:110px;display:flex;flex-direction:column;align-items:center;gap:64px">
       ${eyebrow('Featured pieces')}
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,300px));justify-content:center;gap:48px 40px;width:100%;max-width:1320px;align-items:end">${featuredRow}</div>
-      ${ROOMS.length>0 && html`<div style="display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:14px 28px;font-size:12px;letter-spacing:.28em;text-transform:uppercase">
-        <span style="color:#7A7067">Browse by room</span>
-        ${ROOMS.map(r=>html`<span key=${r.slug}>${this.link(r.href||'/collection/'+r.slug,r.name,'border-bottom:1px solid rgba(43,38,34,.3);padding-bottom:4px','hov-ul')}</span>`)}
-      </div>`}
+    </section>`}
+
+    ${ROOMS.length>0 && html`<section data-screen-label="01c2 Art rooms" style="${SECT};padding-top:20px;padding-bottom:110px;display:flex;flex-direction:column;gap:40px">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:16px;text-align:center">
+        ${eyebrow('Art rooms')}
+        <h2 style="margin:0;font-family:'Instrument Serif',serif;font-weight:400;font-size:clamp(36px,4.4vw,60px);line-height:1.05">Find your room. <span style="font-style:italic">Then your wall.</span></h2>
+      </div>
+      ${this.roomGrid(m)}
+      <div style="display:flex;justify-content:center">${this.link('/collection/all',`View all ${PIECES.length} paintings →`,TEXT_LINK)}</div>
     </section>`}
 
     <section data-screen-label="01d Artist" style="${SECT};padding-top:100px;padding-bottom:100px;background:#F0EBE3;display:flex;flex-wrap:wrap;gap:64px;align-items:center;justify-content:center">
@@ -590,21 +619,6 @@ class App extends React.Component {
     let countLabel=res.length+(res.length===1?' piece':' pieces');
     if(isRooms) countLabel=ROOMS.length+(ROOMS.length===1?' room · ':' rooms · ')+PIECES.length+(PIECES.length===1?' piece':' pieces'); else if(inRoom) countLabel=RM.name+' · '+list.length+(list.length===1?' piece':' pieces');
 
-    // Room covers wrap into rows, so every room stays visible as more are added (user, 2026-11-19).
-    let roomNo=0;
-    const artRooms=ROOMS.map(r=>{ const cover=bySlug(r.cover)||r.pieces[0]; const tag=r.label||`Room ${String(++roomNo).padStart(2,'0')}`; return html`
-      <div key=${r.slug} className="hov-fade" style="min-width:0">${this.link(r.href||'/collection/'+r.slug,html`
-        <div style="position:relative;width:100%;height:${m?340:400}px;overflow:hidden;background:#EFEAE2">
-          <img src=${r.coverImage||cover.images.front.src.replace('/front.webp','/front-sm.webp')} alt="" loading="lazy" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:${r.coverImage?'50% 40%':'50% 50%'}" />
-          <div style="position:absolute;left:0;right:0;bottom:0;padding:70px 22px 22px;background:linear-gradient(to top,rgba(34,29,25,.78) 0%,rgba(34,29,25,.5) 45%,rgba(34,29,25,0) 100%);display:flex;flex-direction:column;gap:6px;color:${PAPER};text-shadow:0 1px 8px rgba(20,16,12,.35)">
-            <span style="font-size:11px;font-weight:500;letter-spacing:.32em;text-transform:uppercase">${tag}</span>
-            <span style="font-family:'Instrument Serif',serif;font-size:36px;line-height:1">${r.name}</span>
-            <span style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-top:2px">
-              <span style="font-family:'Instrument Serif',serif;font-style:italic;font-size:19px">${r.pieces.length+(r.pieces.length===1?' painting':' paintings')}</span>
-              <span style="font-size:11px;font-weight:500;letter-spacing:.3em;text-transform:uppercase">Enter →</span>
-            </span>
-          </div>
-        </div>`)}</div>`; });
 
     // Art grid: every piece in the room (or matching the filters), each linking to its page.
     // Widths follow real canvas widths, so a 30 cm piece and a 60 cm piece read at true relative scale.
@@ -658,7 +672,7 @@ class App extends React.Component {
       ${noResults && html`<p style="margin:40px 0;text-align:center;font-family:'Instrument Serif',serif;font-style:italic;font-size:28px;color:#5A5149">Nothing matches yet. Try a softer search, or write in about a commission.</p>`}
       ${isRooms && html`<div style="display:flex;flex-direction:column;gap:28px">
         <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap">${eyebrow('Art rooms')}${this.link('/collection/all',`View all ${PIECES.length} paintings →`,TEXT_LINK)}</div>
-        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(${m?'260px':'300px'},1fr));gap:${m?'48px 20px':'64px 40px'};padding:10px 0 20px">${artRooms}</div>
+        ${this.roomGrid(m)}
       </div>`}
       ${single}`}
     </section>`;
