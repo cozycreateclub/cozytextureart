@@ -66,6 +66,7 @@ window.STYLES = {
   blooms: 'Pressed blooms',
   checks: 'Checks and tiles',
   whimsy: 'Whimsy',
+  festive: 'Christmas paintings',
   christmas: 'Christmas magnets'
 };
 // Palette families for the collection filter.
@@ -1966,6 +1967,155 @@ window.ARTWORKS = [
     images: {
       front: { src: '/images/art/frost-tree/front.webp', w: 1600, h: 1600, alt: 'Frost Tree: a round textured blue magnet with a raised white tree and red baubles' },
       room:  { src: '/images/art/frost-tree/room.webp',  w: 1600, h: 1200, label: 'In hand', alt: 'Frost Tree magnet held in a hand, with small festive trees and baubles behind' }
+    }
+  },
+  {
+    slug: 'lilac-wreath',
+    title: 'Lilac Wreath',
+    year: 2026,
+    added: '2026-11-26',
+    price: 3599,
+    concept: 'Wide stripes of lilac and cream hold a round wreath of pressed pistachio leaves on a fine painted stem, with darker painted pine and small clusters of raised cherry-red berries.',
+    holds: 'A Christmas wreath in her softest colours, for a door that stays up all year.',
+    size: { w: 25, h: 25 },
+    depth: '',
+    medium: 'Acrylic colour mixed into texture paste, over a painted acrylic ground, on stretched canvas',
+    canvas: 'stretched',
+    shape: 'square',
+    family: 'cool',
+    style: 'festive',
+    palette: [
+      { name: 'lilac', hex: '#C4AAD2' },
+      { name: 'cream', hex: '#E3DBD5' },
+      { name: 'pistachio', hex: '#97A86C' },
+      { name: 'cherry', hex: '#BF5358' }
+    ],
+    tags: ['christmas', 'botanical', 'joyful'],
+    suits: ['Living room', 'Entryway', 'Dining'],
+    status: 'available',
+    featured: false,
+    images: {
+      front: { src: '/images/art/lilac-wreath/front.webp', w: 1600, h: 1600, alt: 'Lilac Wreath: a round wreath of raised green leaves and red berries over lilac and cream stripes' },
+      room:  { src: '/images/art/lilac-wreath/room.webp',  w: 1600, h: 1200, alt: 'Lilac Wreath on a sage-green wall above a pale ash sideboard' }
+    }
+  },
+  {
+    slug: 'butter-fir',
+    title: 'Butter Fir',
+    year: 2026,
+    added: '2026-11-26',
+    price: 3599,
+    concept: 'A butter-yellow panel framed by a piped border of deep pine green with lemon bows at the corners. Inside, a tall fir of layered sage leaf strokes, dotted with tiny baubles under a yellow star.',
+    holds: 'A framed little Christmas card, made to stay on the wall.',
+    size: { w: 25, h: 25 },
+    depth: '',
+    medium: 'Acrylic colour mixed into texture paste, over a painted acrylic ground, on stretched canvas',
+    canvas: 'stretched',
+    shape: 'square',
+    family: 'warm',
+    style: 'festive',
+    palette: [
+      { name: 'butter', hex: '#DED4A2' },
+      { name: 'sage', hex: '#869C79' },
+      { name: 'pine', hex: '#243A1C' },
+      { name: 'lemon', hex: '#ECC14A' }
+    ],
+    tags: ['christmas', 'joyful'],
+    suits: ['Living room', 'Kids room', 'Dining'],
+    status: 'available',
+    featured: false,
+    images: {
+      front: { src: '/images/art/butter-fir/front.webp', w: 1600, h: 1600, alt: 'Butter Fir: a raised sage-green fir tree on butter yellow inside a piped dark-green border with yellow corner bows' },
+      room:  { src: '/images/art/butter-fir/room.webp',  w: 1600, h: 1200, alt: 'Butter Fir on a terracotta wall above a light oak sideboard' }
+    }
+  },
+  {
+    slug: 'frost-blossoms',
+    title: 'Frost Blossoms',
+    year: 2026,
+    added: '2026-11-26',
+    price: 3599,
+    concept: 'A pale blue-grey ground scattered with cream blossoms and falling petals, each petal a single thick stroke of paste pulled with the knife, like flakes of snow mid-fall.',
+    holds: 'A quiet winter morning, soft and bright.',
+    size: { w: 30, h: 23 },
+    depth: '',
+    medium: 'Acrylic colour mixed into texture paste, over a painted acrylic ground, on stretched canvas',
+    canvas: 'stretched',
+    shape: 'landscape',
+    family: 'cool',
+    style: 'festive',
+    palette: [
+      { name: 'mist', hex: '#A9B0BD' },
+      { name: 'slate', hex: '#8C929E' },
+      { name: 'cream', hex: '#E1D0B9' }
+    ],
+    tags: ['christmas', 'florals', 'minimal', 'calm'],
+    suits: ['Bedroom', 'Living room', 'Study'],
+    status: 'available',
+    featured: false,
+    images: {
+      front: { src: '/images/art/frost-blossoms/front.webp', w: 1600, h: 1219, alt: 'Frost Blossoms: raised cream blossoms and scattered petals on a pale blue-grey ground' },
+      room:  { src: '/images/art/frost-blossoms/room.webp',  w: 1600, h: 1200, alt: 'Frost Blossoms on a plum wall above a pale ash sideboard' }
+    }
+  },
+  {
+    slug: 'cream-wreath',
+    title: 'Cream Wreath',
+    year: 2026,
+    added: '2026-11-26',
+    price: 599,
+    concept: 'A cream magnet pressed into rows of soft scallops, ringed by a wreath of pistachio leaves, dark pine sprigs and tiny raised berries in cherry red and cream.',
+    holds: 'A wreath for the fridge door, ready for the holidays.',
+    size: { d: 7.5 },
+    depth: '',
+    medium: 'Acrylic colour mixed into texture paste, on a round fridge magnet',
+    canvas: 'magnet',
+    shape: 'round',
+    family: 'neutral',
+    style: 'christmas',
+    palette: [
+      { name: 'cream', hex: '#CDC9BD' },
+      { name: 'pistachio', hex: '#94AC81' },
+      { name: 'pine', hex: '#405E2B' },
+      { name: 'cherry', hex: '#B8585A' }
+    ],
+    tags: ['christmas', 'botanical', 'joyful'],
+    suits: ['Kitchen', 'Kids room'],
+    status: 'available',
+    featured: false,
+    images: {
+      front: { src: '/images/art/cream-wreath/front.webp', w: 1600, h: 1600, alt: 'Cream Wreath: a round cream magnet with pressed scallops and a raised wreath of green leaves and red berries' },
+      room:  { src: '/images/art/cream-wreath/room.webp',  w: 1600, h: 1200, label: 'In hand', alt: 'Cream Wreath magnet held in a hand, with small festive trees and baubles behind' }
+    }
+  },
+  {
+    slug: 'frosted-wreath',
+    title: 'Frosted Wreath',
+    year: 2026,
+    added: '2026-11-26',
+    price: 599,
+    concept: 'A sky-blue and white magnet spread in crackled paste, ringed by a wreath of pressed pistachio leaves, dark pine sprigs and raised cherry-red berries.',
+    holds: 'A frosty little wreath to hold up a Christmas list.',
+    size: { d: 7.5 },
+    depth: '',
+    medium: 'Acrylic colour mixed into texture paste, on a round fridge magnet',
+    canvas: 'magnet',
+    shape: 'round',
+    family: 'cool',
+    style: 'christmas',
+    palette: [
+      { name: 'sky', hex: '#9FBAD3' },
+      { name: 'pistachio', hex: '#A7BE85' },
+      { name: 'pine', hex: '#385229' },
+      { name: 'cherry', hex: '#C25B5A' }
+    ],
+    tags: ['christmas', 'botanical', 'joyful'],
+    suits: ['Kitchen', 'Kids room'],
+    status: 'available',
+    featured: false,
+    images: {
+      front: { src: '/images/art/frosted-wreath/front.webp', w: 1600, h: 1600, alt: 'Frosted Wreath: a round frosty-blue magnet with a raised wreath of green leaves and red berries' },
+      room:  { src: '/images/art/frosted-wreath/room.webp',  w: 1600, h: 1200, label: 'In hand', alt: 'Frosted Wreath magnet held in a hand, with small festive trees and baubles behind' }
     }
   }
 ];

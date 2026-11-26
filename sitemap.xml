@@ -402,4 +402,34 @@
       <image:loc>https://www.cozytextureart.com/images/art/frost-tree/front.webp</image:loc>
     </image:image>
   </url>
+  <url>
+    <loc>https://www.cozytextureart.com/art/lilac-wreath</loc>
+    <image:image>
+      <image:loc>https://www.cozytextureart.com/images/art/lilac-wreath/front.webp</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.cozytextureart.com/art/butter-fir</loc>
+    <image:image>
+      <image:loc>https://www.cozytextureart.com/images/art/butter-fir/front.webp</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.cozytextureart.com/art/frost-blossoms</loc>
+    <image:image>
+      <image:loc>https://www.cozytextureart.com/images/art/frost-blossoms/front.webp</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.cozytextureart.com/art/cream-wreath</loc>
+    <image:image>
+      <image:loc>https://www.cozytextureart.com/images/art/cream-wreath/front.webp</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.cozytextureart.com/art/frosted-wreath</loc>
+    <image:image>
+      <image:loc>https://www.cozytextureart.com/images/art/frosted-wreath/front.webp</image:loc>
+    </image:image>
+  </url>
 </urlset>
