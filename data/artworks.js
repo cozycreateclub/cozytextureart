@@ -1373,6 +1373,35 @@ window.ARTWORKS = [
       room:  { src: '/images/art/sage-scales/room.webp',  w: 1600, h: 1200, alt: 'Sage Scales on a terracotta wall above a light oak sideboard' }
     }
   },
+  {
+    slug: 'forest-glow',
+    title: 'Forest Glow',
+    year: 2026,
+    added: '2026-11-26',
+    price: 3599,
+    concept: 'Deep moss green and earthy cocoa brown blended into a wide bowl of colour around a warm amber centre. Thin strands and ridges of paste are pulled across it in loose arcs, like branches circling a clearing.',
+    holds: 'Sunlight finding its way through the trees to a quiet clearing.',
+    size: { w: 30, h: 25 },
+    depth: '',
+    medium: 'Acrylic colour mixed into texture paste, over a painted acrylic ground, on stretched canvas',
+    canvas: 'stretched',
+    shape: 'landscape',
+    family: 'green',
+    style: 'swirls',
+    palette: [
+      { name: 'moss', hex: '#4A7E4B' },
+      { name: 'amber', hex: '#AA863A' },
+      { name: 'cocoa', hex: '#5F3F28' }
+    ],
+    tags: ['abstract', 'earthy', 'calm'],
+    suits: ['Living room', 'Study', 'Entryway'],
+    status: 'available',
+    featured: false,
+    images: {
+      front: { src: '/images/art/forest-glow/front.webp', w: 1600, h: 1328, alt: 'Forest Glow: moss green and cocoa brown paste blended around a warm amber centre, with raised strands in loose arcs' },
+      room:  { src: '/images/art/forest-glow/room.webp',  w: 1600, h: 1200, alt: 'Forest Glow on a cream wall above a light oak sideboard' }
+    }
+  },
   // ── The Grove ──
   {
     slug: 'sunset-ridges',

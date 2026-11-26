@@ -283,6 +283,12 @@
     </image:image>
   </url>
   <url>
+    <loc>https://www.cozytextureart.com/art/forest-glow</loc>
+    <image:image>
+      <image:loc>https://www.cozytextureart.com/images/art/forest-glow/front.webp</image:loc>
+    </image:image>
+  </url>
+  <url>
     <loc>https://www.cozytextureart.com/art/sunset-ridges</loc>
     <image:image>
       <image:loc>https://www.cozytextureart.com/images/art/sunset-ridges/front.webp</image:loc>
