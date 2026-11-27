@@ -24,7 +24,7 @@ src="https://www.facebook.com/tr?id=1681987120141077&ev=PageView&noscript=1"
 /></noscript>
 <!-- End Meta Pixel Code -->
 <!-- PostHog analytics (user 2026-11-27). defaults '2025-05-24' records a pageview on every in-page route change.
-     Painting views, enquiries and purchases are sent from track() below, with painting details only (no buyer data). -->
+     Painting views, enquiries, Buy now, checkout and purchases are sent from track() below, with painting details only (no buyer data). -->
 <script>
 window.POSTHOG_KEY = 'phc_AGMuQEV23TZy3gMmtVjDch3wWcnrUarjQ7phWfowH3sH';           // project API key (phc_…), public by design
 window.POSTHOG_HOST = 'https://us.i.posthog.com';
@@ -69,12 +69,14 @@ const ARTIST = 'Cozy Texture Art';
 // Meta Pixel events. The base code in <head> sends the first PageView; the app sends later ones on in-page
 // navigation, ViewContent on a painting page and Lead when an enquiry is sent. Quietly does nothing if blocked.
 // One call feeds both Meta Pixel and PostHog. Only painting details go in params, never buyer details.
-const PH_EVENTS = {ViewContent: 'painting viewed', Lead: 'enquiry sent', Purchase: 'painting purchased'};
+const PH_EVENTS = {ViewContent: 'painting viewed', Lead: 'enquiry sent', AddToCart: 'buy now clicked', InitiateCheckout: 'checkout started', Purchase: 'painting purchased'};
 const track = (name, params) => {
   try { if (window.fbq) window.fbq('track', name, params || {}); } catch (e) {}
   // PostHog records its own $pageview on route changes, so Meta's PageView is not repeated there.
   try { if (name !== 'PageView' && window.POSTHOG_KEY && window.posthog) window.posthog.capture(PH_EVENTS[name] || name, params || {}); } catch (e) {}
 };
+// PostHog-only events (Meta has no standard event for these): checkout cancelled, payment failed.
+const trackPH = (name, params) => { try { if (window.POSTHOG_KEY && window.posthog) window.posthog.capture(name, params || {}); } catch (e) {} };
 const pieceParams = p => ({content_name: p.title, content_ids: [p.slug], content_type: 'product', ...(priceOf(p) ? {value: p.price, currency: 'INR'} : {})});
 
 const STUDIO_EMAIL = 'cozytextureart@gmail.com';
@@ -766,7 +768,7 @@ class App extends React.Component {
           name:ARTIST, description:o.title, notes:{slug:p.slug},
           prefill:{name:B.name.trim(), email:B.email.trim(), contact:'+91'+mobileDigits(B.phone)},
           theme:{color:INK},
-          modal:{ondismiss:()=>{ if (!this.state.bought) this.setState({buying:false, buyErr:failed?this.state.buyErr:'Payment was cancelled. The painting is still here whenever you are ready.'}); }},
+          modal:{ondismiss:()=>{ if (!this.state.bought) trackPH('checkout cancelled', {...pieceParams(p), after_failed_payment: failed}); if (!this.state.bought) this.setState({buying:false, buyErr:failed?this.state.buyErr:'Payment was cancelled. The painting is still here whenever you are ready.'}); }},
           handler:async resp=>{
             try {
               const v=await callApi('/api/verify-payment',resp);
@@ -781,7 +783,8 @@ class App extends React.Component {
             }
           }
         });
-        rz.on('payment.failed', e=>{ failed=true; this.setState({buyErr:`That payment didn't go through${e&&e.error&&e.error.description?`: ${e.error.description}`:''}. You can try again in the payment window.`}); });
+        rz.on('payment.failed', e=>{ failed=true; trackPH('payment failed', {...pieceParams(p), reason: (e&&e.error&&(e.error.reason||e.error.code))||'unknown'}); this.setState({buyErr:`That payment didn't go through${e&&e.error&&e.error.description?`: ${e.error.description}`:''}. You can try again in the payment window.`}); });
+        track('InitiateCheckout', {...pieceParams(p), num_items: 1});
         rz.open();
       } catch (e) { this.setState({buying:false, buyErr:e.message}); }
     };
@@ -791,7 +794,7 @@ class App extends React.Component {
         <p style="margin:0;font-size:15px;line-height:1.7;color:#4A433C">${p.title} is yours. Payment of ${priceOf(p)} is received${testMode?' (test mode, no real money)':''}, and it will be packed and dispatched within 5–7 days. ${st.bought.emailed?`A confirmation is on its way to ${B.email.trim()}.`:''} Tracking details will follow by email or message.</p>
         <p style="margin:0;font-size:12px;letter-spacing:.12em;color:#7A7067">Payment reference ${st.bought.id}</p>
       </div>`
-      : !st.buyOpen ? html`<button onClick=${()=>this.setState({buyOpen:true,buyErr:''})} className="hov-dark" style="padding:20px;border:none;background:${INK};color:${PAPER};cursor:pointer;font-size:12px;letter-spacing:.32em;text-transform:uppercase">Buy now · ${priceOf(p)}</button>`
+      : !st.buyOpen ? html`<button onClick=${()=>{ track('AddToCart', pieceParams(p)); this.setState({buyOpen:true,buyErr:''}); }} className="hov-dark" style="padding:20px;border:none;background:${INK};color:${PAPER};cursor:pointer;font-size:12px;letter-spacing:.32em;text-transform:uppercase">Buy now · ${priceOf(p)}</button>`
       : html`<div style="display:flex;flex-direction:column;gap:16px;padding:22px 0 4px;border-top:1px dotted rgba(43,38,34,.35)">
         <div style="font-size:11px;letter-spacing:.38em;text-transform:uppercase;color:#7A7067">Deliver to${testMode?' · test mode':''}</div>
         ${bfield('name','Full name',html`<input value=${B.name} onChange=${e=>setB('name',e.target.value)} autoComplete="name" aria-invalid=${!!BE.name} style=${BF('name')} />`)}
