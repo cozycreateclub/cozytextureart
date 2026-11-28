@@ -317,7 +317,7 @@ const TEXT_LINK = `cursor:pointer;font-size:12px;letter-spacing:.36em;text-trans
 
 class App extends React.Component {
   state = { ...parseRoute(), lx:.5, ly:.45, cmp:50, fFam:null, fShape:null, fRoom:null, sIdx:0,
-    view:'front', zx:50, zy:50, saved:{}, sizeMode:'original', cw:'', ch:'', interest:'Buy this piece', fName:'', fEmail:'', fMsg:'', sent:false, sending:false, sendErr:'',
+    view:'front', zx:50, zy:50, sizeMode:'original', cw:'', ch:'', interest:'Buy this piece', fName:'', fEmail:'', fMsg:'', sent:false, sending:false, sendErr:'',
     pay:null, buyOpen:false, buying:false, buyErr:'', bought:null, buyer:{name:'',email:'',phone:'',address:'',city:'',pincode:''},
     vw:window.innerWidth, vh:window.innerHeight };
 
@@ -881,7 +881,6 @@ class App extends React.Component {
           ${canBuy && buyBlock}
           <div style="display:flex;flex-direction:column;gap:12px">
             <button onClick=${toEnquire} className=${canBuy?'':'hov-dark'} style="padding:${canBuy?18:20}px;border:${canBuy?`1px solid ${INK}`:'none'};background:${canBuy?'transparent':INK};color:${canBuy?INK:PAPER};cursor:pointer;font-size:12px;letter-spacing:.32em;text-transform:uppercase">${custom?'Enquire about my size':'Enquire about this piece'}</button>
-            <button onClick=${()=>this.setState(s=>({saved:{...s.saved,[p.slug]:!s.saved[p.slug]}}))} style="padding:18px;border:1px solid ${INK};background:transparent;color:${INK};cursor:pointer;font-size:12px;letter-spacing:.32em;text-transform:uppercase">${st.saved[p.slug]?'Saved ✓':'Save for later'}</button>
             <p style="margin:6px 0 0;font-size:13px;line-height:1.6;color:#7A7067">${custom?'Custom sizes are made to order: about two to three weeks, as every layer dries before the next, then crated. The price for your size is quoted by email.':'One of one. Crated and shipped in 5–7 days. The price includes packaging and shipping within India; international orders pay extra shipping, quoted by email.'}</p>
           </div>
         </div>
