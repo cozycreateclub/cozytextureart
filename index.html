@@ -539,6 +539,24 @@ class App extends React.Component {
         ${photo(p,{az,eager:true,small:true})}
         <div style="margin-top:${m?8:14}px;font-size:${m?8:10}px;letter-spacing:.3em;text-transform:uppercase;color:#7A7067;text-align:center">${p.title}</div>`)}</div>`;
     });
+    // Phones, tablets and any portrait screen get a stacked hero: text first, then the four pieces in a tidy staggered
+    // row (2×2 on phones, 4 across on tablets). The floating layout left big gaps and odd placements there (user, 2026-11-28).
+    const stacked = m || W < 1024 || W / st.vh < 1.1;
+    const heroStack = html`<div style="display:grid;grid-template-columns:repeat(${m?2:4},1fr);gap:${m?'36px 22px':'0 22px'};align-items:center;width:100%;max-width:${m?'480px':'1000px'}">
+      ${heroPieces.map((p,i)=>{
+        const asp=aspect(p.images.front), wpc=Math.min(100, 90*Math.sqrt(asp/.8));
+        const rot=[-2,3,2,-3][i%4], dy=m?[0,18,0,18][i%4]:[0,44,8,36][i%4];
+        return html`<div key=${p.slug} style="display:flex;justify-content:center;transform:translateY(${dy}px) rotate(${rot}deg)">
+          <div style="width:${wpc.toFixed(0)}%">${this.link('/art/'+p.slug,html`${photo(p,{az:230,eager:true,small:true})}
+            <div style="margin-top:${m?10:14}px;font-size:${m?9:10}px;letter-spacing:.3em;text-transform:uppercase;color:#7A7067;text-align:center">${p.title}</div>`)}</div>
+        </div>`; })}
+    </div>`;
+    const heroText = (abs) => html`<div style="${abs?`position:absolute;left:50%;top:44%;transform:translate(-50%,-50%);width:min(560px,46vw);pointer-events:none`:`width:min(560px,100%)`};text-align:center;display:flex;flex-direction:column;align-items:center;gap:${m?16:22}px">
+        ${eyebrow('Texture art for everyday living',`font-size:${m?'clamp(10px,3.1vw,13px)':'clamp(15px,1.4vw,19px)'};letter-spacing:${m?'.2em':'.32em'};white-space:nowrap;line-height:1.5`)}
+        <h1 style="margin:0;font-family:'Instrument Serif',serif;font-weight:400;font-size:clamp(52px,7.2vw,112px);line-height:.92;letter-spacing:-.01em">Art you can <span style="font-style:italic">feel.</span></h1>
+        <p style="margin:0;font-size:${m?15:16}px;line-height:1.65;color:#5A5149;max-width:420px;text-wrap:pretty">Each piece is sculpted by hand. Texture paste goes onto gesso-primed canvas with a palette knife, is pushed into peaks and ridges, dried, then painted in soft pastels and sealed.</p>
+        <span style="pointer-events:auto">${this.link('/collection','View the collection →',TEXT_LINK)}</span>
+      </div>`;
     const heroMove = e=>{ if(!this.hero) return; const r=this.hero.getBoundingClientRect(); this.tx=(e.clientX-r.left)/r.width; this.ty=(e.clientY-r.top)/r.height; this.last=performance.now(); };
 
     const setC=e=>{ const r=this.cmpEl.getBoundingClientRect(); this.setState({cmp:Math.max(2,Math.min(98,(e.clientX-r.left)/r.width*100))}); };
@@ -557,15 +575,15 @@ class App extends React.Component {
       ['One of one','Knife marks and ridges can’t be repeated exactly. Every piece is signed, dated and never reproduced.']];
 
     return html`
-    <section data-screen-label="01 Landing" ref=${el=>{this.hero=el;}} onMouseMove=${heroMove} style="position:relative;height:${H}px;overflow:hidden">
-      ${heroArts}
-      <div style="position:absolute;left:50%;top:${m?'24%':'44%'};transform:translate(-50%,-50%);width:${m?'calc(100vw - 32px)':'min(560px,46vw)'};text-align:center;display:flex;flex-direction:column;align-items:center;gap:${m?16:22}px;pointer-events:none">
-        ${eyebrow('Texture art for everyday living',`font-size:${m?14:'clamp(15px,1.4vw,19px)'};letter-spacing:${m?'.24em':'.32em'};line-height:1.5`)}
-        <h1 style="margin:0;font-family:'Instrument Serif',serif;font-weight:400;font-size:clamp(52px,7.2vw,112px);line-height:.92;letter-spacing:-.01em">Art you can <span style="font-style:italic">feel.</span></h1>
-        <p style="margin:0;font-size:${m?15:16}px;line-height:1.65;color:#5A5149;max-width:420px;text-wrap:pretty">Each piece is sculpted by hand. Texture paste goes onto gesso-primed canvas with a palette knife, is pushed into peaks and ridges, dried, then painted in soft pastels and sealed.</p>
-        <span style="pointer-events:auto">${this.link('/collection','View the collection →',TEXT_LINK)}</span>
-      </div>
-    </section>
+    ${stacked
+      ? html`<section data-screen-label="01 Landing" style="display:flex;flex-direction:column;align-items:center;gap:${m?56:80}px;padding:${m?'40px 16px 24px':'80px 24px 40px'}">
+          ${heroText(false)}
+          ${heroStack}
+        </section>`
+      : html`<section data-screen-label="01 Landing" ref=${el=>{this.hero=el;}} onMouseMove=${heroMove} style="position:relative;height:${H}px;overflow:hidden">
+          ${heroArts}
+          ${heroText(true)}
+        </section>`}
 
     ${SHOW_COMPARE && html`<section data-screen-label="01b Texture vs print" style="${SECT};padding-top:${m?80:120}px;padding-bottom:100px;display:flex;flex-direction:column;align-items:center;gap:40px">
       ${eyebrow('What makes it texture art')}
